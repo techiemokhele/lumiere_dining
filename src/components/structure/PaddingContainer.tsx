@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 interface PaddingProps {
   children: React.ReactNode;
   className?: string;
-  size?: "small" | "medium" | "large";
+  size?: "small" | "large";
 }
 
 export function PaddingContainer({
