@@ -4,14 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
-import { Separator } from "@/components/ui/separator";
 import { LandingPageMenuCard } from "@/components/LandingPageMenuCard";
 import { SectionTitleComponent } from "@/components/SectionTitleComponent";
 import { landingMenuData } from "@/data/landingMenuData";
+import { HeaderComponent } from "@/components/layout/HeaderComponent";
+import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("starters");
+  const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
 
+  const headerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = {
     starters: useRef<HTMLDivElement>(null),
     mains: useRef<HTMLDivElement>(null),
@@ -28,6 +31,23 @@ export default function Home() {
       }
     );
   };
+
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeaderVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    if (headerRef.current) {
+      headerObserver.observe(headerRef.current);
+    }
+
+    return () => headerObserver.disconnect();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,14 +69,25 @@ export default function Home() {
     });
 
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
+      <div ref={headerRef}>
+        <HeaderComponent
+          image="./menu-header.jpg"
+          badgeText="Seasonal Tasting Menu"
+          title="A Symphony of Flavors"
+          description="Experience the art of fine dining with our seasonal tasting menu, crafted meticulously by Check Antonie using only the finest local ingredients."
+          onClick={() => scrollToSection("starters")}
+        />
+      </div>
+
       <div
         className={cn(
-          `sticky top-0 z-10 transition-colors duration-300 pb-4`,
-          activeSection === "starters" ? "bg-transparent" : "bg-burgundy-700"
+          `flex flex-col sticky top-0 z-10 transition-colors duration-300 gap-4`,
+          !isHeaderVisible && "bg-burgundy-700/95 backdrop-blur-md shadow-lg"
         )}
       >
         <div className="flex flex-row justify-center items-center gap-6 pt-4">
@@ -65,9 +96,9 @@ export default function Home() {
               key={index}
               onClick={() => scrollToSection(section.id)}
               className={cn(
-                "font-sans text-sm lg:text-lg transition-all",
+                "font-sans text-[10px] md:text-lg transition-all",
                 "text-white/80 hover:text-white",
-                activeSection === section.id && "font-semibold text-white"
+                activeSection === section.id && "font-extrabold text-white"
               )}
             >
               {section.title}
@@ -81,7 +112,7 @@ export default function Home() {
         <div className="flex flex-col w-full gap-16 py-10">
           {landingMenuData.map((section) => (
             <div
-              key={section.id}
+              id={section.id}
               ref={sectionRefs[section.id as keyof typeof sectionRefs]}
               className="flex flex-col gap-6 scroll-mt-16"
             >
