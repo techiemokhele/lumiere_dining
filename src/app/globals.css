@@ -2,26 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Core surfaces */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+
+    /* Primary brand (red) */
+    --primary: 350 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+
+    /* Muted text & dividers */
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+
+    /* Accent */
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+
+    /* Destructive */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Borders & focus */
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 350 85% 55%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark burgundy backgrounds */
+    --background: 350 30% 12%;
+    --foreground: 30 20% 95%;
+
+    --card: 350 25% 16%;
+    --card-foreground: 30 20% 95%;
+
+    --popover: 350 25% 16%;
+    --popover-foreground: 30 20% 95%;
+
+    /* Bright red accent */
+    --primary: 350 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Darker cards/sections */
+    --secondary: 350 25% 20%;
+    --secondary-foreground: 30 20% 95%;
+
+    /* Muted burgundy tones */
+    --muted: 350 20% 25%;
+    --muted-foreground: 0 5% 60%;
+
+    /* Accent areas */
+    --accent: 350 25% 20%;
+    --accent-foreground: 30 20% 95%;
+
+    /* Destructive (keep red) */
+    --destructive: 350 85% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Subtle borders */
+    --border: 350 20% 25%;
+    --input: 350 20% 25%;
+    --ring: 350 85% 55%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
