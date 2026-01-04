@@ -1,5 +1,22 @@
-import React from "react";
+import { NavComponent } from "../layout/NavComponent";
+import { FooterComponent } from "../layout/FooterComponent";
 
-export function PageContainer({ children }: { children: React.ReactNode }) {
-  return <main>{children}</main>;
+interface PageProps {
+  children: React.ReactNode;
+  showNavigation: boolean;
+  showFooter: boolean;
+}
+
+export function PageContainer({
+  children,
+  showNavigation,
+  showFooter,
+}: PageProps) {
+  return (
+    <main>
+      {showNavigation && <NavComponent />}
+      {children}
+      {showFooter && <FooterComponent />}
+    </main>
+  );
 }

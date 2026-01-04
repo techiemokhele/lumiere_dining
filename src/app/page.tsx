@@ -3,7 +3,7 @@ import { PageContainer } from "@/components/structure/PageContainer";
 
 export default function Home() {
   return (
-    <PageContainer>
+    <PageContainer showNavigation={true} showFooter={true}>
       <PaddingContainer>
         <div></div>
       </PaddingContainer>

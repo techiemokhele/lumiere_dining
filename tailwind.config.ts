@@ -72,6 +72,11 @@ const config: Config = {
           500: "hsl(350, 85%, 55%)",
           600: "hsl(350, 85%, 45%)",
         },
+        white: {
+          DEFAULT: "#ffffff",
+          60: "rgba(255, 255, 255, 0.6)",
+          100: "#ffffff",
+        },
       },
 
       fontFamily: {
