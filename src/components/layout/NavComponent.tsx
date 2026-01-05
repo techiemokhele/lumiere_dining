@@ -87,7 +87,7 @@ export function NavComponent() {
                   key={href}
                   href={href}
                   className={cn(
-                    "font-sans font-semibold text-sm px-4 py-2 text-center relative transition-colors",
+                    "font-sans font-semibold text-sm xl:px-4 lg:px-1 px-4 py-2 text-center relative transition-colors",
                     isActive(href)
                       ? "text-white"
                       : "text-white-80 hover:text-white"
