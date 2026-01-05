@@ -24,7 +24,7 @@ export function LandingPageMenuCard({
   return (
     <div
       className={cn(
-        "flex w-full rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden",
+        "group flex w-full rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden",
         itemDirection === "left"
           ? "lg:flex-row flex-col"
           : "lg:flex-row-reverse flex-col"
@@ -61,7 +61,13 @@ export function LandingPageMenuCard({
           src={image}
           alt={name}
           fill
-          className="object-cover"
+          className="
+            object-cover
+            transition-transform
+            duration-500
+            ease-out
+            group-hover:scale-105
+        "
           sizes="(max-width: 1024px) 100vw, 33vw"
         />
       </div>
