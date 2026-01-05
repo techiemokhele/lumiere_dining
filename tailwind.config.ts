@@ -94,6 +94,7 @@ const config: Config = {
         xl: ["1.25rem", { lineHeight: "1.25rem", fontWeight: 500 }],
         lg: ["1.125rem", { lineHeight: "1.125rem", fontWeight: 500 }],
         sm: ["1rem", { lineHeight: "1rem", fontWeight: 500 }],
+        xxs: ["0.65rem", { lineHeight: "0.75rem", fontWeight: 500 }],
       },
 
       boxShadow: {

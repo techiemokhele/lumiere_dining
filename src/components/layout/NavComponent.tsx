@@ -210,7 +210,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                 <span>My Account</span>
               </Button>
 
-              <p className="font-serif font-normal xl:text-sm text-[10px] text-white-60">
+              <p className="font-serif font-normal xl:text-sm text-xxs text-white-60">
                 &copy; {showCurrentYear()} Lumiere Dining. All rights reserved.
               </p>
             </div>

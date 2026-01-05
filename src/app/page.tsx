@@ -98,7 +98,7 @@ export default function Home() {
               key={index}
               onClick={() => scrollToSection(section.id)}
               className={cn(
-                "font-serif text-[10px] md:text-lg transition-all",
+                "font-serif text-xxs md:text-lg transition-all",
                 "text-white/80 hover:text-white",
                 activeSection === section.id && "!font-extrabold text-white"
               )}
