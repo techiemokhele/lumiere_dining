@@ -38,7 +38,8 @@ export default function Home() {
         setIsHeaderVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.1,
+        rootMargin: "0px 0px -80% 0px",
+        threshold: 0,
       }
     );
 
@@ -74,7 +75,7 @@ export default function Home() {
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
-      <div ref={headerRef}>
+      <div ref={headerRef} className="-mt-12 w-full">
         <HeaderComponent
           image="./menu-header.jpg"
           badgeText="Seasonal Tasting Menu"
@@ -86,7 +87,7 @@ export default function Home() {
 
       <div
         className={cn(
-          `flex flex-col sticky top-0 z-10 transition-colors duration-300 gap-4`,
+          `flex flex-col sticky lg:top-[0px] top-12 z-10 transition-colors duration-300 gap-4 w-full`,
           !isHeaderVisible && "bg-burgundy-700/95 backdrop-blur-md shadow-lg"
         )}
       >
@@ -112,9 +113,10 @@ export default function Home() {
         <div className="flex flex-col w-full gap-16 py-10">
           {landingMenuData.map((section) => (
             <div
+              key={section.id}
               id={section.id}
               ref={sectionRefs[section.id as keyof typeof sectionRefs]}
-              className="flex flex-col gap-6 scroll-mt-16"
+              className="flex flex-col gap-6 scroll-mt-28"
             >
               <SectionTitleComponent
                 title={section.title}
