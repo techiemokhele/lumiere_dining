@@ -79,6 +79,7 @@ export default function Home() {
         <HeaderComponent
           image="./menu-header.jpg"
           badgeText="Seasonal Tasting Menu"
+          addBadgeBorder={true}
           title="A Symphony of Flavors"
           description="Experience the art of fine dining with our seasonal tasting menu, crafted meticulously by Check Antonie using only the finest local ingredients."
           onClick={() => scrollToSection("starters")}
@@ -97,9 +98,9 @@ export default function Home() {
               key={index}
               onClick={() => scrollToSection(section.id)}
               className={cn(
-                "font-sans text-[10px] md:text-lg transition-all",
+                "font-serif text-[10px] md:text-lg transition-all",
                 "text-white/80 hover:text-white",
-                activeSection === section.id && "font-extrabold text-white"
+                activeSection === section.id && "!font-extrabold text-white"
               )}
             >
               {section.title}

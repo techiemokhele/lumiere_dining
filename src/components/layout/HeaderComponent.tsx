@@ -1,9 +1,11 @@
 import { ChevronDown } from "lucide-react";
 import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   image?: string;
   badgeText?: string;
+  addBadgeBorder?: boolean;
   title: string;
   description?: string;
   onClick?: () => void;
@@ -11,6 +13,7 @@ interface HeaderProps {
 export function HeaderComponent({
   image,
   badgeText,
+  addBadgeBorder = true,
   title,
   description,
   onClick,
@@ -22,16 +25,21 @@ export function HeaderComponent({
     >
       <Badge
         variant="default"
-        className="py-2 px-4 border-2 border-crimson-500 bg-crimson-500/40 hover:bg-crimson-500/40"
+        className={cn(
+          `py-2 px-4`,
+          !addBadgeBorder
+            ? "border-none bg-crimson-500"
+            : "border-2 border-crimson-500 bg-crimson-500/40 hover:bg-crimson-500/40"
+        )}
       >
-        <span className="font-sans font-semibold text-lg text-white">
+        <span className="font-serif font-semibold text-lg text-white">
           {badgeText}
         </span>
       </Badge>
-      <h1 className="font-sans lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-center">
+      <h1 className="font-serif lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-center italic">
         {title}
       </h1>
-      <p className="font-sans font-normal text-sm text-white text-center">
+      <p className="font-serif font-normal text-sm text-white text-center">
         {description}
       </p>
       <ChevronDown
