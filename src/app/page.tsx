@@ -75,7 +75,7 @@ export default function Home() {
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
-      <div ref={headerRef} className="-mt-12 w-full">
+      <div ref={headerRef} className="lg:-mt-[52px] -mt-12 w-full">
         <HeaderComponent
           image="./menu-header.jpg"
           badgeText="Seasonal Tasting Menu"
