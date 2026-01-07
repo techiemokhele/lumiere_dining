@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Quote, Star } from "lucide-react";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ export default function LandingPage() {
     <PageContainer
       showNavigation={true}
       showFooter={true}
-      className="flex-col gap-14 lg:mt-0 -mt-14"
+      className="flex-col lg:gap-24 gap-16 lg:mt-0 -mt-14"
     >
       <section
         className="flex flex-col h-[100vh] w-full items-center justify-center bg-cover bg-center gap-8 lg:px-0 px-6 lg:-mt-[52px] -mt-12"
@@ -95,6 +95,32 @@ export default function LandingPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+      </PaddingContainer>
+
+      <PaddingContainer size="large">
+        <section className="flex flex-col w-full justify-center items-center gap-8 py-16">
+          <Quote size={24} className="fill-crimson-600 stroke-crimson-600" />
+
+          <p className="!font-semibold lg:text-4xl text-3xl text-white italic text-center w-full lg:max-w-2xl">
+            &ldquo;A dining experience that transcends the ordinary, where every
+            bite is a revelation of flavor.&rdquo;
+          </p>
+
+          <div className="flex flex-col gap-2 items-center justify-center">
+            <div className="flex gap-1">
+              {[...Array(3)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={16}
+                  className="fill-white-60 stroke-white-60"
+                />
+              ))}
+            </div>
+            <p className="!font-bold text-xs text-white uppercase">
+              Michelin Guide 2024
+            </p>
           </div>
         </section>
       </PaddingContainer>
