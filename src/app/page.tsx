@@ -70,33 +70,53 @@ export default function LandingPage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 lg:w-1/2 w-full gap-4">
-            {philosophyImageData.map((image) => (
-              <div
-                key={image.id}
-                className={`relative overflow-hidden rounded-lg group cursor-pointer h-56 ${
-                  image.span || "col-span-1"
-                }`}
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
+          <div className="flex flex-col lg:w-1/2 w-full gap-4">
+            <div className="relative overflow-hidden rounded-lg group cursor-pointer h-56 w-full">
+              <Image
+                src={philosophyImageData[0].src}
+                alt={philosophyImageData[0].alt}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+              />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
 
-                <div className="absolute bottom-0 left-0 right-0 lg:p-6 p-3 lg:translate-y-8 translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                  <h3 className="text-white font-bold lg:text-xl text-md mb-1">
-                    {image.title}
-                  </h3>
-                  <p className="text-white/90 lg:text-sm text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                    {image.subtitle}
-                  </p>
-                </div>
+              <div className="absolute bottom-0 left-0 right-0 lg:p-6 p-3 lg:translate-y-8 translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                <h3 className="text-white font-bold lg:text-xl text-md mb-1">
+                  {philosophyImageData[0].title}
+                </h3>
+                <p className="text-white/90 lg:text-sm text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                  {philosophyImageData[0].subtitle}
+                </p>
               </div>
-            ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {philosophyImageData.slice(1).map((image) => (
+                <div
+                  key={image.id}
+                  className="relative overflow-hidden rounded-lg group cursor-pointer h-56"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+
+                  <div className="absolute bottom-0 left-0 right-0 lg:p-6 p-3 lg:translate-y-8 translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                    <h3 className="text-white font-bold lg:text-xl text-md mb-1">
+                      {image.title}
+                    </h3>
+                    <p className="text-white/90 lg:text-sm text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                      {image.subtitle}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </PaddingContainer>
