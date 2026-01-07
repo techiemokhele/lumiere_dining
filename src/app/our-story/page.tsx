@@ -13,9 +13,9 @@ export default function OurStoryPage() {
     <PageContainer
       showNavigation={true}
       showFooter={true}
-      className="overflow-x-clip"
+      className="overflow-x-clip flex flex-col gap-10"
     >
-      <div className="lg:-mt-[52px] -mt-12 w-full">
+      <div className="lg:-mt-[52px] -mt-[88px] w-full">
         <HeaderComponent
           image="./story-header.jpg"
           badgeText="Since 2008"
@@ -108,7 +108,7 @@ export default function OurStoryPage() {
                   executive chef
                 </p>
 
-                <h3 className="!font-extrabold text-4xl text-white">
+                <h3 className="!font-extrabold md:text-4xl text-2xl text-white">
                   Meet Chef Antonie
                 </h3>
               </div>
@@ -116,13 +116,13 @@ export default function OurStoryPage() {
               <div className="flex flex-row gap-4">
                 <div className="border-[4px] border-crimson-600" />
 
-                <p className="font-sans text-lg text-white-60 italic">
+                <p className="font-sans lg:text-lg text-md text-white-60 italic">
                   &rdquo;Food is memory. I cook to create moments that linger
                   forever in the heart and palate.&ldquo;
                 </p>
               </div>
 
-              <p>
+              <p className="font-normal lg:text-sm text-xs text-white">
                 Cooking, to me, is memory made tangible. Every dish I create
                 begins with respect for tradition—the hands that taught me, the
                 fire that shaped me, the imperfections that give food its soul.
@@ -153,13 +153,13 @@ export default function OurStoryPage() {
         </section>
       </PaddingContainer>
 
-      <PaddingContainer size="large">
-        <section className="flex flex-col w-full py-12 px-10 gap-12 items-center justify-center">
+      <PaddingContainer size="large" className="bg-burgundy-950">
+        <section className="flex flex-col w-full py-12 lg:px-10 px-0 gap-12 items-center justify-center">
           <div className="flex flex-col gap-4 items-center justify-center">
-            <h3 className="!font-bold text-4xl text-white">
+            <h3 className="!font-bold md:text-4xl text-3xl text-white text-center">
               Uncompromising Quality
             </h3>
-            <p className="font-normal text-sm text-white-60 text-center lg:w-2/3 w-full">
+            <p className="font-normal md:text-sm text-xs text-white-60 text-center lg:w-2/3 w-full">
               We source directly from our farmers to ensure the freshest
               ingredients for our customers who share our passion for culinary
               excellence.
@@ -221,6 +221,100 @@ export default function OurStoryPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+      </PaddingContainer>
+
+      <PaddingContainer size="large">
+        <section className="flex flex-col w-full py-12 lg:px-10 px-3 gap-12 rounded-2xl bg-burgundy-900">
+          <div className="flex flex-col gap-2 items-center justify-center">
+            <div className="flex flex-row gap-2 items-center">
+              <div className="border-t border-crimson-600 w-10" />
+              <p className="font-normal text-sm text-crimson-600 uppercase">
+                our history
+              </p>
+              <div className="border-t border-crimson-600 w-10" />
+            </div>
+
+            <h3 className="!font-bold md:text-4xl text-2xl text-white text-center">
+              A Legacy of Excellence
+            </h3>
+          </div>
+
+          <div className="flex flex-col gap-10 w-full">
+            <div className="flex flex-col w-full gap-12">
+              <div className="flex lg:flex-row flex-col lg:gap-0 gap-6 bg-burgundy-700 rounded-2xl">
+                <div className="flex flex-col gap-6 lg:w-1/2 w-full lg:py-6 py-6 lg:px-12 px-6">
+                  <div className="flex flex-col">
+                    <h4 className="!font-extrabold text-3xl text-crimson-600/20">
+                      1984
+                    </h4>
+                    <h4 className="!font-extrabold md:text-3xl text-2xl text-white -mt-2">
+                      The Beginning
+                    </h4>
+                  </div>
+                  <p className="font-normal lg:text-sm text-xs text-white">
+                    What began in 1984 as a modest passion project quickly
+                    evolved into a lifelong calling. In a small, bustling
+                    kitchen driven by curiosity rather than convention, our
+                    founders explored the power of honest ingredients and
+                    time-honored techniques. Every dish was an experiment, every
+                    mistake a lesson. These early years shaped our philosophy:
+                    respect the ingredient, trust the process, and allow
+                    imperfection to guide creativity.
+                  </p>
+                </div>
+
+                <div className="lg:w-1/2 w-full">
+                  <div className="relative w-full lg:h-full h-[200px] lg:aspect-auto">
+                    <Image
+                      src="/old-shop.jpg"
+                      alt="old-shop"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover rounded-2xl lg:rounded-tl-none lg:rounded-bl-none rounded-tr-none rounded-tl-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex lg:flex-row-reverse flex-col lg:gap-0 gap-6 bg-burgundy-700 rounded-2xl">
+                <div className="flex flex-col gap-6 lg:w-1/2 w-full py-6 lg:px-12 px-6">
+                  <div className="flex flex-col">
+                    <h4 className="!font-extrabold text-3xl text-crimson-600/20">
+                      2023
+                    </h4>
+                    <h4 className="!font-extrabold md:text-3xl text-2xl text-white -mt-2">
+                      Reinvention
+                    </h4>
+                  </div>
+                  <p className="font-normal lg:text-sm text-xs text-white">
+                    In 2023, we entered a new chapter—one of renewal rather than
+                    reinvention. The reinvention honored our roots while
+                    embracing modern refinement, reshaping the space to reflect
+                    how far we had come. Thoughtful design, improved flow, and
+                    elevated techniques allowed our kitchen to evolve without
+                    losing its soul. This transformation wasn&apos;t about
+                    change for its own sake, but about creating a space where
+                    tradition and innovation coexist effortlessly. Today, the
+                    same spirit that ignited our journey continues to guide us
+                    forward, stronger and more intentional than ever.
+                  </p>
+                </div>
+
+                <div className="lg:w-1/2 w-full">
+                  <div className="relative w-full lg:h-full h-[200px] lg:aspect-auto">
+                    <Image
+                      src="/new-shop.jpg"
+                      alt="new-shop"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover rounded-2xl lg:rounded-tl-none lg:rounded-bl-none rounded-tr-none rounded-tl-none"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </PaddingContainer>
