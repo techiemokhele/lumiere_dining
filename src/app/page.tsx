@@ -14,7 +14,7 @@ export default function LandingPage() {
     <PageContainer
       showNavigation={true}
       showFooter={true}
-      className="flex-col lg:gap-24 gap-16 lg:mt-0 -mt-14"
+      className="flex-col lg:gap-24 gap-16 lg:-mt-24 -mt-[66px]"
     >
       <section
         className="flex flex-col h-[100vh] w-full items-center justify-center bg-cover bg-center gap-8 lg:px-0 px-6 lg:-mt-[52px] -mt-12"
@@ -211,6 +211,53 @@ export default function LandingPage() {
             ))}
           </div>
         </section>
+      </PaddingContainer>
+
+      <PaddingContainer size="large">
+        <div className="flex lg:flex-row-reverse flex-col lg:gap-0 gap-6 bg-burgundy-800 rounded-2xl">
+          <div className="flex flex-col justify-center gap-6 lg:w-1/2 w-full py-6 lg:px-12 px-6">
+            <h4 className="!font-extrabold md:text-3xl text-2xl text-white -mt-2">
+              Bring Lumiere Home
+            </h4>
+            <p className="font-normal lg:text-sm text-xs text-white">
+              Discover our exclusive collection of artisanal pantry goods,
+              signed cookbooks, and premium steak knives used in our restaurant.
+              Each item has been carefully selected by Chef Antonie to elevate
+              your home dining experience. From our house-made truffle oil and
+              aged balsamic vinegar to hand-forged Japanese steel knives, every
+              product reflects our commitment to exceptional quality and
+              craftsmanship. Our collection includes limited-edition cookware,
+              specialty ingredients sourced from our trusted purveyors, and Chef
+              Antonie&apos;s acclaimed cookbook featuring signature recipes from
+              our tasting menu. These carefully curated items allow you to
+              recreate the magic of Lumiere in your own kitchen, bringing
+              restaurant-quality ingredients and tools directly to your table.
+              Perfect for the passionate home cook or as a thoughtful gift for
+              the culinary enthusiast in your life.
+            </p>
+
+            <div>
+              <Button
+                variant="outline"
+                className="rounded-lg border-crimson-600"
+              >
+                <span className="font-normal text-crimson-600">View Shop</span>
+              </Button>
+            </div>
+          </div>
+
+          <div className="lg:w-1/2 w-full">
+            <div className="relative w-full lg:h-full h-[200px] lg:aspect-auto">
+              <Image
+                src="/knife-product.jpg"
+                alt="knife-product"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover rounded-2xl lg:rounded-tr-none lg:rounded-br-none lg:rounded-tl-rounded lg:rounded-tl-2xl rounded-tl-none rounded-tr-none"
+              />
+            </div>
+          </div>
+        </div>
       </PaddingContainer>
     </PageContainer>
   );

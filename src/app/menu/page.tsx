@@ -92,13 +92,13 @@ export default function MenuPage() {
           !isHeaderVisible && "bg-burgundy-700/95 backdrop-blur-md shadow-lg"
         )}
       >
-        <div className="flex flex-row justify-center items-center gap-6 pt-4">
+        <div className="flex flex-row justify-center items-center lg:gap-6 gap-4 pt-4">
           {landingMenuData.map((section, index) => (
             <button
               key={index}
               onClick={() => scrollToSection(section.id)}
               className={cn(
-                "font-serif text-xxs md:text-lg transition-all",
+                "font-serif text-xs md:text-lg transition-all",
                 "text-white/80 hover:text-white",
                 activeSection === section.id && "!font-extrabold text-white"
               )}
