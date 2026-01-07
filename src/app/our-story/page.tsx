@@ -1,7 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, UtensilsCrossed } from "lucide-react";
+import {
+  ArrowRight,
+  Calendar,
+  SquareMenu,
+  UtensilsCrossed,
+} from "lucide-react";
 import { HeaderComponent } from "@/components/layout/HeaderComponent";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
@@ -15,7 +20,7 @@ export default function OurStoryPage() {
       showFooter={true}
       className="overflow-x-clip flex flex-col gap-10"
     >
-      <div className="lg:-mt-[52px] -mt-[88px] w-full">
+      <div className="lg:-mt-[92px] -mt-[88px] w-full">
         <HeaderComponent
           image="./story-header.jpg"
           badgeText="Since 2008"
@@ -226,7 +231,7 @@ export default function OurStoryPage() {
       </PaddingContainer>
 
       <PaddingContainer size="large">
-        <section className="flex flex-col w-full py-12 lg:px-10 px-3 gap-12 rounded-2xl bg-burgundy-900">
+        <section className="flex flex-col w-full py-12 lg:px-10 px-3 gap-12 mb-10 rounded-2xl bg-burgundy-900">
           <div className="flex flex-col gap-2 items-center justify-center">
             <div className="flex flex-row gap-2 items-center">
               <div className="border-t border-crimson-600 w-10" />
@@ -272,7 +277,7 @@ export default function OurStoryPage() {
                       alt="old-shop"
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover rounded-2xl lg:rounded-tl-none lg:rounded-bl-none rounded-tr-none rounded-tl-none"
+                      className="object-cover rounded-2xl lg:rounded-tr-2xl lg:rounded-br-2xl lg:rounded-tl-none lg:rounded-bl-none rounded-tl-none rounded-tr-none"
                     />
                   </div>
                 </div>
@@ -309,7 +314,7 @@ export default function OurStoryPage() {
                       alt="new-shop"
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover rounded-2xl lg:rounded-tl-none lg:rounded-bl-none rounded-tr-none rounded-tl-none"
+                      className="object-cover rounded-2xl lg:rounded-tr-none lg:rounded-br-none lg:rounded-tl-rounded lg:rounded-tl-2xl rounded-tl-none rounded-tr-none"
                     />
                   </div>
                 </div>
@@ -318,6 +323,32 @@ export default function OurStoryPage() {
           </div>
         </section>
       </PaddingContainer>
+
+      <section
+        className="flex flex-col h-[60vh] w-full items-center justify-center bg-cover bg-center gap-8 lg:px-0 px-6 -mb-10"
+        style={{ backgroundImage: `url(/light-decoration.jpg)` }}
+      >
+        <h1 className="lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-centerj">
+          Taste the Extraordinary
+        </h1>
+        <p className="font-normal text-sm text-white text-center">
+          Join us for our unforgettable flavors and impeccable service
+        </p>
+
+        <div className="flex flex-row gap-4">
+          <Button variant="default" size="lg" className="rounded-full w-auto">
+            <Calendar className="mr-1 h-4 w-4" />
+            <span className="font-normal text-sm text-white">
+              Reserve a Table
+            </span>
+          </Button>
+
+          <Button variant="outline" size="lg" className="rounded-full">
+            <SquareMenu className="mr-1 h-4 w-4" />
+            <span className="font-normal text-sm text-white">View Menu</span>
+          </Button>
+        </div>
+      </section>
     </PageContainer>
   );
 }
