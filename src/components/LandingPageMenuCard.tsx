@@ -32,8 +32,8 @@ export function LandingPageMenuCard({
     >
       <div className="flex flex-col lg:w-2/3 w-full gap-4 p-6">
         <div className="flex flex-row justify-between items-center">
-          <p className="font-sans font-bold text-xl text-white">{name}</p>
-          <p className="font-sans font-bold text-xl text-primary">${price}</p>
+          <p className="font-serif font-bold text-xl text-white">{name}</p>
+          <p className="font-serif font-bold text-xl text-primary">${price}</p>
         </div>
 
         <div className="flex flex-row gap-2 flex-wrap">
@@ -44,7 +44,7 @@ export function LandingPageMenuCard({
           ))}
         </div>
 
-        <p className="font-sans font-normal lg:text-sm text-xs text-white-60 line-clamp-4">
+        <p className="font-serif font-normal lg:text-sm text-xs text-white-60 line-clamp-4">
           {excerpt}
         </p>
 

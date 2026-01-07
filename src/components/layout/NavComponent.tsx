@@ -87,7 +87,7 @@ export function NavComponent() {
                   key={href}
                   href={href}
                   className={cn(
-                    "font-sans font-semibold text-sm xl:px-4 lg:px-1 px-4 py-2 text-center relative transition-colors",
+                    "font-serif font-semibold text-sm xl:px-4 lg:px-1 px-4 py-2 text-center relative transition-colors",
                     isActive(href)
                       ? "text-white"
                       : "text-white-80 hover:text-white"
@@ -180,7 +180,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                   <Link
                     href={link.href}
                     className={cn(
-                      "flex justify-between font-sans font-extrabold lg:text-2xl text-xl hover:no-underline !px-0",
+                      "flex justify-between font-serif font-extrabold lg:text-2xl text-xl hover:no-underline !px-0",
                       isActive(link.href)
                         ? "text-primary relative"
                         : "text-white-60"
@@ -210,7 +210,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                 <span>My Account</span>
               </Button>
 
-              <p className="font-sans font-normal xl:text-sm text-[10px] text-white-60">
+              <p className="font-serif font-normal xl:text-sm text-xxs text-white-60">
                 &copy; {showCurrentYear()} Lumiere Dining. All rights reserved.
               </p>
             </div>
