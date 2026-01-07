@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Quote, Star } from "lucide-react";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { Button } from "@/components/ui/button";
 import { philosophyImageData } from "@/data/landingPhilosophyData";
+import { signatureOfferingsData } from "@/data/signatureOfferingData";
 
 export default function LandingPage() {
   return (
@@ -121,6 +123,72 @@ export default function LandingPage() {
             <p className="!font-bold text-xs text-white uppercase">
               Michelin Guide 2024
             </p>
+          </div>
+        </section>
+      </PaddingContainer>
+
+      <PaddingContainer
+        size="small"
+        className="w-full xl:max-w-screen-lg lg:max-w-screen-md max-w-screen-lg bg-burgundy-900 lg:py-10 py-12 rounded-2xl"
+      >
+        <section className="flex flex-col w-full lg:gap-10 gap-6">
+          <div className="flex flex-col gap-2">
+            <h2 className="!font-extrabold lg:text-4xl text-3xl text-white">
+              Signature Offerings
+            </h2>
+            <div className="flex lg:flex-row flex-col lg:justify-between justify-start lg:items-center items-start lg:gap-0 gap-2">
+              <p className="font-normal lg:text-sm text-xs text-white">
+                Curated experience for the discerning palate.
+              </p>
+              <Link href="/menu">
+                <Button
+                  asChild
+                  variant="link"
+                  className="p-0 hover:no-underline"
+                >
+                  <span className="uppercase text-crimson-600">
+                    View Full Menu
+                  </span>
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+            {signatureOfferingsData.map((offering) => (
+              <Link
+                key={offering.id}
+                href={offering.link}
+                className="group relative overflow-hidden rounded-lg bg-black/20 transition-transform duration-300 hover:scale-[1.02]"
+              >
+                <div className="relative xl:h-[460px] lg:h-[400px] h-[580px] w-full overflow-hidden">
+                  <Image
+                    src={offering.image}
+                    alt={offering.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 xl:p-6 lg:p-4 p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-white font-bold xl:text-xl lg:text-lg text-xl">
+                        {offering.title}
+                      </h3>
+                      <p className="text-white/80 xl:text-sm text-xs">
+                        {offering.description}
+                      </p>
+                    </div>
+
+                    <div className="flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1">
+                      <ArrowRight size={20} className="text-white" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       </PaddingContainer>
