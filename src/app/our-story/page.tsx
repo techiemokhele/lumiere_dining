@@ -328,14 +328,14 @@ export default function OurStoryPage() {
         className="flex flex-col h-[60vh] w-full items-center justify-center bg-cover bg-center gap-8 lg:px-0 px-6 -mb-10"
         style={{ backgroundImage: `url(/light-decoration.jpg)` }}
       >
-        <h1 className="lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-centerj">
+        <h1 className="lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-center">
           Taste the Extraordinary
         </h1>
         <p className="font-normal text-sm text-white text-center">
           Join us for our unforgettable flavors and impeccable service
         </p>
 
-        <div className="flex flex-row gap-4">
+        <div className="flex md:flex-row flex-col gap-4">
           <Button variant="default" size="lg" className="rounded-full w-auto">
             <Calendar className="mr-1 h-4 w-4" />
             <span className="font-normal text-sm text-white">
