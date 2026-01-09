@@ -8,13 +8,14 @@ import { PageContainer } from "@/components/structure/PageContainer";
 import { Button } from "@/components/ui/button";
 import { philosophyImageData } from "@/data/landingPhilosophyData";
 import { signatureOfferingsData } from "@/data/signatureOfferingData";
+import { FindTableComponent } from "@/components/FindTableComponent";
 
 export default function LandingPage() {
   return (
     <PageContainer
       showNavigation={true}
       showFooter={true}
-      className="flex-col lg:gap-24 gap-16 lg:-mt-24 -mt-[66px]"
+      className="flex-col lg:gap-24 gap-16 lg:-mt-24 -mt-[64px]"
     >
       <section
         className="flex flex-col h-[100vh] w-full items-center justify-center bg-cover bg-center gap-8 lg:px-0 px-6 lg:-mt-[52px] -mt-12"
@@ -40,6 +41,14 @@ export default function LandingPage() {
           </Button>
         </div>
       </section>
+
+      <div className="relative lg:-mt-36 mt-0 z-30 w-full">
+        <FindTableComponent
+          onSubmit={(data) => {
+            console.log("Reservation data:", data);
+          }}
+        />
+      </div>
 
       <PaddingContainer size="large">
         <section className="flex lg:flex-row flex-col w-full lg:gap-12 gap-8">
