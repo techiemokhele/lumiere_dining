@@ -1,6 +1,9 @@
-import { MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function ReservationPage() {
   return (
@@ -38,7 +41,51 @@ export default function ReservationPage() {
         </div>
 
         <PaddingContainer size="large">
-          <div></div>
+          <div className="flex flex-col lg:gap-6 gap-10 w-full px-4 md:px-20 xl:px-4 py-10">
+            <div className="flex flex-col gap-2">
+              <h2 className="!font-extrabold xl:text-4xl lg:text-3xl text-3xl text-white">
+                Secure Your Table
+              </h2>
+              <p className="font-normal lg:text-sm text-xs text-white-60">
+                Complete the form below to confirm your reservation.
+              </p>
+            </div>
+
+            <div className="border-t border-burgundy-800" />
+
+            <div className="flex flex-col w-full gap-4">
+              <div className="flex flex-row w-full items-center gap-2">
+                <Checkbox />
+                <p className="font-normal lg:text-sm text-xxs text-white">
+                  I agree with the{" "}
+                  <Link
+                    href="/legal/cancellation-policy"
+                    className="underline underline-offset-2"
+                  >
+                    Cancellation Policy
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="#" className="underline underline-offset-2">
+                    Terms of Service
+                  </Link>
+                </p>
+              </div>
+              <Button
+                variant="default"
+                size="lg"
+                className="flex flex-row gap-2 items-center justify-center"
+              >
+                <span>Complete Reservation</span>
+                <ArrowRight size="12" className="text-white" />
+              </Button>
+
+              <div className="flex items-center justify-center">
+                <p className="font-normal lg:text-sm text-xxs text-white-60">
+                  Powered by Lumiere Table Management
+                </p>
+              </div>
+            </div>
+          </div>
         </PaddingContainer>
       </div>
     </PageContainer>
