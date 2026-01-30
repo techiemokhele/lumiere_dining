@@ -178,7 +178,7 @@ export default function ReservationPage() {
     <PageContainer showNavigation={true} showFooter={true}>
       <div className="flex lg:flex-row flex-col w-full lg:-mt-[52px] -mt-12">
         <div
-          className="relative flex flex-col h-[100vh] lg:w-1/2 w-full items-center justify-center bg-cover bg-center lg:px-0 px-16"
+          className="relative flex flex-col lg:min-h-full min-h-[50vh] lg:w-1/2 w-full items-center justify-center bg-cover bg-center lg:px-0 px-16"
           style={{ backgroundImage: `url(/reservation.jpg)` }}
         >
           <div className="absolute inset-0 lg:bg-gradient-to-l bg-gradient-to-t from-burgundy-950 via-burgundy-900/60 to-transparent pointer-events-none" />
