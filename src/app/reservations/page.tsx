@@ -178,7 +178,7 @@ export default function ReservationPage() {
     <PageContainer showNavigation={true} showFooter={true}>
       <div className="flex lg:flex-row flex-col w-full lg:-mt-[52px] -mt-12">
         <div
-          className="relative flex flex-col lg:min-h-full min-h-[50vh] lg:w-1/2 w-full items-center justify-center bg-cover bg-center lg:px-0 px-16"
+          className="relative flex flex-col lg:min-h-full min-h-[100vh] lg:w-1/2 w-full items-center justify-center bg-cover bg-center lg:px-0 px-16"
           style={{ backgroundImage: `url(/reservation.jpg)` }}
         >
           <div className="absolute inset-0 lg:bg-gradient-to-l bg-gradient-to-t from-burgundy-950 via-burgundy-900/60 to-transparent pointer-events-none" />
@@ -235,14 +235,14 @@ export default function ReservationPage() {
                         number={1}
                         label="Party Size"
                       />
-                      <div className="flex flex-row gap-2 flex-wrap">
+                      <div className="flex flex-row lg:gap-2 gap-3 flex-wrap">
                         {partySizeData.map((partySize, index) => (
                           <button
                             key={index}
                             type="button"
                             onClick={() => field.onChange(partySize)}
                             className={cn(
-                              "flex items-center justify-center px-4 py-2 rounded-lg border-2 transition-all duration-200 cursor-pointer hover:border-crimson-500",
+                              "flex items-center justify-center lg:px-4 px-2 lg:py-2 py-1 rounded-lg border-2 transition-all duration-200 cursor-pointer hover:border-crimson-500",
                               selectedPartySize === partySize
                                 ? "border-crimson-500 bg-crimson-500/10"
                                 : "border-burgundy-700 bg-burgundy-900/50",
@@ -250,7 +250,7 @@ export default function ReservationPage() {
                           >
                             <span
                               className={cn(
-                                "font-sans font-normal xl:text-sm text-xs",
+                                "font-sans font-normal lg:text-sm !text-xs",
                                 selectedPartySize === partySize
                                   ? "text-crimson-500"
                                   : "text-white",
@@ -274,7 +274,7 @@ export default function ReservationPage() {
                   )}
                 />
 
-                <div className="flex lg:flex-row flex-col gap-2 w-full">
+                <div className="flex lg:flex-row flex-col gap-10 w-full">
                   <div className="lg:w-1/2 w-full">
                     <FormField
                       control={form.control}
@@ -292,7 +292,7 @@ export default function ReservationPage() {
                             disabled={(date) =>
                               date < new Date(new Date().setHours(0, 0, 0, 0))
                             }
-                            className="rounded-lg border border-burgundy-700 bg-burgundy-900"
+                            className="w-full lg:w-auto rounded-lg border border-burgundy-700 bg-burgundy-900"
                             numberOfMonths={1}
                           />
                           {form.formState.errors.reservationDate ? (
@@ -448,7 +448,7 @@ export default function ReservationPage() {
                                   value="dinner"
                                   aria-label="Toggle dinner"
                                   className={cn(
-                                    "px-4 py-2 w-20 rounded-md transition-all duration-200 font-sans font-normal xl:text-sm text-xs",
+                                    "px-4 py-2 lg:w-20 w-14 rounded-md transition-all duration-200 font-sans font-normal xl:text-sm text-xs",
                                     occasionField.value === "dinner"
                                       ? "!bg-crimson-600 text-white"
                                       : "bg-transparent text-white hover:bg-burgundy-800",
@@ -460,7 +460,7 @@ export default function ReservationPage() {
                                   value="lunch"
                                   aria-label="Toggle lunch"
                                   className={cn(
-                                    "px-4 py-2 w-20 rounded-md transition-all duration-200 font-sans font-normal xl:text-sm text-xs",
+                                    "px-4 py-2 lg:w-20 w-14 rounded-md transition-all duration-200 font-sans font-normal xl:text-sm text-xs",
                                     occasionField.value === "lunch"
                                       ? "!bg-crimson-600 text-white"
                                       : "bg-transparent text-white hover:bg-burgundy-800",
@@ -474,7 +474,7 @@ export default function ReservationPage() {
                         />
                       </div>
 
-                      <div className="flex flex-row gap-2 flex-wrap">
+                      <div className="flex flex-row lg:gap-2 gap-[21px] flex-wrap">
                         {timeSlots[selectedOccasionType]?.map((slot, index) => (
                           <button
                             key={index}
@@ -486,7 +486,7 @@ export default function ReservationPage() {
                             }}
                             disabled={!slot.available}
                             className={cn(
-                              "flex flex-col items-center justify-center px-6 py-3 w-28 rounded-lg border-2 transition-all duration-200",
+                              "flex flex-col items-center justify-center px-6 py-3 lg:w-28 w-auto rounded-lg border-2 transition-all duration-200",
                               !slot.available
                                 ? "border-burgundy-800 bg-burgundy-950/50 cursor-not-allowed opacity-50"
                                 : selectedTime === slot.time
@@ -539,7 +539,7 @@ export default function ReservationPage() {
                     Contact Details
                   </h2>
 
-                  <div className="flex lg:flex-row flex-col gap-6 w-full">
+                  <div className="flex lg:flex-row flex-col lg:gap-6 gap-4 w-full">
                     <div className="lg:w-1/2 w-full">
                       <FormField
                         control={form.control}
@@ -601,7 +601,7 @@ export default function ReservationPage() {
                     </div>
                   </div>
 
-                  <div className="flex lg:flex-row flex-col gap-6 w-full">
+                  <div className="flex lg:flex-row flex-col lg:gap-6 gap-4 w-full">
                     <div className="lg:w-1/2 w-full">
                       <FormField
                         control={form.control}
@@ -699,7 +699,7 @@ export default function ReservationPage() {
                     name="acceptTerms"
                     render={({ field }) => (
                       <FormItem>
-                        <div className="flex flex-row w-full items-start gap-2">
+                        <div className="flex flex-row w-full items-center justify-start gap-2">
                           <FormControl>
                             <Checkbox
                               checked={field.value}
@@ -707,7 +707,7 @@ export default function ReservationPage() {
                               className="mt-0.5"
                             />
                           </FormControl>
-                          <FormLabel className="font-normal lg:text-xs text-xxs text-white cursor-pointer">
+                          <FormLabel className="font-normal lg:text-xs !text-xxs text-white cursor-pointer">
                             I agree with the{" "}
                             <Link
                               href="/legal/cancellation-policy"
