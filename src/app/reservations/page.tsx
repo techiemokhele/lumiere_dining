@@ -152,7 +152,8 @@ export default function ReservationPage() {
     return size === "1" ? "guest" : "guests";
   };
 
-  const onSubmit = async (values: FormData) => {
+  const onSubmit = async (values: FormData, e?: React.BaseSyntheticEvent) => {
+    e?.preventDefault();
     try {
       console.log("Form submitted:", values);
 
