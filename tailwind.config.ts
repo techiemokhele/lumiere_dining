@@ -72,6 +72,11 @@ const config: Config = {
           500: "hsl(350, 85%, 55%)",
           600: "hsl(350, 85%, 45%)",
         },
+        white: {
+          DEFAULT: "#ffffff",
+          60: "rgba(255, 255, 255, 0.6)",
+          100: "#ffffff",
+        },
       },
 
       fontFamily: {
@@ -89,6 +94,7 @@ const config: Config = {
         xl: ["1.25rem", { lineHeight: "1.25rem", fontWeight: 500 }],
         lg: ["1.125rem", { lineHeight: "1.125rem", fontWeight: 500 }],
         sm: ["1rem", { lineHeight: "1rem", fontWeight: 500 }],
+        xxs: ["0.65rem", { lineHeight: "0.75rem", fontWeight: 500 }],
       },
 
       boxShadow: {

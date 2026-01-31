@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@fontsource-variable/playfair-display";
 import "@fontsource-variable/inter";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="font-sans antialiased bg-background text-foreground">
+      <body className="font-serif antialiased bg-background text-foreground">
         {children}
+        <Toaster />
       </body>
     </html>
   );
