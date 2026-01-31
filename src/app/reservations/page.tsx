@@ -138,7 +138,8 @@ export default function ReservationPage() {
       specialRequests: "",
       acceptTerms: false,
     },
-    mode: "onSubmit",
+    mode: "onChange",
+    reValidateMode: "onChange",
     shouldFocusError: true,
     resolver: zodResolver(formSchema),
   });
@@ -190,7 +191,7 @@ export default function ReservationPage() {
                   Taste the{" "}
                   <span className="text-crimson-600">Extraordinary</span>
                 </h3>
-                <p className="font-normal xl:text-sm text-xxs text-white">
+                <p className="font-normal xl:text-sm text-xxs text-white xl:text-start lg:text-center text-start">
                   Immerse yourself in a culinary journey inspired by the
                   seasons.
                   <br className="hidden lg:block" /> Secure your tale for an
@@ -274,7 +275,7 @@ export default function ReservationPage() {
                   )}
                 />
 
-                <div className="flex lg:flex-row flex-col gap-10 w-full">
+                <div className="flex lg:flex-row flex-col xl:gap-10 lg:gap-6 gap-10 w-full">
                   <div className="lg:w-1/2 w-full">
                     <FormField
                       control={form.control}
@@ -339,7 +340,7 @@ export default function ReservationPage() {
                                   <Sofa className="h-5 w-5 text-white" />
                                 </div>
                                 <div className="flex flex-col space-y-1">
-                                  <ItemTitle className="font-bold text-sm text-white">
+                                  <ItemTitle className="font-bold xl:text-sm lg:text-xs text-sm text-white">
                                     Main Dining Room
                                   </ItemTitle>
                                   <ItemDescription className="font-normal text-xs text-white-60">
@@ -367,7 +368,7 @@ export default function ReservationPage() {
                                   <MapPin className="h-5 w-5 text-white" />
                                 </div>
                                 <div className="flex flex-col space-y-1">
-                                  <ItemTitle className="font-bold text-sm text-white">
+                                  <ItemTitle className="font-bold xl:text-sm lg:text-xs text-sm text-white">
                                     Patio
                                   </ItemTitle>
                                   <ItemDescription className="font-normal text-xs text-white-60">
@@ -395,7 +396,7 @@ export default function ReservationPage() {
                                   <Sofa className="h-5 w-5 text-white" />
                                 </div>
                                 <div className="flex flex-col space-y-1">
-                                  <ItemTitle className="font-bold text-sm text-white">
+                                  <ItemTitle className="font-bold xl:text-sm lg:text-xs text-sm text-white">
                                     Bar High-Top
                                   </ItemTitle>
                                   <ItemDescription className="font-normal text-xs text-white-60">
@@ -474,7 +475,7 @@ export default function ReservationPage() {
                         />
                       </div>
 
-                      <div className="flex flex-row lg:gap-2 gap-[21px] flex-wrap">
+                      <div className="flex flex-row xl:gap-2 lg:gap-2 gap-[21px] flex-wrap">
                         {timeSlots[selectedOccasionType]?.map((slot, index) => (
                           <button
                             key={index}
@@ -486,7 +487,7 @@ export default function ReservationPage() {
                             }}
                             disabled={!slot.available}
                             className={cn(
-                              "flex flex-col items-center justify-center px-6 py-3 lg:w-28 w-auto rounded-lg border-2 transition-all duration-200",
+                              "flex flex-col items-center justify-center px-6 py-3 xl:w-28 lg:w-32 w-auto rounded-lg border-2 transition-all duration-200",
                               !slot.available
                                 ? "border-burgundy-800 bg-burgundy-950/50 cursor-not-allowed opacity-50"
                                 : selectedTime === slot.time
