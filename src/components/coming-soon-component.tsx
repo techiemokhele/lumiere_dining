@@ -60,11 +60,11 @@ export function ComingSoonComponent() {
         ))}
 
         <div className="relative flex justify-between items-center px-8 py-4 bg-black/50 backdrop-blur-sm z-20">
-          <div className="flex items-center gap-2 text-white lg:text-sm !text-xs">
+          <div className="flex items-center gap-2 text-white lg:text-sm !text-xxs">
             <Phone size={16} />
             <span>+27 555 511 2233</span>
           </div>
-          <div className="flex items-center gap-2 text-white lg:text-sm !text-xs">
+          <div className="flex items-center gap-2 text-white lg:text-sm !text-xxs">
             <MapPin size={16} />
             <span>19 Dock Road, Cape Town, 8001, South Africa</span>
           </div>
@@ -77,9 +77,9 @@ export function ComingSoonComponent() {
                 Coming soon
               </h2>
 
-              <div className="flex flex-col items-center gap-6">
+              <Link href="/" className="flex flex-col items-center gap-6">
                 <LogoComponent showText={true} />
-              </div>
+              </Link>
 
               <p className="font-serif text-white xl:text-lg lg:text-sm text-xs max-w-md">
                 The best of fine dining coming soon to Cape Town, South Africa.
