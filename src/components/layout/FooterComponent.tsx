@@ -26,7 +26,8 @@ export function FooterComponent() {
             Visit Us
           </p>
           <p className="font-serif font-normal xl:text-sm text-xs text-white">
-            123 Culinary Avenue <br /> Metropolis, South Africa 1559
+            19 Dock Road, <br />
+            Cape Town, 8001, South Africa
           </p>
           <Button variant="link" className="flex items-start justify-start p-0">
             <span className="font-serif font-normal xl:text-sm text-xs text-burgundy ">

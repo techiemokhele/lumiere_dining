@@ -1,5 +1,5 @@
-import React from "react";
+import { ComingSoonComponent } from "@/components/coming-soon-component";
 
 export default function NewsletterPage() {
-  return <div></div>;
+  return <ComingSoonComponent />;
 }

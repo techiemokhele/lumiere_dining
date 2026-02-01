@@ -36,20 +36,37 @@ export function ComingSoonComponent() {
 
   return (
     <PageContainer showFooter={false} showNavigation={false} className="!p-0">
-      <div className="relative flex flex-col w-full h-screen overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-all duration-500"
-          style={{ backgroundImage: `url(${images[currentImage]})` }}
-        />
+      <div className="relative flex flex-col w-full h-screen overflow-hidden bg-black">
+        {images.map((img, index) => (
+          <div
+            key={img}
+            className={`absolute inset-0 transition-opacity duration-500 ${
+              currentImage === index
+                ? "opacity-100"
+                : "opacity-0 pointer-events-none"
+            }`}
+            style={{ zIndex: currentImage === index ? 1 : 0 }}
+          >
+            <Image
+              src={img}
+              alt={`Background ${index + 1}`}
+              fill
+              priority
+              quality={85}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+        ))}
 
         <div className="relative flex justify-between items-center px-8 py-4 bg-black/50 backdrop-blur-sm z-20">
-          <div className="flex items-center gap-2 text-white lg:text-sm !text-xs">
+          <div className="flex items-center gap-2 text-white lg:text-sm !text-xxs">
             <Phone size={16} />
             <span>+27 555 511 2233</span>
           </div>
-          <div className="flex items-center gap-2 text-white lg:text-sm !text-xs">
+          <div className="flex items-center gap-2 text-white lg:text-sm !text-xxs">
             <MapPin size={16} />
-            <span>Cape Town, Western Cape</span>
+            <span>19 Dock Road, Cape Town, 8001, South Africa</span>
           </div>
         </div>
 
@@ -60,9 +77,9 @@ export function ComingSoonComponent() {
                 Coming soon
               </h2>
 
-              <div className="flex flex-col items-center gap-6">
+              <Link href="/" className="flex flex-col items-center gap-6">
                 <LogoComponent showText={true} />
-              </div>
+              </Link>
 
               <p className="font-serif text-white xl:text-lg lg:text-sm text-xs max-w-md">
                 The best of fine dining coming soon to Cape Town, South Africa.
@@ -95,13 +112,13 @@ export function ComingSoonComponent() {
             <div className="relative flex-1 w-full h-full">
               <button
                 onClick={prevImage}
-                className="absolute lg:left-4 left-0 lg:top-1/2 top-16 -translate-y-1/2 bg-white/40 hover:bg-white/40 backdrop-blur-sm lg:p-3 p-1 rounded-full transition-colors z-10 border-white-60 border"
+                className="absolute lg:left-4 left-0 lg:top-1/2 top-16 -translate-y-1/2 bg-white/40 hover:bg-white/60 backdrop-blur-sm lg:p-3 p-1 rounded-full transition-colors z-10 border-white-60 border"
               >
                 <ChevronLeft size={32} className="text-crimson-500" />
               </button>
               <button
                 onClick={nextImage}
-                className="absolute lg:right-4 right-0 lg:top-1/2 top-16 -translate-y-1/2 bg-white/40 hover:bg-white/40 backdrop-blur-sm lg:p-3 p-1 rounded-full transition-colors z-10 border-white-60 border"
+                className="absolute lg:right-4 right-0 lg:top-1/2 top-16 -translate-y-1/2 bg-white/40 hover:bg-white/60 backdrop-blur-sm lg:p-3 p-1 rounded-full transition-colors z-10 border-white-60 border"
               >
                 <ChevronRight size={32} className="text-crimson-500" />
               </button>
@@ -119,11 +136,10 @@ export function ComingSoonComponent() {
                   }`}
                 >
                   <Image
-                    unoptimized
                     src={img}
                     alt={`Gallery ${index + 1}`}
                     fill
-                    sizes="128px"
+                    sizes="(max-width: 768px) 64px, 128px"
                     quality={60}
                     className="object-cover"
                   />
