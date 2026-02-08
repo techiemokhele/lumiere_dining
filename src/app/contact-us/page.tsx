@@ -155,7 +155,7 @@ export default function ContactPage() {
               Get in touch
             </h1>
             <p className="font-normal text-base text-white/80 leading-relaxed">
-              At Lumiere Dining, we value every connection with our guests.
+              At Lumière Dining, we value every connection with our guests.
               Whether you&apos;re planning a special celebration, have dietary
               requirements, or simply want to learn more about our culinary
               experiences, our dedicated team is here to assist you with
@@ -185,11 +185,11 @@ export default function ContactPage() {
                 <Mailbox className="text-crimson-600" size={32} />
                 <p className="font-normal text-sm text-white-100">
                   <Link href="mailto:neomokhele23@gmail.com">
-                    info@lumieredining.com
+                    info@Lumièredining.com
                   </Link>
                   <br />
                   <Link href="mailto:neomokhele23@gmail.com">
-                    support@lumieredining.com
+                    support@Lumièredining.com
                   </Link>
                 </p>
               </div>
@@ -213,7 +213,7 @@ export default function ContactPage() {
               </h2>
               <div className="flex flex-row gap-6 w-full">
                 <Link
-                  href="https://www.instagram.com/lumieredining/"
+                  href="https://www.instagram.com/Lumièredining/"
                   target="_blank"
                 >
                   <Instagram
@@ -222,7 +222,7 @@ export default function ContactPage() {
                   />
                 </Link>
                 <Link
-                  href="https://www.facebook.com/lumieredining/"
+                  href="https://www.facebook.com/Lumièredining/"
                   target="_blank"
                 >
                   <Facebook
@@ -231,7 +231,7 @@ export default function ContactPage() {
                   />
                 </Link>
                 <Link
-                  href="https://www.tiktok.com/@lumieredining"
+                  href="https://www.tiktok.com/@Lumièredining"
                   target="_blank"
                 >
                   <Twitter
@@ -240,7 +240,7 @@ export default function ContactPage() {
                   />
                 </Link>
                 <Link
-                  href="https://www.youtube.com/@lumieredining"
+                  href="https://www.youtube.com/@Lumièredining"
                   target="_blank"
                 >
                   <Youtube

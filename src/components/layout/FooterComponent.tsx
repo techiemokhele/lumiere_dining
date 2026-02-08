@@ -201,7 +201,7 @@ export function FooterComponent() {
 
         <div className="flex flex-row justify-between items-center gap-6">
           <p className="font-serif font-normal xl:text-sm text-xs text-white-60">
-            &copy; {showCurrentYear()} Lumiere Dining. All rights reserved.
+            &copy; {showCurrentYear()} Lumière Dining. All rights reserved.
           </p>
 
           <div className="flex flex-row gap-4">

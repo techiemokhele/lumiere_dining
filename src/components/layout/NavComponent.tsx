@@ -64,7 +64,7 @@ export function NavComponent() {
     >
       <div className="lg:hidden w-full flex mt-4">
         <MobileSheet>
-          <Link href={"/"} className="block" aria-label="Lumiere Dining home">
+          <Link href={"/"} className="block" aria-label="Lumière Dining home">
             <LogoComponent showText={true} />
           </Link>
         </MobileSheet>
@@ -179,7 +179,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
           </Link>
           <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
           <SheetDescription className="sr-only">
-            Lumiere Dining
+            Lumière Dining
           </SheetDescription>
         </SheetHeader>
 
@@ -228,7 +228,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
               </Button>
 
               <p className="font-serif font-normal xl:text-sm text-xxs text-white-60">
-                &copy; {showCurrentYear()} Lumiere Dining. All rights reserved.
+                &copy; {showCurrentYear()} Lumière Dining. All rights reserved.
               </p>
             </div>
           </div>
