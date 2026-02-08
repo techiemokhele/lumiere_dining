@@ -3,26 +3,60 @@
 import { useState } from "react";
 import { GalleryItem } from "@/data/galleryData";
 import { ImageViewerModalComponent } from "./ImageViewerModalComponent";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 interface MasonryGalleryComponentProps {
   title: string;
   description: string;
   items: GalleryItem[];
+  isLoading?: boolean;
 }
 
 export function MasonryGalleryComponent({
   title,
   description,
   items,
+  isLoading = false,
 }: MasonryGalleryComponentProps) {
-  const [viewerOpen, setViewerOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [viewerOpen, setViewerOpen] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   const handleImageClick = (index: number) => {
     setCurrentIndex(index);
     setViewerOpen(true);
   };
+
+  const handleImageLoad = (itemId: string) => {
+    setLoadedImages((prev) => new Set(prev).add(itemId));
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col w-full gap-6 mb-16">
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-9 w-64 bg-burgundy-800" />
+          <Skeleton className="h-5 w-full max-w-3xl bg-burgundy-800" />
+        </div>
+
+        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+          {Array.from({ length: 12 }).map((_, index) => (
+            <div key={index} className="break-inside-avoid mb-4">
+              <Skeleton
+                className={cn(
+                  "w-full rounded-xl bg-burgundy-800",
+                  index % 3 === 0 && "h-[400px]",
+                  index % 3 === 1 && "h-[300px]",
+                  index % 3 === 2 && "h-[250px]",
+                )}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -44,15 +78,29 @@ export function MasonryGalleryComponent({
               onClick={() => handleImageClick(index)}
             >
               <div className="relative overflow-hidden rounded-xl border-2 border-burgundy-700 hover:border-crimson-500 transition-all duration-300 shadow-lg hover:shadow-2xl">
+                {!loadedImages.has(item.id) && (
+                  <Skeleton
+                    className={cn(
+                      "absolute inset-0 bg-burgundy-800",
+                      item.aspectRatio === "portrait" && "h-[400px]",
+                      item.aspectRatio === "square" && "h-[300px]",
+                      item.aspectRatio === "landscape" && "h-[250px]",
+                      !item.aspectRatio && "h-auto",
+                    )}
+                  />
+                )}
+
                 {item.type === "video" ? (
                   <video
                     src={item.thumbnail || item.src}
+                    onLoadedData={() => handleImageLoad(item.id)}
                     className={cn(
                       "w-full object-cover group-hover:scale-105 transition-transform duration-300",
                       item.aspectRatio === "portrait" && "h-[400px]",
                       item.aspectRatio === "square" && "h-[300px]",
                       item.aspectRatio === "landscape" && "h-[250px]",
                       !item.aspectRatio && "h-auto",
+                      !loadedImages.has(item.id) && "opacity-0",
                     )}
                   />
                 ) : (
@@ -61,12 +109,14 @@ export function MasonryGalleryComponent({
                     src={item.src}
                     alt={item.title}
                     loading="lazy"
+                    onLoad={() => handleImageLoad(item.id)}
                     className={cn(
                       "w-full object-cover group-hover:scale-105 transition-transform duration-300",
                       item.aspectRatio === "portrait" && "h-[400px]",
                       item.aspectRatio === "square" && "h-[300px]",
                       item.aspectRatio === "landscape" && "h-[250px]",
                       !item.aspectRatio && "h-auto",
+                      !loadedImages.has(item.id) && "opacity-0",
                     )}
                   />
                 )}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { GalleryItem } from "@/data/galleryData";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 interface ImageViewerModalProps {
@@ -21,9 +22,14 @@ export function ImageViewerModalComponent({
   const [selectedIndex, setSelectedIndex] = useState(currentIndex);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [thumbnailsLoaded, setThumbnailsLoaded] = useState<Set<string>>(
+    new Set(),
+  );
 
   useEffect(() => {
     setSelectedIndex(currentIndex);
+    setImageLoaded(false);
   }, [currentIndex]);
 
   useEffect(() => {
@@ -67,6 +73,10 @@ export function ImageViewerModalComponent({
     if (isRightSwipe) handlePrevious();
   };
 
+  const handleThumbnailLoad = (itemId: string) => {
+    setThumbnailsLoaded((prev) => new Set(prev).add(itemId));
+  };
+
   if (!isOpen) return null;
 
   const currentItem = items[selectedIndex];
@@ -107,7 +117,6 @@ export function ImageViewerModalComponent({
           <ChevronRight className="w-6 h-6 text-white" />
         </button>
 
-        {/* Main Image/Video Area */}
         <div
           className="flex-1 flex items-center justify-center p-4 md:p-8"
           onClick={(e) => e.stopPropagation()}
@@ -115,19 +124,31 @@ export function ImageViewerModalComponent({
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
+          {!imageLoaded && (
+            <Skeleton className="max-w-full max-h-96 w-[600px] h-96 bg-burgundy-800 rounded-lg" />
+          )}
+
           {currentItem.type === "video" ? (
             <video
               src={currentItem.src}
               controls
               autoPlay
-              className="max-w-full max-h-full object-contain rounded-lg"
+              onLoadedData={() => setImageLoaded(true)}
+              className={cn(
+                "max-w-full max-h-full object-contain rounded-lg",
+                !imageLoaded && "hidden",
+              )}
             />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={currentItem.src}
               alt={currentItem.title}
-              className="max-w-full max-h-96 object-contain rounded-lg"
+              onLoad={() => setImageLoaded(true)}
+              className={cn(
+                "max-w-full max-h-96 object-contain rounded-lg",
+                !imageLoaded && "hidden",
+              )}
             />
           )}
         </div>
@@ -154,23 +175,35 @@ export function ImageViewerModalComponent({
                 key={item.id}
                 onClick={() => setSelectedIndex(index)}
                 className={cn(
-                  "flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
+                  "relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
                   selectedIndex === index
                     ? "border-crimson-500 scale-95"
                     : "border-transparent opacity-60 hover:opacity-100",
                 )}
               >
+                {!thumbnailsLoaded.has(item.id) && (
+                  <Skeleton className="absolute inset-0 bg-burgundy-800" />
+                )}
+
                 {item.type === "video" ? (
                   <video
                     src={item.thumbnail || item.src}
-                    className="w-full h-full object-cover"
+                    onLoadedData={() => handleThumbnailLoad(item.id)}
+                    className={cn(
+                      "w-full h-full object-cover",
+                      !thumbnailsLoaded.has(item.id) && "opacity-0",
+                    )}
                   />
                 ) : (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={item.src}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    onLoad={() => handleThumbnailLoad(item.id)}
+                    className={cn(
+                      "w-full h-full object-cover",
+                      !thumbnailsLoaded.has(item.id) && "opacity-0",
+                    )}
                   />
                 )}
               </button>
