@@ -29,7 +29,7 @@ export function HeaderComponent({
           `py-2 px-4`,
           !addBadgeBorder
             ? "border-none bg-crimson-500"
-            : "border-2 border-crimson-500 bg-crimson-500/40 hover:bg-crimson-500/40"
+            : "border-2 border-crimson-500 bg-crimson-500/40 hover:bg-crimson-500/40",
         )}
       >
         <span className="font-serif font-semibold text-lg text-white">
@@ -39,7 +39,7 @@ export function HeaderComponent({
       <h1 className="font-serif lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-center italic">
         {title}
       </h1>
-      <p className="font-serif font-normal text-sm text-white text-center">
+      <p className="font-serif font-normal text-sm text-white text-center w-full xl:max-w-4xl lg:max-w-4xl md:max-w-3xl max-w-md">
         {description}
       </p>
       <ChevronDown
