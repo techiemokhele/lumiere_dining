@@ -36,7 +36,7 @@ export function HeaderComponent({
           {badgeText}
         </span>
       </Badge>
-      <h1 className="font-serif lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-center italic">
+      <h1 className="font-serif lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-center italic xl:max-w-4xl lg:max-w-4xl md:max-w-3xl max-w-md">
         {title}
       </h1>
       <p className="font-serif font-normal text-sm text-white text-center w-full xl:max-w-4xl lg:max-w-4xl md:max-w-3xl max-w-md">

@@ -10,7 +10,7 @@ export function LogoComponent({ showText }: LogoProps) {
       <Utensils className="text-primary xl:text-2xl text-xl" />
       {showText && (
         <p className="font-serif xl:font-extrabold font-bold xl:text-2xl lg:text-xl text-lg text-white">
-          Lumiere Dining
+          Lumière Dining
         </p>
       )}
     </div>

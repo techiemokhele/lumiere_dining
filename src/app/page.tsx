@@ -226,7 +226,7 @@ export default function LandingPage() {
         <div className="flex lg:flex-row-reverse flex-col lg:gap-0 gap-6 bg-burgundy-800 rounded-2xl">
           <div className="flex flex-col justify-center gap-6 lg:w-1/2 w-full py-6 lg:px-12 px-6">
             <h4 className="!font-extrabold md:text-3xl text-2xl text-white -mt-2">
-              Bring Lumiere Home
+              Bring Lumière Home
             </h4>
             <p className="font-normal lg:text-sm text-xs text-white">
               Discover our exclusive collection of artisanal pantry goods,
@@ -239,7 +239,7 @@ export default function LandingPage() {
               specialty ingredients sourced from our trusted purveyors, and Chef
               Antonie&apos;s acclaimed cookbook featuring signature recipes from
               our tasting menu. These carefully curated items allow you to
-              recreate the magic of Lumiere in your own kitchen, bringing
+              recreate the magic of Lumière in your own kitchen, bringing
               restaurant-quality ingredients and tools directly to your table.
               Perfect for the passionate home cook or as a thoughtful gift for
               the culinary enthusiast in your life.

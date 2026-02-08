@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>New Newsletter Subscription - Lumiere Dining</title>
+        <title>New Newsletter Subscription - Lumière Dining</title>
       </head>
       <body style="margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f5f5;">
         <table role="presentation" style="width: 100%; border-collapse: collapse;">
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to Lumiere Dining Newsletter</title>
+        <title>Welcome to Lumière Dining Newsletter</title>
       </head>
       <body style="margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f5f5;">
         <table role="presentation" style="width: 100%; border-collapse: collapse;">
@@ -210,10 +210,10 @@ export async function POST(request: NextRequest) {
                       You're receiving this because you subscribed to our newsletter at
                     </p>
                     <p style="margin: 0 0 15px; color: #2a1315; font-weight: 600; font-size: 14px;">
-                      lumieredining.com
+                      Lumièredining.com
                     </p>
                     <p style="margin: 0; color: #9ca3af; font-size: 11px;">
-                      If you wish to unsubscribe, please contact us at info@lumieredining.com
+                      If you wish to unsubscribe, please contact us at info@Lumièredining.com
                     </p>
                   </td>
                 </tr>
@@ -229,7 +229,7 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: "neomokhele23@gmail.com",
-      subject: "New Newsletter Subscription - Lumiere Dining",
+      subject: "New Newsletter Subscription - Lumière Dining",
       html: adminEmailHTML,
     });
 
