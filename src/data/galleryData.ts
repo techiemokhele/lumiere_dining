@@ -33,10 +33,10 @@ export const galleryData: GallerySection[] = [
       {
         id: "starter-2",
         type: "image",
-        src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800",
-        title: "Tuna Tartare",
-        description: "Sashimi-grade tuna with avocado and citrus",
-        aspectRatio: "square",
+        src: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800",
+        title: "Spring Rolls",
+        description: "Crispy vegetable spring rolls",
+        aspectRatio: "landscape",
       },
       {
         id: "starter-3",
@@ -88,11 +88,11 @@ export const galleryData: GallerySection[] = [
       },
       {
         id: "starter-9",
-        type: "image",
-        src: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800",
-        title: "Spring Rolls",
-        description: "Crispy vegetable spring rolls",
-        aspectRatio: "landscape",
+        type: "video",
+        src: "/video/tuna.mp4",
+        title: "Tuna Tartare",
+        description: "Sashimi-grade tuna with avocado and citrus",
+        aspectRatio: "square",
       },
       {
         id: "starter-10",
@@ -136,8 +136,8 @@ export const galleryData: GallerySection[] = [
       },
       {
         id: "main-2",
-        type: "image",
-        src: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800",
+        type: "video",
+        src: "/video/pasta.mp4",
         title: "Pasta Carbonara",
         description: "Classic Italian pasta with pancetta",
         aspectRatio: "square",
@@ -304,8 +304,8 @@ export const galleryData: GallerySection[] = [
       },
       {
         id: "grill-10",
-        type: "image",
-        src: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800",
+        type: "video",
+        src: "/video/steak.mp4",
         title: "Sirloin Steak",
         description: "Choice sirloin with chimichurri",
         aspectRatio: "portrait",
@@ -392,8 +392,8 @@ export const galleryData: GallerySection[] = [
       },
       {
         id: "dessert-8",
-        type: "image",
-        src: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=800",
+        type: "video",
+        src: "/video/chocolate.mp4",
         title: "Chocolate Mousse",
         description: "Rich dark chocolate mousse",
         aspectRatio: "portrait",
@@ -488,8 +488,8 @@ export const galleryData: GallerySection[] = [
       },
       {
         id: "wine-7",
-        type: "image",
-        src: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800",
+        type: "video",
+        src: "/video/wine.mp4",
         title: "Wine Tasting",
         description: "Curated wine tasting experience",
         aspectRatio: "portrait",
@@ -544,8 +544,8 @@ export const galleryData: GallerySection[] = [
     items: [
       {
         id: "party-1",
-        type: "image",
-        src: "https://images.unsplash.com/photo-1721155694132-e5b1a0517301?w=800",
+        type: "video",
+        src: "/video/evening.mp4",
         title: "Evening Ambiance",
         description: "Elegant dining atmosphere",
         aspectRatio: "landscape",

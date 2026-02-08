@@ -77,7 +77,6 @@ export function ImageViewerModalComponent({
       onClick={onClose}
     >
       <div className="relative w-full h-full flex flex-col">
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-50 p-2 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 transition-colors"
@@ -86,7 +85,6 @@ export function ImageViewerModalComponent({
           <X className="w-6 h-6 text-white" />
         </button>
 
-        {/* Navigation Buttons - Desktop & Tablet Only */}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -125,15 +123,15 @@ export function ImageViewerModalComponent({
               className="max-w-full max-h-full object-contain rounded-lg"
             />
           ) : (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={currentItem.src}
               alt={currentItem.title}
-              className="max-w-full max-h-full object-contain rounded-lg"
+              className="max-w-full max-h-96 object-contain rounded-lg"
             />
           )}
         </div>
 
-        {/* Image Info */}
         <div
           className="px-4 md:px-8 py-4 bg-gradient-to-t from-black/80 to-transparent"
           onClick={(e) => e.stopPropagation()}
@@ -146,7 +144,6 @@ export function ImageViewerModalComponent({
           </p>
         </div>
 
-        {/* Thumbnails */}
         <div
           className="px-4 md:px-8 pb-4 bg-gradient-to-t from-black/80"
           onClick={(e) => e.stopPropagation()}
@@ -159,7 +156,7 @@ export function ImageViewerModalComponent({
                 className={cn(
                   "flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
                   selectedIndex === index
-                    ? "border-crimson-500 scale-110"
+                    ? "border-crimson-500 scale-95"
                     : "border-transparent opacity-60 hover:opacity-100",
                 )}
               >
@@ -169,6 +166,7 @@ export function ImageViewerModalComponent({
                     className="w-full h-full object-cover"
                   />
                 ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={item.src}
                     alt={item.title}
