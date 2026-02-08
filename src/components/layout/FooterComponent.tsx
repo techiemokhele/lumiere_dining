@@ -1,19 +1,90 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Facebook,
+  Instagram,
+  TwitterIcon,
+  Youtube,
+  LoaderCircle,
+} from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { LogoComponent } from "../LogoComponent";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Facebook, Instagram, TwitterIcon, Youtube } from "lucide-react";
 import { DirectionsModal } from "../DirectionsModal";
 
 export function FooterComponent() {
-  const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
+  const { toast } = useToast();
+
+  const [isDirectionsOpen, setIsDirectionsOpen] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<string>("");
 
   const showCurrentYear = () => {
     const currentDate = new Date();
     return currentDate.getFullYear();
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEmailError("");
+
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to subscribe");
+      }
+
+      toast({
+        title: "Subscribed Successfully!",
+        description: "Thank you for subscribing to our newsletter.",
+        variant: "default",
+      });
+
+      setEmail("");
+    } catch (error) {
+      console.error("Newsletter subscription error:", error);
+
+      toast({
+        title: "Subscription Failed",
+        description:
+          error instanceof Error
+            ? error.message
+            : "There was an error processing your subscription. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -81,18 +152,46 @@ export function FooterComponent() {
             <p className="font-serif font-bold xl:text-xl text-lg text-white">
               Newsletter
             </p>
-            <div className="flex flex-col gap-4 w-full">
-              <Input
-                placeholder="Enter your email"
-                className="bg-burgundy-950"
-              />
+            <form
+              onSubmit={handleNewsletterSubmit}
+              className="flex flex-col gap-4 w-full"
+            >
+              <div className="flex flex-col gap-1">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError("");
+                  }}
+                  className={`bg-burgundy-950 ${emailError ? "border-crimson-500" : ""}`}
+                  disabled={isSubmitting}
+                />
+                {emailError ? (
+                  <p className="text-crimson-500 text-xxs font-normal">
+                    {emailError}
+                  </p>
+                ) : (
+                  <div className="py-1.5 h-1" />
+                )}
+              </div>
               <Button
+                type="submit"
                 variant="secondary"
-                className="bg-burgundy-700 hover:bg-burgundy-700/80"
+                disabled={isSubmitting}
+                className="bg-burgundy-700 hover:bg-burgundy-700/80 disabled:opacity-50"
               >
-                <span>Subscribe</span>
+                {isSubmitting ? (
+                  <>
+                    <LoaderCircle className="animate-spin h-4 w-4 mr-2" />
+                    <span>Subscribing...</span>
+                  </>
+                ) : (
+                  <span>Subscribe</span>
+                )}
               </Button>
-            </div>
+            </form>
           </div>
         </div>
 

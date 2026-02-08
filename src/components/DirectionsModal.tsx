@@ -1,7 +1,7 @@
 "use client";
 
-import { Phone, Mail, MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
+import { Phone, Mail, MapPin, Navigation } from "lucide-react";
 import {
   Dialog,
   DialogContent,
