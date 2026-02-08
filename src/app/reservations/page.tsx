@@ -152,7 +152,8 @@ export default function ReservationPage() {
     return size === "1" ? "guest" : "guests";
   };
 
-  const onSubmit = async (values: FormData) => {
+  const onSubmit = async (values: FormData, e?: React.BaseSyntheticEvent) => {
+    e?.preventDefault();
     try {
       console.log("Form submitted:", values);
 
@@ -202,7 +203,7 @@ export default function ReservationPage() {
               <div className="flex flex-row items-center gap-2">
                 <MapPin size={20} className="fill-crimson-600 stroke-white" />
                 <p className="font-normal xl:text-sm text-xxs text-white">
-                  123 Culinary Avenue, Metropolis, South Africa 1559
+                  19 Dock Road, Cape Town, 8001, South Africa
                 </p>
               </div>
             </div>

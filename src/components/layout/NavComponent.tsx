@@ -47,17 +47,19 @@ export function NavComponent() {
   };
 
   const navLinks = [
+    { label: "Home", href: "/" },
     { label: "Menu", href: "/menu" },
-    { label: "Reservations", href: "/reservations" },
-    { label: "Private Dining", href: "/private-dining" },
     { label: "Our Story", href: "/our-story" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Newsletter", href: "/newsletter" },
+    { label: "Contact", href: "/contact-us" },
   ];
 
   return (
     <PaddingContainer
       className={cn(
         `z-50 sticky lg:top-[51px] top-0 transition-all duration-200 w-full`,
-        isScrolled && "lg:bg-transparent bg-burgundy-700/95 pb-4"
+        isScrolled && "lg:bg-transparent bg-burgundy-700/95 pb-4",
       )}
     >
       <div className="lg:hidden w-full flex mt-4">
@@ -90,7 +92,7 @@ export function NavComponent() {
                     "font-serif font-semibold text-sm xl:px-4 lg:px-1 px-4 py-2 text-center relative transition-colors",
                     isActive(href)
                       ? "text-white"
-                      : "text-white-80 hover:text-white"
+                      : "text-white-80 hover:text-white",
                   )}
                   aria-current={isActive(href) ? "page" : undefined}
                 >
@@ -106,15 +108,19 @@ export function NavComponent() {
           </nav>
 
           <div className="flex items-center gap-2 flex-shrink-0">
-            <Button variant="default">
-              <span>Book a Table</span>
+            <Button asChild variant="default">
+              <Link href="/reservations">Book a Table</Link>
             </Button>
-            <Button variant="link" size="icon" className="p-0">
-              <ShoppingBag size={24} className="text-white" />
-            </Button>
-            <Button variant="link" size="icon" className="p-0">
-              <UserCircle size={24} className="text-white" />
-            </Button>
+            <Link href="/my-cart">
+              <Button variant="link" size="icon" className="p-0">
+                <ShoppingBag size={24} className="text-white" />
+              </Button>
+            </Link>
+            <Link href="/my-account">
+              <Button variant="link" size="icon" className="p-0">
+                <UserCircle size={24} className="text-white" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -127,14 +133,19 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
 
   const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
     return pathname.startsWith(path);
   };
 
   const navLinks = [
+    { label: "Home", href: "/" },
     { label: "Menu", href: "/menu" },
-    { label: "Reservations", href: "/reservations" },
-    { label: "Private Dining", href: "/private-dining" },
     { label: "Our Story", href: "/our-story" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Newsletter", href: "/newsletter" },
+    { label: "Contact", href: "/contact-us" },
   ];
 
   const handleSheetOpenChange = (open: boolean) => {
@@ -183,7 +194,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                       "flex justify-between font-serif font-extrabold lg:text-2xl text-xl hover:no-underline !px-0",
                       isActive(link.href)
                         ? "text-primary relative"
-                        : "text-white-60"
+                        : "text-white-60",
                     )}
                     aria-current={isActive(link.href) ? "page" : undefined}
                   >
@@ -197,17 +208,23 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
               ))}
             </div>
             <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center justify-center gap-3 px-6">
-              <Button variant="default" className="w-full">
-                <ShoppingBag size={24} className="text-white" />
-                <span>Your Cart</span>
+              <Button asChild variant="default" className="w-full">
+                <Link href="/my-cart">
+                  <ShoppingBag size={24} className="text-white" />
+                  <span>Your Cart</span>
+                </Link>
               </Button>
-              <Button variant="default" className="w-full">
-                <HandPlatter size={24} className="text-white" />
-                <span>Book a Table</span>
+              <Button asChild variant="default" className="w-full">
+                <Link href="/reservations">
+                  <HandPlatter size={24} className="text-white" />
+                  <span>Book a Table</span>
+                </Link>
               </Button>
-              <Button variant="default" className="w-full">
-                <UserCircle size={24} className="text-white" />
-                <span>My Account</span>
+              <Button asChild variant="default" className="w-full">
+                <Link href="/my-account">
+                  <UserCircle size={24} className="text-white" />
+                  <span>My Account</span>
+                </Link>
               </Button>
 
               <p className="font-serif font-normal xl:text-sm text-xxs text-white-60">
