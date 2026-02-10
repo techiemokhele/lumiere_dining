@@ -155,11 +155,24 @@ export default function ReservationPage() {
   const onSubmit = async (values: FormData, e?: React.BaseSyntheticEvent) => {
     e?.preventDefault();
     try {
-      console.log("Form submitted:", values);
+      const response = await fetch("/api/reservation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to make reservation");
+      }
 
       toast({
         title: "Reservation Confirmed!",
-        description: "Your table has been successfully reserved.",
+        description:
+          "Your table has been successfully reserved. Check your email for confirmation.",
         variant: "default",
       });
 
@@ -170,7 +183,9 @@ export default function ReservationPage() {
       toast({
         title: "Reservation Failed",
         description:
-          "There was an error processing your reservation. Please try again.",
+          error instanceof Error
+            ? error.message
+            : "There was an error processing your reservation. Please try again.",
         variant: "destructive",
       });
     }
