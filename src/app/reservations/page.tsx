@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ArrowRight, MapPin, Sofa } from "lucide-react";
+import { ArrowRight, LoaderCircle, MapPin, Sofa } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { PageContainer } from "@/components/structure/PageContainer";
@@ -103,6 +104,8 @@ type TimeSlot = {
 export default function ReservationPage() {
   const { toast } = useToast();
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const partySizeData = ["1", "2", "3", "4", "5", "6", "7", "8+"];
 
   const timeSlots: Record<string, TimeSlot[]> = {
@@ -154,6 +157,7 @@ export default function ReservationPage() {
 
   const onSubmit = async (values: FormData, e?: React.BaseSyntheticEvent) => {
     e?.preventDefault();
+    setIsSubmitting(true);
     try {
       const response = await fetch("/api/reservation", {
         method: "POST",
@@ -176,7 +180,19 @@ export default function ReservationPage() {
         variant: "default",
       });
 
-      form.reset();
+      form.reset({
+        partySize: "2",
+        reservationDate: { from: undefined, to: undefined },
+        seatingArea: "",
+        availableTime: "",
+        occasionType: "dinner",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
+        specialRequests: "",
+        acceptTerms: false,
+      });
     } catch (error) {
       console.error("Error submitting reservation:", error);
 
@@ -188,6 +204,8 @@ export default function ReservationPage() {
             : "There was an error processing your reservation. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -758,8 +776,17 @@ export default function ReservationPage() {
                     size="lg"
                     className="flex flex-row gap-2 items-center justify-center bg-crimson-600 hover:bg-crimson-500"
                   >
-                    <span>Complete Reservation</span>
-                    <ArrowRight size={16} className="text-white" />
+                    {isSubmitting ? (
+                      <>
+                        <LoaderCircle className="animate-spin h-4 w-4" />
+                        <span>Reserving...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Complete Reservation</span>
+                        <ArrowRight size={16} className="text-white" />
+                      </>
+                    )}
                   </Button>
 
                   <div className="flex items-center justify-center">
