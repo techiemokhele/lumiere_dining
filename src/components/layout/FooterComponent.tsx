@@ -14,6 +14,7 @@ import { LogoComponent } from "../LogoComponent";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { DirectionsModal } from "../DirectionsModal";
+import Link from "next/link";
 
 export function FooterComponent() {
   const { toast } = useToast();
@@ -203,6 +204,23 @@ export function FooterComponent() {
           <p className="font-serif font-normal xl:text-sm text-xs text-white-60">
             &copy; {showCurrentYear()} Lumière Dining. All rights reserved.
           </p>
+
+          <div className="hidden md:flex flex-row items-center gap-4">
+            {[
+              { label: "Cancellation", href: "/legal/cancellation-policy" },
+              { label: "Cookies", href: "/legal/cookie-policy" },
+              { label: "Privacy", href: "/legal/privacy-policy" },
+              { label: "Terms", href: "/legal/terms-of-service" },
+            ].map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                className="font-serif font-normal xl:text-sm text-xs text-white-60 hover:text-white transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
           <div className="flex flex-row gap-4">
             <TwitterIcon className="hover:text-primary lg:size-6 size-4 cursor-pointer" />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ChevronRightIcon,
+  ChevronDownIcon,
   HandPlatter,
   ShoppingBag,
   TextSearchIcon,
@@ -130,7 +131,9 @@ export function NavComponent() {
 
 function MobileSheet({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+  const [isLegalOpen, setIsLegalOpen] = useState<boolean>(false);
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -146,6 +149,13 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
     { label: "Gallery", href: "/gallery" },
     { label: "Newsletter", href: "/newsletter" },
     { label: "Contact", href: "/contact-us" },
+  ];
+
+  const legalLinks = [
+    { label: "Cancellation Policy", href: "/legal/cancellation-policy" },
+    { label: "Cookie Policy", href: "/legal/cookie-policy" },
+    { label: "Privacy Policy", href: "/legal/privacy-policy" },
+    { label: "Terms of Service", href: "/legal/terms-of-service" },
   ];
 
   const handleSheetOpenChange = (open: boolean) => {
@@ -185,7 +195,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
 
         <nav aria-label="Main navigation">
           <div className="flex flex-col justify-between">
-            <div className="flex flex-col gap-4 pt-6">
+            <div className="flex flex-col gap-4 -mt-6">
               {navLinks.map((link) => (
                 <Button asChild key={link.label} variant="link">
                   <Link
@@ -206,26 +216,66 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                   </Link>
                 </Button>
               ))}
+
+              <div className="flex flex-col">
+                <Button
+                  variant="link"
+                  className="flex justify-between font-serif font-extrabold lg:text-2xl text-xl hover:no-underline !px-0 text-white-60"
+                  onClick={() => setIsLegalOpen(!isLegalOpen)}
+                >
+                  <span>Legal</span>
+                  <ChevronDownIcon
+                    className={cn(
+                      "transition-transform duration-200",
+                      isLegalOpen && "rotate-180",
+                    )}
+                    aria-hidden="true"
+                  />
+                </Button>
+                <div
+                  className={cn(
+                    "flex flex-col gap-1 overflow-hidden transition-all duration-200",
+                    isLegalOpen
+                      ? "max-h-56 opacity-100 pt-2"
+                      : "max-h-0 opacity-0",
+                  )}
+                >
+                  {legalLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "font-serif font-medium text-base pl-2 py-1 transition-colors",
+                        isActive(link.href)
+                          ? "text-primary"
+                          : "text-white-60 hover:text-white",
+                      )}
+                      aria-current={isActive(link.href) ? "page" : undefined}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center justify-center gap-3 px-6">
-              <Button asChild variant="default" className="w-full">
-                <Link href="/my-cart">
-                  <ShoppingBag size={24} className="text-white" />
-                  <span>Your Cart</span>
-                </Link>
-              </Button>
-              <Button asChild variant="default" className="w-full">
-                <Link href="/reservations">
-                  <HandPlatter size={24} className="text-white" />
-                  <span>Book a Table</span>
-                </Link>
-              </Button>
-              <Button asChild variant="default" className="w-full">
-                <Link href="/my-account">
-                  <UserCircle size={24} className="text-white" />
-                  <span>My Account</span>
-                </Link>
-              </Button>
+            <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center justify-center gap-3 px-6">
+              <div className="flex flex-row gap-6">
+                <Button asChild variant="default" className="w-full">
+                  <Link href="/my-cart">
+                    <ShoppingBag size={24} className="text-white" />
+                  </Link>
+                </Button>
+                <Button asChild variant="default" className="w-full">
+                  <Link href="/reservations">
+                    <HandPlatter size={24} className="text-white" />
+                  </Link>
+                </Button>
+                <Button asChild variant="default" className="w-full">
+                  <Link href="/my-account">
+                    <UserCircle size={24} className="text-white" />
+                  </Link>
+                </Button>
+              </div>
 
               <p className="font-serif font-normal xl:text-sm text-xxs text-white-60">
                 &copy; {showCurrentYear()} Lumière Dining. All rights reserved.

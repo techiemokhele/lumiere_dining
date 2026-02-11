@@ -6,7 +6,7 @@ export default function CookiePolicyPage() {
 
   return (
     <PageContainer showFooter={true} showNavigation={true}>
-      <PaddingContainer size="large">
+      <PaddingContainer size="small">
         <div className="flex flex-col w-full max-w-4xl mx-auto py-12 md:py-20 gap-10 text-foreground">
           <header className="flex flex-col gap-4">
             <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-primary">
