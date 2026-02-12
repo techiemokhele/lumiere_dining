@@ -1,7 +1,8 @@
 import { CSSProperties } from "react";
+import { cn } from "@/lib/utils";
 import { NavComponent } from "../layout/NavComponent";
 import { FooterComponent } from "../layout/FooterComponent";
-import { cn } from "@/lib/utils";
+import { CookieConsentComponent } from "../CookieConsentComponent";
 
 interface PageProps {
   children: React.ReactNode;
@@ -23,6 +24,7 @@ export function PageContainer({
       {showNavigation && <NavComponent />}
       {children}
       {showFooter && <FooterComponent />}
+      <CookieConsentComponent />
     </main>
   );
 }
