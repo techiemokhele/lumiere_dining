@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { EmptyCartComponent } from "@/components/EmptyCartComponent";
 import { PageContainer } from "@/components/structure/PageContainer";
+import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { PaddingContainer } from "@/components/structure/PaddingContainer";
 
 export default function MyCartMainPage() {
   const [isCartEmpty] = useState<boolean>(false);

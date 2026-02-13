@@ -91,9 +91,9 @@ export function FooterComponent() {
   return (
     <>
       <footer className="flex flex-col gap-4 py-10 xl:px-8 lg:px-8 px-4 bg-secondary">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-16 gap-y-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-16 lg:gap-y-8 gap-y-4">
           <div className="flex flex-col gap-4">
-            <LogoComponent showText={true} />
+            <LogoComponent showText={true} isFooter={true} />
             <p className="font-serif font-normal xl:text-sm text-xs text-white">
               A culinary where flower meets art. Experience the finest dining in
               the heart of the city.
@@ -155,7 +155,7 @@ export function FooterComponent() {
             </p>
             <form
               onSubmit={handleNewsletterSubmit}
-              className="flex flex-col gap-4 w-full"
+              className="flex flex-col lg:gap-4 gap-2 w-full"
             >
               <div className="flex flex-col gap-1">
                 <Input
