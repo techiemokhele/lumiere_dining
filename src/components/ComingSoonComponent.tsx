@@ -2,13 +2,20 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { LogoComponent } from "@/components/LogoComponent";
-import { PageContainer } from "@/components/structure/PageContainer";
-import { Phone, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import { LogoComponent } from "./LogoComponent";
+import { PageContainer } from "./structure/PageContainer";
+import {
+  Phone,
+  MapPin,
+  ChevronLeft,
+  ChevronRight,
+  Facebook,
+  Instagram,
+  Twitter,
+} from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 
-export default function NotFoundPage() {
+export function ComingSoonComponent() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const images = [
@@ -72,10 +79,10 @@ export default function NotFoundPage() {
         </div>
 
         <div className="relative flex lg:flex-row flex-col flex-1 rounded-3xl overflow-hidden m-4 z-10">
-          <div className="relative lg:w-1/2 w-full flex flex-col items-center justify-center p-12 backdrop-blur-xl bg-black/60">
+          <div className="relative lg:w-1/2 w-full flex flex-col items-center justify-center p-12 lg:mt-0 mt-20 backdrop-blur-xl bg-black/60">
             <div className="relative z-10 flex flex-col items-center gap-8 text-center">
               <h2 className="font-serif xl:text-6xl lg:text-4xl text-3xl text-white tracking-wider">
-                Page Not Found
+                Coming soon
               </h2>
 
               <Link href="/" className="flex flex-col items-center gap-6">
@@ -83,24 +90,29 @@ export default function NotFoundPage() {
               </Link>
 
               <p className="font-serif text-white xl:text-lg lg:text-sm text-xs max-w-md">
-                Oops! The page you are looking for doesn&apos;t exist or has
-                been moved. Explore our site and enjoy the finest dining
-                experience Cape Town has to offer.
+                The best of fine dining coming soon to Cape Town, South Africa.
               </p>
 
-              <Button
-                size="lg"
-                className="mt-4 bg-crimson-500 hover:bg-crimson-600 text-white rounded-full px-8"
-              >
-                Go Home
-              </Button>
-
-              <Button
-                size="lg"
-                className="lg:hidden mt-4 bg-transparent hover:bg-transparent text-white rounded-full px-8"
-              >
-                <span className="text-transparent">Go Home</span>
-              </Button>
+              <div className="flex gap-6 mt-4">
+                <Link
+                  href="#"
+                  className="text-white hover:text-crimson-500 transition-colors"
+                >
+                  <Facebook size={24} />
+                </Link>
+                <Link
+                  href="#"
+                  className="text-white hover:text-crimson-500 transition-colors"
+                >
+                  <Instagram size={24} />
+                </Link>
+                <Link
+                  href="#"
+                  className="text-white hover:text-crimson-500 transition-colors"
+                >
+                  <Twitter size={24} />
+                </Link>
+              </div>
             </div>
           </div>
 

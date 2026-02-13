@@ -1,21 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { LogoComponent } from "./LogoComponent";
 import { PageContainer } from "./structure/PageContainer";
-import {
-  Phone,
-  MapPin,
-  ChevronLeft,
-  ChevronRight,
-  Facebook,
-  Instagram,
-  Twitter,
-} from "lucide-react";
-import Image from "next/image";
+import { Button } from "./ui/button";
 
-export function ComingSoonComponent() {
+export function EmptyCartComponent() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const images = [
@@ -35,8 +28,8 @@ export function ComingSoonComponent() {
   };
 
   return (
-    <PageContainer showFooter={false} showNavigation={false} className="!p-0">
-      <div className="relative flex flex-col w-full h-screen overflow-hidden bg-black">
+    <PageContainer showFooter={true} showNavigation={true} className="!p-0">
+      <div className="relative flex flex-col w-full h-screen overflow-hidden bg-black lg:-mt-[52px] -mt-12">
         {images.map((img, index) => (
           <div
             key={img}
@@ -59,22 +52,11 @@ export function ComingSoonComponent() {
           </div>
         ))}
 
-        <div className="relative flex justify-between items-center px-8 py-4 bg-black/50 backdrop-blur-sm z-20">
-          <div className="flex items-center gap-2 text-white lg:text-sm !text-xxs">
-            <Phone size={16} />
-            <span>+27 555 511 2233</span>
-          </div>
-          <div className="flex items-center gap-2 text-white lg:text-sm !text-xxs">
-            <MapPin size={16} />
-            <span>19 Dock Road, Cape Town, 8001, South Africa</span>
-          </div>
-        </div>
-
         <div className="relative flex lg:flex-row flex-col flex-1 rounded-3xl overflow-hidden m-4 z-10">
-          <div className="relative lg:w-1/2 w-full flex flex-col items-center justify-center p-12 backdrop-blur-xl bg-black/60">
+          <div className="relative lg:w-1/2 w-full flex flex-col items-center justify-center p-12 lg:mt-0 mt-20 backdrop-blur-xl bg-black/60">
             <div className="relative z-10 flex flex-col items-center gap-8 text-center">
               <h2 className="font-serif xl:text-6xl lg:text-4xl text-3xl text-white tracking-wider">
-                Coming soon
+                Your Cart is Empty
               </h2>
 
               <Link href="/" className="flex flex-col items-center gap-6">
@@ -82,29 +64,17 @@ export function ComingSoonComponent() {
               </Link>
 
               <p className="font-serif text-white xl:text-lg lg:text-sm text-xs max-w-md">
-                The best of fine dining coming soon to Cape Town, South Africa.
+                Your cart is currently empty. Explore our menu and discover
+                exceptional dishes crafted to elevate your dining experience.
               </p>
 
-              <div className="flex gap-6 mt-4">
-                <Link
-                  href="#"
-                  className="text-white hover:text-crimson-500 transition-colors"
-                >
-                  <Facebook size={24} />
-                </Link>
-                <Link
-                  href="#"
-                  className="text-white hover:text-crimson-500 transition-colors"
-                >
-                  <Instagram size={24} />
-                </Link>
-                <Link
-                  href="#"
-                  className="text-white hover:text-crimson-500 transition-colors"
-                >
-                  <Twitter size={24} />
-                </Link>
-              </div>
+              <Button
+                asChild
+                size="lg"
+                className="mt-4 bg-crimson-500 hover:bg-crimson-600 text-white rounded-full px-8"
+              >
+                <Link href="/menu">Browse Menu</Link>
+              </Button>
             </div>
           </div>
 
@@ -129,7 +99,7 @@ export function ComingSoonComponent() {
                 <button
                   key={index}
                   onClick={() => setCurrentImage(index)}
-                  className={`relative lg:w-32 w-16 xl:h-24 lg:h-16 h-14 rounded-lg overflow-hidden border-2 transition-all ${
+                  className={`relative xl:w-24 lg:w-20 w-16 xl:h-24 lg:h-16 h-14 rounded-lg overflow-hidden border-2 transition-all ${
                     currentImage === index
                       ? "border-crimson-500 scale-105"
                       : "border-white/30 opacity-60 hover:opacity-100"

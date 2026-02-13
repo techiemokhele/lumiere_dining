@@ -1,5 +1,5 @@
-import { ComingSoonComponent } from "@/components/coming-soon-component";
+import { EmptyCartComponent } from "@/components/EmptyCartComponent";
 
 export default function MyCartMainPage() {
-  return <ComingSoonComponent />;
+  return <EmptyCartComponent />;
 }

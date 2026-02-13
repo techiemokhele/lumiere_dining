@@ -1,4 +1,4 @@
-import { ComingSoonComponent } from "@/components/coming-soon-component";
+import { ComingSoonComponent } from "@/components/ComingSoonComponent";
 
 export default function MyAccountMainPage() {
   return <ComingSoonComponent />;
