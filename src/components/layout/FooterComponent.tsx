@@ -200,8 +200,8 @@ export function FooterComponent() {
 
         <Separator orientation="horizontal" className="my-4" />
 
-        <div className="flex flex-row justify-between items-center gap-6">
-          <p className="font-serif font-normal xl:text-sm text-xs text-white-60">
+        <div className="flex flex-row justify-between items-center">
+          <p className="font-serif font-normal text-xxs text-white-60">
             &copy; {showCurrentYear()} Lumière Dining. All rights reserved.
           </p>
 
@@ -215,7 +215,7 @@ export function FooterComponent() {
               <Link
                 key={index}
                 href={link.href}
-                className="font-serif font-normal xl:text-sm text-xs text-white-60 hover:text-white transition-colors"
+                className="font-serif font-normal text-xs text-white-60 hover:text-white transition-colors"
               >
                 {link.label}
               </Link>
