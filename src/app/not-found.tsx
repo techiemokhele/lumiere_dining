@@ -89,17 +89,21 @@ export default function NotFoundPage() {
               </p>
 
               <Button
+                asChild
                 size="lg"
                 className="mt-4 bg-crimson-500 hover:bg-crimson-600 text-white rounded-full px-8"
               >
-                Go Home
+                <Link href="/">
+                  <span>Return Home</span>
+                </Link>
               </Button>
 
               <Button
+                asChild
                 size="lg"
                 className="lg:hidden mt-4 bg-transparent hover:bg-transparent text-white rounded-full px-8"
               >
-                <span className="text-transparent">Go Home</span>
+                <span className="text-transparent">Return Home</span>
               </Button>
             </div>
           </div>
