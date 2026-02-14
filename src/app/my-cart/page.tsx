@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { EmptyCartComponent } from "@/components/EmptyCartComponent";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
@@ -13,6 +13,17 @@ import { CartRelatedItemComponent } from "@/components/cart/CartRelatedItemCompo
 
 export default function MyCartMainPage() {
   const [isCartEmpty] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const price = 28;
+
+  const subtotal = useMemo(() => {
+    return quantity * price;
+  }, [quantity]);
+
+  const tax = subtotal * 0.08;
+  const serviceCharge = subtotal * 0.15;
+  const total = subtotal + tax + serviceCharge;
 
   return (
     <>
@@ -53,7 +64,11 @@ export default function MyCartMainPage() {
             <div className="flex lg:flex-row flex-col w-full">
               <div className="flex lg:flex-row flex-col w-full gap-16">
                 <div className="flex flex-col lg:w-2/3 w-full gap-10">
-                  <CartItemCardComponent />
+                  <CartItemCardComponent
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                    price={price}
+                  />
 
                   <Separator />
 
@@ -66,7 +81,12 @@ export default function MyCartMainPage() {
                 </div>
 
                 <div className="flex lg:w-1/3 w-full">
-                  <CartOrderSummaryComponent />
+                  <CartOrderSummaryComponent
+                    subtotal={subtotal}
+                    tax={tax}
+                    serviceCharge={serviceCharge}
+                    total={total}
+                  />
                 </div>
               </div>
             </div>

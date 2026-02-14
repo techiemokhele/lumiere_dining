@@ -10,13 +10,25 @@ import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 
+interface CartSummaryProps {
+  subtotal: number;
+  tax: number;
+  serviceCharge: number;
+  total: number;
+}
+
 const promoCodeFormSchema = z.object({
   code: z.string().min(1, "Promo code is required."),
 });
 
 type PromoCodeFormValues = z.infer<typeof promoCodeFormSchema>;
 
-export function CartOrderSummaryComponent() {
+export function CartOrderSummaryComponent({
+  subtotal,
+  tax,
+  serviceCharge,
+  total,
+}: CartSummaryProps) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<PromoCodeFormValues>({
@@ -63,7 +75,7 @@ export function CartOrderSummaryComponent() {
               Subtotal
             </p>
             <p className="font-semibold lg:text-sm text-xs text-white-100">
-              R568.00
+              R{subtotal.toFixed(2)}
             </p>
           </div>
           <div className="flex flex-row justify-between items-center">
@@ -71,7 +83,7 @@ export function CartOrderSummaryComponent() {
               Taxes(8%)
             </p>
             <p className="font-semibold lg:text-sm text-xs text-white-100">
-              R45.44
+              R{tax.toFixed(2)}
             </p>
           </div>
           <div className="flex flex-row justify-between items-center">
@@ -79,7 +91,7 @@ export function CartOrderSummaryComponent() {
               Service Charge(15%)
             </p>
             <p className="font-semibold lg:text-sm text-xs text-white-100">
-              R85.20
+              R{serviceCharge.toFixed(2)}
             </p>
           </div>
           <Separator />
@@ -89,7 +101,7 @@ export function CartOrderSummaryComponent() {
             </p>
             <div className="flex flex-col gap-2">
               <p className="!font-extrabold text-2xl text-crimson-500">
-                R698.64
+                R{total.toFixed(2)}
               </p>
               <p className="font-semibold text-xxs text-white-60 flex self-end">
                 including all fees
