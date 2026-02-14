@@ -27,13 +27,13 @@ export function LandingPageMenuCard({
         "group flex w-full rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden",
         itemDirection === "left"
           ? "lg:flex-row flex-col"
-          : "lg:flex-row-reverse flex-col"
+          : "lg:flex-row-reverse flex-col",
       )}
     >
       <div className="flex flex-col lg:w-2/3 w-full gap-4 p-6">
         <div className="flex flex-row justify-between items-center">
           <p className="font-serif font-bold text-xl text-white">{name}</p>
-          <p className="font-serif font-bold text-xl text-primary">${price}</p>
+          <p className="font-serif font-bold text-xl text-primary">R{price}</p>
         </div>
 
         <div className="flex flex-row gap-2 flex-wrap">

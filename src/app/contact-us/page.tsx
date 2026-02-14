@@ -17,7 +17,7 @@ import {
   Send,
   LoaderCircle,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/lib/hooks/use-toast";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { HeaderComponent } from "@/components/layout/HeaderComponent";

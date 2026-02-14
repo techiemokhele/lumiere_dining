@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Facebook,
   Instagram,
@@ -8,16 +9,18 @@ import {
   Youtube,
   LoaderCircle,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/lib/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { LogoComponent } from "../LogoComponent";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { DirectionsModal } from "../DirectionsModal";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { useActivePath } from "@/lib/hooks/use-active-path";
 
 export function FooterComponent() {
   const { toast } = useToast();
+  const { isActive } = useActivePath();
 
   const [isDirectionsOpen, setIsDirectionsOpen] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -211,11 +214,17 @@ export function FooterComponent() {
               { label: "Cookies", href: "/legal/cookie-policy" },
               { label: "Privacy", href: "/legal/privacy-policy" },
               { label: "Terms", href: "/legal/terms-of-service" },
-            ].map((link, index) => (
+            ].map((link) => (
               <Link
-                key={index}
+                key={link.href}
                 href={link.href}
-                className="font-serif font-normal text-xs text-white-60 hover:text-white transition-colors"
+                className={cn(
+                  "font-serif font-normal text-xs transition-colors",
+                  isActive(link.href)
+                    ? "text-primary font-semibold"
+                    : "text-white-60 hover:text-white",
+                )}
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
               </Link>
