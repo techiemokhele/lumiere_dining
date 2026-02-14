@@ -28,7 +28,7 @@ export default function MenuPage() {
       {
         behavior: "smooth",
         block: "start",
-      }
+      },
     );
   };
 
@@ -40,7 +40,7 @@ export default function MenuPage() {
       {
         rootMargin: "0px 0px -80% 0px",
         threshold: 0,
-      }
+      },
     );
 
     if (headerRef.current) {
@@ -62,7 +62,7 @@ export default function MenuPage() {
       {
         rootMargin: "-40% 0px -50% 0px",
         threshold: 0,
-      }
+      },
     );
 
     Object.values(sectionRefs).forEach((ref) => {
@@ -89,7 +89,7 @@ export default function MenuPage() {
       <div
         className={cn(
           `flex flex-col sticky lg:top-[0px] top-12 z-10 transition-colors duration-300 gap-4 w-full`,
-          !isHeaderVisible && "bg-burgundy-700/95 backdrop-blur-md shadow-lg"
+          !isHeaderVisible && "bg-burgundy-700/95 backdrop-blur-md shadow-lg",
         )}
       >
         <div className="flex flex-row justify-center items-center lg:gap-6 gap-4 pt-4">
@@ -100,7 +100,7 @@ export default function MenuPage() {
               className={cn(
                 "font-serif text-xs md:text-lg transition-all",
                 "text-white/80 hover:text-white",
-                activeSection === section.id && "!font-extrabold text-white"
+                activeSection === section.id && "!font-extrabold text-white",
               )}
             >
               {section.title}

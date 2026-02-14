@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Facebook,
   Instagram,
@@ -8,16 +9,18 @@ import {
   Youtube,
   LoaderCircle,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/lib/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { LogoComponent } from "../LogoComponent";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { DirectionsModal } from "../DirectionsModal";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { useActivePath } from "@/lib/hooks/use-active-path";
 
 export function FooterComponent() {
   const { toast } = useToast();
+  const { isActive } = useActivePath();
 
   const [isDirectionsOpen, setIsDirectionsOpen] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -91,9 +94,9 @@ export function FooterComponent() {
   return (
     <>
       <footer className="flex flex-col gap-4 py-10 xl:px-8 lg:px-8 px-4 bg-secondary">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-16 gap-y-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-16 lg:gap-y-8 gap-y-4">
           <div className="flex flex-col gap-4">
-            <LogoComponent showText={true} />
+            <LogoComponent showText={true} isFooter={true} />
             <p className="font-serif font-normal xl:text-sm text-xs text-white">
               A culinary where flower meets art. Experience the finest dining in
               the heart of the city.
@@ -155,7 +158,7 @@ export function FooterComponent() {
             </p>
             <form
               onSubmit={handleNewsletterSubmit}
-              className="flex flex-col gap-4 w-full"
+              className="flex flex-col lg:gap-4 gap-2 w-full"
             >
               <div className="flex flex-col gap-1">
                 <Input
@@ -200,8 +203,8 @@ export function FooterComponent() {
 
         <Separator orientation="horizontal" className="my-4" />
 
-        <div className="flex flex-row justify-between items-center gap-6">
-          <p className="font-serif font-normal xl:text-sm text-xs text-white-60">
+        <div className="flex flex-row justify-between items-center">
+          <p className="font-serif font-normal text-xxs text-white-60">
             &copy; {showCurrentYear()} Lumière Dining. All rights reserved.
           </p>
 
@@ -211,11 +214,17 @@ export function FooterComponent() {
               { label: "Cookies", href: "/legal/cookie-policy" },
               { label: "Privacy", href: "/legal/privacy-policy" },
               { label: "Terms", href: "/legal/terms-of-service" },
-            ].map((link, index) => (
+            ].map((link) => (
               <Link
-                key={index}
+                key={link.href}
                 href={link.href}
-                className="font-serif font-normal xl:text-sm text-xs text-white-60 hover:text-white transition-colors"
+                className={cn(
+                  "font-serif font-normal text-xs transition-colors",
+                  isActive(link.href)
+                    ? "text-primary font-semibold"
+                    : "text-white-60 hover:text-white",
+                )}
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
               </Link>

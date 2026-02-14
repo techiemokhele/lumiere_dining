@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   ChevronRightIcon,
   ChevronDownIcon,
@@ -11,8 +10,10 @@ import {
   TextSearchIcon,
   UserCircle,
 } from "lucide-react";
-import { PaddingContainer } from "../structure/PaddingContainer";
+import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
+import { useActivePath } from "@/lib/hooks/use-active-path";
+import { PaddingContainer } from "../structure/PaddingContainer";
 import { LogoComponent } from "../LogoComponent";
 import {
   Sheet,
@@ -25,7 +26,9 @@ import {
 import { Button } from "../ui/button";
 
 export function NavComponent() {
-  const pathname = usePathname();
+  const { isActive } = useActivePath();
+  const { totalItems } = useCart();
+
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -38,14 +41,6 @@ export function NavComponent() {
 
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const isActive = (path: string, exact = false) => {
-    if (exact) {
-      return pathname === path;
-    } else {
-      return pathname.startsWith(path);
-    }
-  };
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -92,8 +87,8 @@ export function NavComponent() {
                   className={cn(
                     "font-serif font-semibold text-sm xl:px-4 lg:px-1 px-4 py-2 text-center relative transition-colors",
                     isActive(href)
-                      ? "text-white"
-                      : "text-white-80 hover:text-white",
+                      ? "text-primary hover:text-primary"
+                      : "text-white-80 hover:text-primary",
                   )}
                   aria-current={isActive(href) ? "page" : undefined}
                 >
@@ -112,9 +107,14 @@ export function NavComponent() {
             <Button asChild variant="default">
               <Link href="/reservations">Book a Table</Link>
             </Button>
-            <Link href="/my-cart">
+            <Link href="/my-cart" className="relative">
               <Button variant="link" size="icon" className="p-0">
                 <ShoppingBag size={24} className="text-white" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-crimson-500 text-white text-xxs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {totalItems}
+                  </span>
+                )}
               </Button>
             </Link>
             <Link href="/my-account">
@@ -130,17 +130,11 @@ export function NavComponent() {
 }
 
 function MobileSheet({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+  const { isActive } = useActivePath();
+  const { totalItems } = useCart();
 
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [isLegalOpen, setIsLegalOpen] = useState<boolean>(false);
-
-  const isActive = (path: string) => {
-    if (path === "/") {
-      return pathname === "/";
-    }
-    return pathname.startsWith(path);
-  };
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -261,8 +255,15 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
             <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center justify-center gap-3 px-6">
               <div className="flex flex-row gap-6">
                 <Button asChild variant="default" className="w-full">
-                  <Link href="/my-cart">
-                    <ShoppingBag size={24} className="text-white" />
+                  <Link href="/my-cart" className="relative">
+                    <Button variant="link" size="icon" className="p-0">
+                      <ShoppingBag size={24} className="text-white" />
+                      {totalItems > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-burgundy-700 text-white text-xxs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                          {totalItems}
+                        </span>
+                      )}
+                    </Button>
                   </Link>
                 </Button>
                 <Button asChild variant="default" className="w-full">
