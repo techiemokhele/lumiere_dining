@@ -66,7 +66,7 @@ export function CartOrderSummaryComponent({
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full relative">
+    <div className="flex lg:flex-col flex-col-reverse gap-6 w-full relative">
       <div className="flex flex-col p-6 w-full gap-6 rounded-3xl border border-burgundy-700 bg-burgundy-800">
         <h1 className="!font-bold text-3xl text-white-100">Order Summary</h1>
         <div className="flex flex-col w-full gap-6">
