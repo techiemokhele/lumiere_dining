@@ -3,6 +3,7 @@ import "@fontsource-variable/playfair-display";
 import "@fontsource-variable/inter";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="font-serif antialiased bg-background text-foreground">
-        {children}
+        <CartProvider>{children}</CartProvider>
         <Toaster />
       </body>
     </html>

@@ -10,8 +10,10 @@ import {
   TextSearchIcon,
   UserCircle,
 } from "lucide-react";
-import { PaddingContainer } from "../structure/PaddingContainer";
+import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
+import { useActivePath } from "@/lib/hooks/use-active-path";
+import { PaddingContainer } from "../structure/PaddingContainer";
 import { LogoComponent } from "../LogoComponent";
 import {
   Sheet,
@@ -22,10 +24,10 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { useActivePath } from "@/lib/hooks/use-active-path";
 
 export function NavComponent() {
   const { isActive } = useActivePath();
+  const { totalItems } = useCart();
 
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
@@ -105,9 +107,14 @@ export function NavComponent() {
             <Button asChild variant="default">
               <Link href="/reservations">Book a Table</Link>
             </Button>
-            <Link href="/my-cart">
+            <Link href="/my-cart" className="relative">
               <Button variant="link" size="icon" className="p-0">
                 <ShoppingBag size={24} className="text-white" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-crimson-500 text-white text-xxs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {totalItems}
+                  </span>
+                )}
               </Button>
             </Link>
             <Link href="/my-account">
@@ -124,6 +131,7 @@ export function NavComponent() {
 
 function MobileSheet({ children }: { children: React.ReactNode }) {
   const { isActive } = useActivePath();
+  const { totalItems } = useCart();
 
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [isLegalOpen, setIsLegalOpen] = useState<boolean>(false);
@@ -247,8 +255,15 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
             <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center justify-center gap-3 px-6">
               <div className="flex flex-row gap-6">
                 <Button asChild variant="default" className="w-full">
-                  <Link href="/my-cart">
-                    <ShoppingBag size={24} className="text-white" />
+                  <Link href="/my-cart" className="relative">
+                    <Button variant="link" size="icon" className="p-0">
+                      <ShoppingBag size={24} className="text-white" />
+                      {totalItems > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-burgundy-700 text-white text-xxs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                          {totalItems}
+                        </span>
+                      )}
+                    </Button>
                   </Link>
                 </Button>
                 <Button asChild variant="default" className="w-full">

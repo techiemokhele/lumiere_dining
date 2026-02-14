@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { useCart } from "@/context/CartContext";
 
 interface MenuCardProps {
   itemDirection: "left" | "right";
@@ -21,6 +24,8 @@ export function LandingPageMenuCard({
   tags,
   image,
 }: MenuCardProps) {
+  const { addItem } = useCart();
+
   return (
     <div
       className={cn(
@@ -49,7 +54,10 @@ export function LandingPageMenuCard({
         </p>
 
         <div className="flex justify-end mt-auto">
-          <Button className="bg-burgundy-700 hover:bg-crimson-500">
+          <Button
+            className="bg-burgundy-700 hover:bg-crimson-500"
+            onClick={() => addItem({ id: name, name, price, image, excerpt })}
+          >
             <Plus size={16} />
             <span>Add to Order</span>
           </Button>
