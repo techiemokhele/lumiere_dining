@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
+import { useCart } from "@/context/CartContext";
 
 interface CartSummaryProps {
   subtotal: number;
@@ -29,40 +31,24 @@ export function CartOrderSummaryComponent({
   serviceCharge,
   total,
 }: CartSummaryProps) {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const router = useRouter();
+  const { promoApplied, applyPromo, removePromo, discount } = useCart();
+  const [promoError, setPromoError] = useState<string | null>(null);
 
   const form = useForm<PromoCodeFormValues>({
-    defaultValues: {
-      code: "",
-    },
+    defaultValues: { code: "" },
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     resolver: zodResolver(promoCodeFormSchema),
   });
 
   const onSubmit = async (values: PromoCodeFormValues) => {
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/promo-code", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to apply promo code");
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      form.reset();
-      setIsSubmitting(false);
+    setPromoError(null);
+    const success = applyPromo(values.code);
+    if (!success) {
+      setPromoError("Invalid promo code.");
     }
+    form.reset();
   };
 
   return (
@@ -78,6 +64,26 @@ export function CartOrderSummaryComponent({
               R{subtotal.toFixed(2)}
             </p>
           </div>
+
+          {promoApplied && (
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex items-center gap-2">
+                <p className="font-semibold lg:text-sm text-xs text-green-400">
+                  Promo Discount (25%)
+                </p>
+                <button
+                  onClick={removePromo}
+                  className="text-white-60 hover:text-crimson-500"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+              <p className="font-semibold lg:text-sm text-xs text-green-400">
+                -R{discount.toFixed(2)}
+              </p>
+            </div>
+          )}
+
           <div className="flex flex-row justify-between items-center">
             <p className="font-semibold lg:text-sm text-xs text-white-60">
               Taxes(8%)
@@ -110,7 +116,12 @@ export function CartOrderSummaryComponent({
           </div>
         </div>
 
-        <Button variant="default" size="lg" className="rounded-full">
+        <Button
+          variant="default"
+          size="lg"
+          className="rounded-full"
+          onClick={() => router.push("/my-cart/checkout")}
+        >
           <span>Proceed to Checkout</span>
           <ArrowRight className="ml-2" />
         </Button>
@@ -123,58 +134,52 @@ export function CartOrderSummaryComponent({
         </p>
       </div>
 
-      <div className="flex flex-row p-6 w-full rounded-3xl border border-burgundy-700 bg-burgundy-800">
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-row gap-4 w-full"
-          >
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem className="flex-1">
-                  <FormControl>
-                    <Input
-                      {...field}
-                      name="code"
-                      type="text"
-                      autoComplete="off"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellCheck="false"
-                      maxLength={6}
-                      placeholder="Promo Code"
-                      className="w-full bg-burgundy-950"
-                    />
-                  </FormControl>
-                  {form.formState.errors.code ? (
-                    <p className="text-crimson-500 text-xxs font-normal mt-1">
-                      {form.formState.errors.code.message}
-                    </p>
-                  ) : (
-                    <div className="h-2 py-1.5" />
-                  )}
-                </FormItem>
-              )}
-            />
-            {isSubmitting ? (
+      {!promoApplied && (
+        <div className="flex flex-row p-6 w-full rounded-3xl border border-burgundy-700 bg-burgundy-800">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-row gap-4 w-full"
+            >
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormControl>
+                      <Input
+                        {...field}
+                        name="code"
+                        type="text"
+                        autoComplete="off"
+                        autoCorrect="off"
+                        autoCapitalize="off"
+                        spellCheck="false"
+                        maxLength={6}
+                        placeholder="Promo Code"
+                        className="w-full bg-burgundy-950"
+                      />
+                    </FormControl>
+                    {(form.formState.errors.code || promoError) && (
+                      <p className="text-crimson-500 text-xxs font-normal mt-1">
+                        {form.formState.errors.code?.message || promoError}
+                      </p>
+                    )}
+                  </FormItem>
+                )}
+              />
               <Button
+                type="submit"
                 variant="default"
                 size="sm"
-                disabled
                 className="rounded-full"
               >
-                <span>Applying...</span>
-              </Button>
-            ) : (
-              <Button variant="default" size="sm" className="rounded-full">
                 <span>Apply</span>
               </Button>
-            )}
-          </form>
-        </Form>
-      </div>
+            </form>
+          </Form>
+        </div>
+      )}
     </div>
   );
 }
