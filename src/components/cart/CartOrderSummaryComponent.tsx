@@ -7,11 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
-import { Form, FormField } from "../ui/form";
+import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 
 const promoCodeFormSchema = z.object({
-  code: z.string(),
+  code: z.string().min(1, "Promo code is required."),
 });
 
 type PromoCodeFormValues = z.infer<typeof promoCodeFormSchema>;
@@ -48,6 +48,7 @@ export function CartOrderSummaryComponent() {
     } catch (error) {
       console.error(error);
     } finally {
+      form.reset();
       setIsSubmitting(false);
     }
   };
@@ -110,21 +111,39 @@ export function CartOrderSummaryComponent() {
         </p>
       </div>
 
-      <div className="flex flex-row p-6 w-full gap-6 rounded-3xl border border-burgundy-700 bg-burgundy-800">
+      <div className="flex flex-row p-6 w-full rounded-3xl border border-burgundy-700 bg-burgundy-800">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-row gap-4 w-full items-center"
+            className="flex flex-row gap-4 w-full"
           >
             <FormField
               control={form.control}
               name="code"
               render={({ field }) => (
-                <Input
-                  {...field}
-                  placeholder="Promo Code"
-                  className="w-full bg-burgundy-950"
-                />
+                <FormItem className="flex-1">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      name="code"
+                      type="text"
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
+                      spellCheck="false"
+                      maxLength={6}
+                      placeholder="Promo Code"
+                      className="w-full bg-burgundy-950"
+                    />
+                  </FormControl>
+                  {form.formState.errors.code ? (
+                    <p className="text-crimson-500 text-xxs font-normal mt-1">
+                      {form.formState.errors.code.message}
+                    </p>
+                  ) : (
+                    <div className="h-2 py-1.5" />
+                  )}
+                </FormItem>
               )}
             />
             {isSubmitting ? (
