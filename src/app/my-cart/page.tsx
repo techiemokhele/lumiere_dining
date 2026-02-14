@@ -1,6 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { EmptyCartComponent } from "@/components/EmptyCartComponent";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
@@ -10,10 +13,34 @@ import { Separator } from "@/components/ui/separator";
 import { CartItemCardComponent } from "@/components/cart/CartItemCardComponent";
 import { CartOrderSummaryComponent } from "@/components/cart/CartOrderSummaryComponent";
 import { CartRelatedItemComponent } from "@/components/cart/CartRelatedItemComponent";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+
+const kitchenNotesFormSchema = z.object({
+  notes: z.string().optional(),
+});
+
+type KitchenNotesFormValues = z.infer<typeof kitchenNotesFormSchema>;
 
 export default function MyCartMainPage() {
   const [isCartEmpty] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(1);
+
+  const form = useForm<KitchenNotesFormValues>({
+    defaultValues: {
+      notes: "",
+    },
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    resolver: zodResolver(kitchenNotesFormSchema),
+  });
 
   const price = 28;
 
@@ -24,6 +51,13 @@ export default function MyCartMainPage() {
   const tax = subtotal * 0.08;
   const serviceCharge = subtotal * 0.15;
   const total = subtotal + tax + serviceCharge;
+
+  const onSubmit = async (values: KitchenNotesFormValues) => {
+    console.log(
+      "This values will be sent through once the user clicks on checkout button fro the CartOrderSummaryComponent",
+      values,
+    );
+  };
 
   return (
     <>
@@ -69,6 +103,58 @@ export default function MyCartMainPage() {
                     setQuantity={setQuantity}
                     price={price}
                   />
+
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="flex flex-col gap-2 w-full"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="notes"
+                        render={({ field }) => (
+                          <FormItem className="flex-1">
+                            <FormLabel>
+                              <span className="text-sm font-normal text-white-100">
+                                Kitchen Notes
+                              </span>
+                            </FormLabel>
+                            <FormControl>
+                              <Textarea
+                                {...field}
+                                name="code"
+                                autoCorrect="off"
+                                autoCapitalize="off"
+                                spellCheck="false"
+                                rows={4}
+                                placeholder="Any allergies or special requests? (e.g. No onions, no garlic, sauce on the side, etc.)"
+                                className="w-full rounded-3xl bg-burgundy-950 resize-none"
+                              />
+                            </FormControl>
+                            {form.formState.errors.notes ? (
+                              <p className="text-crimson-500 text-xxs font-normal mt-1">
+                                {form.formState.errors.notes.message}
+                              </p>
+                            ) : (
+                              <div className="h-2 py-1.5" />
+                            )}
+                          </FormItem>
+                        )}
+                      />
+
+                      {form.formState.dirtyFields.notes && (
+                        <div className="flex w-full justify-end items-end">
+                          <Button
+                            type="submit"
+                            className=""
+                            disabled={!form.formState.isValid}
+                          >
+                            <span>Attach notes</span>
+                          </Button>
+                        </div>
+                      )}
+                    </form>
+                  </Form>
 
                   <Separator />
 
