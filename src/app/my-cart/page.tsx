@@ -42,10 +42,39 @@ export default function MyCartMainPage() {
   };
 
   const cartItemIds = new Set(items.map((i) => i.id));
-  const relatedItems = landingMenuData
+
+  const cartCategories = new Set<string>();
+  for (const cartItem of items) {
+    for (const section of landingMenuData) {
+      if (section.items.some((mi) => mi.name === cartItem.id)) {
+        cartCategories.add(section.id);
+      }
+    }
+  }
+
+  const prioritized = landingMenuData
+    .filter((section) => !cartCategories.has(section.id))
     .flatMap((section) => section.items)
-    .filter((item) => !cartItemIds.has(item.name))
-    .slice(0, 4);
+    .filter((item) => !cartItemIds.has(item.name));
+
+  const fallback = landingMenuData
+    .filter((section) => cartCategories.has(section.id))
+    .flatMap((section) => section.items)
+    .filter((item) => !cartItemIds.has(item.name));
+
+  const shuffle = <T,>(arr: T[]): T[] => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const relatedItems = [...shuffle(prioritized), ...shuffle(fallback)].slice(
+    0,
+    4,
+  );
 
   if (items.length === 0) return <EmptyCartComponent />;
 
