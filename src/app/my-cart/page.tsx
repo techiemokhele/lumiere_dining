@@ -158,11 +158,17 @@ export default function MyCartMainPage() {
 
                   <Separator />
 
-                  <div className="flex flex-col w-full gap-4">
-                    <h2 className="font-sans !font-bold lg:text-2xl text-xl text-white">
+                  <div className="flex flex-col w-full gap-8">
+                    <h2 className="!font-bold lg:text-2xl text-xl text-white">
                       Perfect Pairings
                     </h2>
-                    <CartRelatedItemComponent />
+
+                    <div className="grid grid-cols-2 gap-6 w-full">
+                      <CartRelatedItemComponent />
+                      <CartRelatedItemComponent />
+                      <CartRelatedItemComponent />
+                      <CartRelatedItemComponent />
+                    </div>
                   </div>
                 </div>
 

@@ -35,7 +35,7 @@ export function CartItemCardComponent({
           alt="wagyu beef"
           width={1000}
           height={1000}
-          className="w-44 h-32 object-fill rounded-3xl"
+          className="w-full h-32 object-cover rounded-3xl"
         />
       </div>
 
