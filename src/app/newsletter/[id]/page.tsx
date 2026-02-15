@@ -82,14 +82,16 @@ function ShareButtons({ post }: { post: NewsletterPost }) {
     <div className="flex flex-col gap-3">
       <p className="text-xs text-white-60 uppercase font-semibold">Share</p>
       <div className="flex flex-row gap-2">
-        {typeof navigator !== "undefined" && navigator.share && (
-          <button
-            onClick={handleNativeShare}
-            className="w-9 h-9 rounded-full bg-burgundy-700 flex items-center justify-center text-white-60 hover:text-white hover:bg-crimson-600 transition-colors"
-          >
-            <Share2 size={15} />
-          </button>
-        )}
+        {typeof window !== "undefined" &&
+          typeof navigator !== "undefined" &&
+          typeof navigator.share === "function" && (
+            <button
+              onClick={handleNativeShare}
+              className="w-9 h-9 rounded-full bg-burgundy-700 flex items-center justify-center text-white-60 hover:text-white hover:bg-crimson-600 transition-colors"
+            >
+              <Share2 size={15} />
+            </button>
+          )}
         <Link
           href={facebookUrl}
           target="_blank"
