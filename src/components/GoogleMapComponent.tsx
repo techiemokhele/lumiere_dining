@@ -13,7 +13,7 @@ export function GoogleMapComponent({ className }: GoogleMapComponentProps) {
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        title="Lumiere Dining Location - 19 Dock Road, Cape Town"
+        title="Lumière Dining Location - 19 Dock Road, Cape Town"
         className="w-full h-full"
       />
     </div>

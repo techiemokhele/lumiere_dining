@@ -106,7 +106,7 @@ export const landingMenuData: MenuSection[] = [
           "Our grilled octopus is a labor of love that begins with proper preparation. We source whole Spanish octopus, which we tenderize through a slow-cooking process that can take up to two hours. The octopus is poached gently in court-bouillon with wine, bay leaves, and peppercorns until fork-tender. Once cooled, we marinate the tentacles in olive oil, garlic, and lemon before grilling over high heat to achieve beautiful char marks and crispy edges while maintaining a tender interior. The octopus is served with thin slices of Spanish chorizo, which we crisp up to release their paprika-infused oils. Fingerling potatoes are roasted until golden and crispy, providing an earthy counterpoint to the seafood. Our smoked paprika aioli ties everything together with its creamy texture and smoky-garlicky flavor profile. Fresh parsley and lemon wedges brighten the dish, while a drizzle of quality olive oil adds richness. This dish showcases Mediterranean cooking at its best, where simple techniques and quality ingredients create something extraordinary. The textural contrast between crispy, charred exterior and tender interior makes every bite exciting.",
         tags: ["Seafood", "Smoky"],
         image:
-          "https://images.unsplash.com/photo-1605351868548-f0db8d34e5c5?w=800&q=80",
+          "https://images.unsplash.com/photo-1764397514789-079231e88f31?q=80",
       },
       {
         name: "Duck Confit Spring Rolls",
@@ -128,7 +128,7 @@ export const landingMenuData: MenuSection[] = [
           "Our wild mushroom risotto is a vegetarian dish that rivals any meat-based preparation in complexity and satisfaction. We use Carnaroli rice from Piedmont, which has an even higher starch content than arborio, creating an exceptionally creamy texture. The rice is toasted in butter until each grain is coated, then we add white wine to deglaze before beginning the slow addition of mushroom stock. This stock is made by simmering dried porcini mushrooms for hours, extracting their intense, earthy flavor. As the rice cooks, we continuously stir and add stock ladle by ladle, allowing each addition to be absorbed before adding more. This process takes about 20 minutes and requires constant attention. Meanwhile, we sauté a mix of fresh wild mushrooms—shiitake, oyster, and cremini—in butter and garlic. These are folded into the risotto along with grated Parmigiano-Reggiano and a final knob of butter for extra richness. The dish is finished with a drizzle of white truffle oil and fresh thyme. The result is a risotto that's creamy but not heavy, with distinct rice grains suspended in a velvety sauce, studded with meaty mushrooms throughout.",
         tags: ["Vegetarian", "Creamy"],
         image:
-          "https://images.unsplash.com/photo-1476124369491-540673dcbc99?w=800&q=80",
+          "https://images.unsplash.com/photo-1723476654474-77baaeb27012?q=80",
       },
     ],
   },
@@ -317,8 +317,7 @@ export const landingMenuData: MenuSection[] = [
         description:
           "Our lamb chops are cut from a rack of New Zealand lamb, known for its mild flavor and tender texture. Each order includes four thick-cut chops, French-trimmed for an elegant presentation. We marinate the chops briefly in olive oil with fresh rosemary, garlic, and lemon zest—aromatics that complement lamb beautifully. The chops are grilled over high heat to achieve a caramelized crust while keeping the interior medium-rare and rosy pink. The fat along the edges crisps up and becomes almost candy-like in its sweetness. We serve the chops with a vibrant mint chimichurri, a twist on the traditional Argentinian sauce. Our version includes fresh mint, parsley, cilantro, garlic, olive oil, and red wine vinegar—the mint providing a classic pairing with lamb while the other herbs add complexity. The plate is completed with roasted baby potatoes and grilled zucchini. Each chop is perfectly sized for picking up and eating with your hands, making this dish both elegant and fun. This preparation lets the quality of the lamb shine through while adding layers of complementary flavors.",
         tags: ["Classic", "Aromatic"],
-        image:
-          "https://images.unsplash.com/photo-1562158147-f8c3e7d0e18e?w=800&q=80",
+        image: "https://images.unsplash.com/photo-1550367363-ea12860cc124?q=80",
       },
       {
         name: "Pork Tomahawk",
@@ -362,7 +361,7 @@ export const landingMenuData: MenuSection[] = [
           "Our beef short ribs are a labor of love, requiring 12 hours of slow smoking to achieve fall-off-the-bone tenderness. We start with meaty beef plate short ribs, also called dino ribs for their impressive size. The ribs are seasoned with our house dry rub—a blend of paprika, brown sugar, garlic powder, onion powder, and secret spices. They're then smoked low and slow at 225°F over hickory and oak wood, which imparts a deep, smoky flavor while the long cooking time breaks down tough connective tissue into tender, juicy meat. During the final hour, we brush the ribs with our house BBQ sauce—a tomato-based sauce balanced between sweet, tangy, and spicy. The sauce caramelizes on the ribs, creating a sticky, flavorful glaze. We serve three massive ribs per order, accompanied by classic coleslaw made with cabbage, carrots, and a tangy mayo dressing. The dish also includes cornbread and baked beans. This is American barbecue at its finest—messy, satisfying, and full of bold flavors. Perfect for those who aren't afraid to get their hands dirty.",
         tags: ["Smoky", "Tender"],
         image:
-          "https://images.unsplash.com/photo-1529694490557-7f6c560d819e?w=800&q=80",
+          "https://images.unsplash.com/photo-1611354574034-9655b5b72d59?q=80",
       },
     ],
   },
@@ -424,7 +423,7 @@ export const landingMenuData: MenuSection[] = [
           "Our New York-style cheesecake is the gold standard: dense, rich, and intensely creamy. We make it with full-fat cream cheese, sour cream, heavy cream, eggs, and sugar—no skimping on the good stuff. The base is a graham cracker crust made from crushed cookies, butter, and sugar, pressed firmly into the pan. The cheesecake batter is mixed carefully to avoid incorporating air, which would cause cracks. We bake the cheesecake in a water bath at low temperature for over an hour, then turn off the oven and let it cool slowly inside to prevent cracking. This results in a perfectly smooth top and incredibly creamy texture. The cheesecake is chilled overnight to fully set and develop flavor. We serve generous slices topped with seasonal berry compote—a mixture of fresh berries cooked briefly with sugar and lemon juice. The tart berries provide a perfect counterpoint to the rich, tangy cheesecake. A dollop of whipped cream and fresh mint garnish complete the presentation. This is cheesecake as it should be: unapologetically rich, perfectly smooth, and utterly satisfying. It's a slice of New York culinary tradition.",
         tags: ["Classic", "Rich"],
         image:
-          "https://images.unsplash.com/photo-1533134242820-b54f7e5de0b3?w=800&q=80",
+          "https://images.unsplash.com/photo-1524351199678-941a58a3df50?q=80",
       },
       {
         name: "Panna Cotta",
@@ -457,7 +456,7 @@ export const landingMenuData: MenuSection[] = [
           "The chocolate soufflé is perhaps the most impressive dessert in French cuisine, requiring precise technique and timing. We make a chocolate base by melting dark chocolate with butter, then enriching it with egg yolks. Separately, we whip egg whites with sugar to stiff peaks. The whipped whites are carefully folded into the chocolate base—this is what gives the soufflé its signature rise and airy texture. The mixture is poured into buttered and sugared ramekins, then baked in a hot oven. As it bakes, the air in the egg whites expands, causing the soufflé to rise dramatically above the rim of the ramekin. The outside sets while the inside remains slightly molten. Because soufflés begin to deflate as soon as they're removed from the oven, we require a 20-minute wait after you order. When it arrives at your table, the soufflé will be puffed high, with a light, airy texture and intense chocolate flavor. We serve it with crème anglaise—a vanilla custard sauce that you pour into the center, allowing it to flow into the molten interior. This is dessert theater, delivering both visual drama and exquisite flavor.",
         tags: ["Chocolate", "Signature"],
         image:
-          "https://images.unsplash.com/photo-1542843289-1c2c31f71f15?w=800&q=80",
+          "https://images.unsplash.com/photo-1593963372393-dd4e4c7861d4?q=80",
       },
       {
         name: "Profiteroles",
@@ -479,7 +478,7 @@ export const landingMenuData: MenuSection[] = [
           "Mille-feuille, meaning 'thousand leaves,' is also known as Napoleon. This is French pastry at its most refined and technical. We begin with puff pastry, which we roll incredibly thin and bake until golden and crispy. The pastry naturally separates into hundreds of thin, flaky layers. We prepare three layers of pastry for each serving. The filling is crème pâtissière (pastry cream)—a vanilla custard made with milk, egg yolks, sugar, and vanilla beans, thickened with cornstarch for stability. Some of the cream is lightened with whipped cream to create a mousse-like texture. To assemble, we place a pastry layer on the plate, pipe a layer of cream, add another pastry layer, more cream, and finally a top pastry layer. The top is traditionally glazed with fondant and decorated with chocolate lines dragged to create a distinctive pattern. We caramelize the top for extra crunch and visual appeal. The result is a dessert that shatters satisfyingly with each bite, the crispy pastry contrasting beautifully with the smooth cream. It requires a knife and fork to eat properly. This is a dessert for those who appreciate technical excellence and refined sweetness.",
         tags: ["French", "Delicate"],
         image:
-          "https://images.unsplash.com/photo-1587241321921-91aadf6e1c30?w=800&q=80",
+          "https://images.unsplash.com/photo-1593424718424-cf4d83f3def1?q=80",
       },
     ],
   },
@@ -530,7 +529,7 @@ export const landingMenuData: MenuSection[] = [
           "Cloudy Bay is the wine that introduced the world to New Zealand Sauvignon Blanc's distinctive style. From Marlborough on the South Island, this wine showcases what makes the region special: intense fruit flavors combined with vibrant acidity and mineral notes. In the glass, it's pale straw with green highlights. The nose bursts with aromas of passion fruit, grapefruit, lime, and gooseberry, along with notes of fresh-cut grass and bell pepper. On the palate, it's medium-bodied with laser-like acidity that makes your mouth water. The fruit flavors are intense and pure, ranging from tropical to citrus. There's an underlying minerality that adds complexity and a slightly herbaceous note that's characteristic of Marlborough. The wine is made primarily in stainless steel to preserve its fresh fruit character, though a small portion sees oak to add texture. The finish is long and refreshing, leaving you wanting another sip. This is a food-friendly wine that pairs beautifully with our seafood dishes, particularly the sea bass or grilled octopus. It's also excellent with goat cheese or as an aperitif. Serve it well-chilled on a warm evening for maximum refreshment.",
         tags: ["White", "Fresh"],
         image:
-          "https://images.unsplash.com/photo-1597182368611-e9e9ddda84ed?w=800&q=80",
+          "https://images.unsplash.com/photo-1641835626111-4932061672ea?q=80",
       },
       {
         name: "Opus One 2017",
@@ -540,8 +539,7 @@ export const landingMenuData: MenuSection[] = [
         description:
           "Opus One was created in 1979 as a joint venture between Baron Philippe de Rothschild of Château Mouton Rothschild and Robert Mondavi. The goal was to create a Bordeaux-style blend using Napa Valley fruit, combining French elegance with California power. The 2017 vintage exemplifies this vision perfectly. The wine is a blend dominated by Cabernet Sauvignon, with Cabernet Franc, Merlot, Petit Verdot, and Malbec completing the composition. In the glass, it shows deep purple color with ruby edges. The nose offers intense aromas of cassis, blackberry, and dark cherry, layered with vanilla, mocha, and cedar from oak aging. Notes of violet and graphite add complexity. On the palate, the wine is full-bodied and rich, with velvety tannins that coat the mouth. The fruit is ripe and concentrated but never jammy, maintaining elegance and balance. The oak is well-integrated, providing structure and flavor without overwhelming the fruit. The finish is long and satisfying, with lingering notes of dark fruit and spice. This wine pairs excellently with our Wagyu ribeye or lamb rack. While approachable now, it will continue to develop for 15-20 years, making it both a pleasure to drink and an excellent investment.",
         tags: ["Red", "American"],
-        image:
-          "https://images.unsplash.com/photo-1586370434639-0fe43b2d32d6?w=800&q=80",
+        image: "https://images.unsplash.com/photo-1558670426-931963635470?q=80",
       },
       {
         name: "Penfolds Grange 2016",
@@ -563,7 +561,7 @@ export const landingMenuData: MenuSection[] = [
           "Chablis is often considered the purest expression of Chardonnay, made without the oak aging that characterizes many New World versions. From the northernmost region of Burgundy, Chablis Grand Cru represents the pinnacle of this style. The wines come from seven climats (vineyard sites) with ideal exposure and the region's distinctive Kimmeridgian limestone soil—ancient seabeds rich in fossilized oyster shells. This unique terroir imparts the wine's signature minerality. In the glass, it's pale gold with green highlights. The nose offers aromas of green apple, lemon, and white flowers, along with that distinctive flinty, mineral character often described as 'wet stones' or 'oyster shell.' On the palate, it's medium-bodied with racy acidity that provides structure and aging potential. The fruit flavors are precise and pure—citrus, green apple, and white peach. The minerality is pronounced, adding complexity and length. The wine has remarkable tension between fruit and acidity, creating a wine that's both refreshing and complex. This Chablis pairs beautifully with our oysters or sea bass, the minerality echoing the briny, ocean flavors. It's also excellent with goat cheese or as an aperitif.",
         tags: ["White", "French"],
         image:
-          "https://images.unsplash.com/photo-1586370434639-0fe43b2d32d6?w=800&q=80",
+          "https://images.unsplash.com/photo-1599113656124-b96bf21e30d3?q=80",
       },
       {
         name: "Barolo Riserva 2015",
@@ -574,7 +572,7 @@ export const landingMenuData: MenuSection[] = [
           "Barolo, made from Nebbiolo grapes in Piedmont, is called the 'king of wines and wine of kings.' The Riserva designation means the wine has been aged for at least five years before release, including three years in oak. The 2015 vintage is outstanding throughout Piedmont. In the glass, Barolo shows a distinctive garnet color with orange edges—this is normal for Nebbiolo as it ages. The nose is incredibly complex and aromatic, offering notes of red cherry, raspberry, and dried rose petals, along with tar, leather, tobacco, truffle, and spices. These evolved aromatics are what make Barolo so captivating. On the palate, the wine is full-bodied with firm, gripping tannins that are characteristic of Nebbiolo. The acidity is high, providing structure and freshness. Flavors of sour cherry, dried herbs, and earth dominate, with a long, persistent finish. What makes Barolo special is its combination of power and elegance—it's a big wine that never feels heavy. The tannins can be austere when young, but with age they integrate beautifully. This wine pairs excellently with our Osso Buco or any rich, braised meat dishes. It can be enjoyed now but will continue to evolve for 20+ years.",
         tags: ["Red", "Italian"],
         image:
-          "https://images.unsplash.com/photo-1566754436990-d9e423c0d6a2?w=800&q=80",
+          "https://images.unsplash.com/photo-1619810490925-e27ba7623459?q=80",
       },
       {
         name: "Moët & Chandon Rosé",
@@ -585,7 +583,7 @@ export const landingMenuData: MenuSection[] = [
           "Moët & Chandon is the world's most recognized champagne house, and their rosé champagne represents the pinnacle of pink sparklers. This wine is made using the traditional method, with a second fermentation in the bottle creating those fine, persistent bubbles. The rosé color comes from adding a small amount of red Pinot Noir wine to the blend, along with white Chardonnay and Pinot Noir wines. In the glass, it's a beautiful salmon-pink color with fine, continuous bubbles. The nose offers aromas of wild strawberry, raspberry, and red cherry, along with notes of rose petals, brioche, and subtle spice. On the palate, it's medium-bodied with creamy mousse and vibrant acidity. The red fruit flavors are fresh and pure, complemented by notes of citrus and subtle toast. The wine has excellent length and a refreshing finish. What makes this rosé special is its balance—it's fruity without being sweet, elegant without being austere. It's incredibly versatile with food, pairing beautifully with our tuna tartare, duck breast, or desserts. It's also wonderful on its own as an aperitif or for celebrating special occasions. Serve it well-chilled in flutes to showcase those beautiful bubbles.",
         tags: ["Champagne", "Rosé"],
         image:
-          "https://images.unsplash.com/photo-1558366725-f5d947ba59cc?w=800&q=80",
+          "https://images.unsplash.com/photo-1551339367-c86c2ef202d7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         name: "Screaming Eagle Cabernet",

@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { useCart } from "@/context/CartContext";
 
 interface MenuCardProps {
   itemDirection: "left" | "right";
@@ -21,19 +24,21 @@ export function LandingPageMenuCard({
   tags,
   image,
 }: MenuCardProps) {
+  const { addItem } = useCart();
+
   return (
     <div
       className={cn(
         "group flex w-full rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden",
         itemDirection === "left"
           ? "lg:flex-row flex-col"
-          : "lg:flex-row-reverse flex-col"
+          : "lg:flex-row-reverse flex-col",
       )}
     >
       <div className="flex flex-col lg:w-2/3 w-full gap-4 p-6">
         <div className="flex flex-row justify-between items-center">
           <p className="font-serif font-bold text-xl text-white">{name}</p>
-          <p className="font-serif font-bold text-xl text-primary">${price}</p>
+          <p className="font-serif font-bold text-xl text-primary">R{price}</p>
         </div>
 
         <div className="flex flex-row gap-2 flex-wrap">
@@ -49,7 +54,10 @@ export function LandingPageMenuCard({
         </p>
 
         <div className="flex justify-end mt-auto">
-          <Button className="bg-burgundy-700 hover:bg-crimson-500">
+          <Button
+            className="bg-burgundy-700 hover:bg-crimson-500"
+            onClick={() => addItem({ id: name, name, price, image, excerpt })}
+          >
             <Plus size={16} />
             <span>Add to Order</span>
           </Button>

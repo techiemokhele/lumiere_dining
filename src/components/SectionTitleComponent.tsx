@@ -1,12 +1,17 @@
+"use client";
+
+import Link from "next/link";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 
 interface SectionTitleProps {
+  id: string;
   title: string;
   description: string;
 }
 
 export function SectionTitleComponent({
+  id,
   title,
   description,
 }: SectionTitleProps) {
@@ -22,9 +27,11 @@ export function SectionTitleComponent({
           </p>
         </div>
 
-        <Button variant="default">
-          <span>View All</span>
-        </Button>
+        <Link href={`/menu/${id}`}>
+          <Button variant="default">
+            <span>View All</span>
+          </Button>
+        </Link>
       </div>
       <Separator />
     </div>

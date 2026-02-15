@@ -1,0 +1,216 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { GalleryItem } from "@/data/galleryData";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+
+interface ImageViewerModalProps {
+  items: GalleryItem[];
+  currentIndex: number;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function ImageViewerModalComponent({
+  items,
+  currentIndex,
+  isOpen,
+  onClose,
+}: ImageViewerModalProps) {
+  const [selectedIndex, setSelectedIndex] = useState(currentIndex);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [thumbnailsLoaded, setThumbnailsLoaded] = useState<Set<string>>(
+    new Set(),
+  );
+
+  useEffect(() => {
+    setSelectedIndex(currentIndex);
+    setImageLoaded(false);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") handlePrevious();
+      if (e.key === "ArrowRight") handleNext();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, selectedIndex]);
+
+  const handlePrevious = () => {
+    setSelectedIndex((prev) => (prev > 0 ? prev - 1 : items.length - 1));
+  };
+
+  const handleNext = () => {
+    setSelectedIndex((prev) => (prev < items.length - 1 ? prev + 1 : 0));
+  };
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) handleNext();
+    if (isRightSwipe) handlePrevious();
+  };
+
+  const handleThumbnailLoad = (itemId: string) => {
+    setThumbnailsLoaded((prev) => new Set(prev).add(itemId));
+  };
+
+  if (!isOpen) return null;
+
+  const currentItem = items[selectedIndex];
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div className="relative w-full h-full flex flex-col">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-50 p-2 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 transition-colors"
+          aria-label="Close viewer"
+        >
+          <X className="w-6 h-6 text-white" />
+        </button>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePrevious();
+          }}
+          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 transition-colors"
+          aria-label="Previous image"
+        >
+          <ChevronLeft className="w-6 h-6 text-white" />
+        </button>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleNext();
+          }}
+          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 transition-colors"
+          aria-label="Next image"
+        >
+          <ChevronRight className="w-6 h-6 text-white" />
+        </button>
+
+        <div
+          className="flex-1 flex items-center justify-center p-4 md:p-8"
+          onClick={(e) => e.stopPropagation()}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          {!imageLoaded && (
+            <Skeleton className="max-w-full max-h-96 w-[600px] h-96 bg-burgundy-800 rounded-lg" />
+          )}
+
+          {currentItem.type === "video" ? (
+            <video
+              src={currentItem.src}
+              controls
+              autoPlay
+              onLoadedData={() => setImageLoaded(true)}
+              className={cn(
+                "max-w-full max-h-full object-contain rounded-lg",
+                !imageLoaded && "hidden",
+              )}
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={currentItem.src}
+              alt={currentItem.title}
+              onLoad={() => setImageLoaded(true)}
+              className={cn(
+                "max-w-full max-h-96 object-contain rounded-lg",
+                !imageLoaded && "hidden",
+              )}
+            />
+          )}
+        </div>
+
+        <div
+          className="px-4 md:px-8 py-4 bg-gradient-to-t from-black/80 to-transparent"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h3 className="font-serif font-bold text-xl text-white mb-1">
+            {currentItem.title}
+          </h3>
+          <p className="font-sans text-sm text-white/80">
+            {currentItem.description}
+          </p>
+        </div>
+
+        <div
+          className="px-4 md:px-8 pb-4 bg-gradient-to-t from-black/80"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            {items.map((item, index) => (
+              <button
+                key={item.id}
+                onClick={() => setSelectedIndex(index)}
+                className={cn(
+                  "relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
+                  selectedIndex === index
+                    ? "border-crimson-500 scale-95"
+                    : "border-transparent opacity-60 hover:opacity-100",
+                )}
+              >
+                {!thumbnailsLoaded.has(item.id) && (
+                  <Skeleton className="absolute inset-0 bg-burgundy-800" />
+                )}
+
+                {item.type === "video" ? (
+                  <video
+                    src={item.thumbnail || item.src}
+                    onLoadedData={() => handleThumbnailLoad(item.id)}
+                    className={cn(
+                      "w-full h-full object-cover",
+                      !thumbnailsLoaded.has(item.id) && "opacity-0",
+                    )}
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    onLoad={() => handleThumbnailLoad(item.id)}
+                    className={cn(
+                      "w-full h-full object-cover",
+                      !thumbnailsLoaded.has(item.id) && "opacity-0",
+                    )}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
