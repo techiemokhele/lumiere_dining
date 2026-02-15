@@ -28,17 +28,25 @@ const kitchenNotesFormSchema = z.object({ notes: z.string().optional() });
 type KitchenNotesFormValues = z.infer<typeof kitchenNotesFormSchema>;
 
 export default function MyCartMainPage() {
-  const { items, subtotal, tax, serviceCharge, total } = useCart();
+  const {
+    items,
+    subtotal,
+    tax,
+    serviceCharge,
+    total,
+    kitchenNotes,
+    setKitchenNotes,
+  } = useCart();
 
   const form = useForm<KitchenNotesFormValues>({
-    defaultValues: { notes: "" },
+    defaultValues: { notes: kitchenNotes || "" },
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     resolver: zodResolver(kitchenNotesFormSchema),
   });
 
   const onSubmit = async (values: KitchenNotesFormValues) => {
-    console.log("Kitchen notes:", values);
+    setKitchenNotes(values.notes || "");
   };
 
   const cartItemIds = new Set(items.map((i) => i.id));

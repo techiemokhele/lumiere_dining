@@ -65,7 +65,9 @@ export default function CheckoutPage() {
 
         <div className="flex lg:flex-row flex-col w-full">
           <div className="flex lg:flex-row flex-col w-full lg:gap-16 gap-8 lg:mb-0 mb-4">
-            <div className="flex flex-col lg:w-2/3 w-full gap-10"></div>
+            <div className="flex flex-col lg:w-2/3 w-full gap-10">
+              {/*Implement card  detail entry here - YOCO*/}
+            </div>
 
             <div className="flex lg:w-1/3 w-full">
               <CartOrderSummaryComponent

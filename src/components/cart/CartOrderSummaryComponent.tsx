@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, Loader2, X } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
@@ -31,9 +30,16 @@ export function CartOrderSummaryComponent({
   serviceCharge,
   total,
 }: CartSummaryProps) {
-  const router = useRouter();
-  const { promoApplied, applyPromo, removePromo, discount } = useCart();
+  const {
+    items,
+    promoApplied,
+    applyPromo,
+    removePromo,
+    discount,
+    kitchenNotes,
+  } = useCart();
   const [promoError, setPromoError] = useState<string | null>(null);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const form = useForm<PromoCodeFormValues>({
     defaultValues: { code: "" },
@@ -49,6 +55,40 @@ export function CartOrderSummaryComponent({
       setPromoError("Invalid promo code.");
     }
     form.reset();
+  };
+
+  const handleCheckout = async () => {
+    setIsCheckingOut(true);
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: total,
+          items: items.map((i) => ({
+            name: i.name,
+            quantity: i.quantity,
+            price: i.price,
+          })),
+          kitchenNotes,
+          discount,
+          tax,
+          serviceCharge,
+          subtotal,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Checkout failed");
+      }
+
+      window.location.href = data.redirectUrl;
+    } catch (error) {
+      console.error("Checkout error:", error);
+      setIsCheckingOut(false);
+    }
   };
 
   return (
@@ -120,10 +160,20 @@ export function CartOrderSummaryComponent({
           variant="default"
           size="lg"
           className="rounded-full"
-          onClick={() => router.push("/my-cart/checkout")}
+          onClick={handleCheckout}
+          disabled={isCheckingOut}
         >
-          <span>Proceed to Checkout</span>
-          <ArrowRight className="ml-2" />
+          {isCheckingOut ? (
+            <>
+              <Loader2 size={16} className="mr-2 animate-spin" />
+              <span>Processing...</span>
+            </>
+          ) : (
+            <>
+              <span>Proceed to Checkout</span>
+              <ArrowRight className="ml-2" />
+            </>
+          )}
         </Button>
 
         <p className="font-normal text-xxs text-white-60 flex flex-col self-center text-center w-56">
