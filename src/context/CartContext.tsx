@@ -6,6 +6,7 @@ import {
   useState,
   useCallback,
   useMemo,
+  useEffect,
   ReactNode,
 } from "react";
 
@@ -29,12 +30,57 @@ interface CartContextType {
   tax: number;
   serviceCharge: number;
   total: number;
+  promoApplied: boolean;
+  applyPromo: (code: string) => boolean;
+  removePromo: () => void;
+  discount: number;
+  kitchenNotes: string;
+  setKitchenNotes: (notes: string) => void;
+}
+
+const CART_KEY = "lumiere-cart";
+const PROMO_KEY = "lumiere-promo";
+const NOTES_KEY = "lumiere-notes";
+
+function loadFromStorage<T>(key: string, fallback: T): T {
+  if (typeof window === "undefined") return fallback;
+  try {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [promoApplied, setPromoApplied] = useState<boolean>(false);
+  const [kitchenNotes, setKitchenNotesState] = useState<string>("");
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setItems(loadFromStorage<CartItem[]>(CART_KEY, []));
+    setPromoApplied(loadFromStorage<boolean>(PROMO_KEY, false));
+    setKitchenNotesState(loadFromStorage<string>(NOTES_KEY, ""));
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
+  }, [items, hydrated]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    localStorage.setItem(PROMO_KEY, JSON.stringify(promoApplied));
+  }, [promoApplied, hydrated]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    localStorage.setItem(NOTES_KEY, JSON.stringify(kitchenNotes));
+  }, [kitchenNotes, hydrated]);
 
   const addItem = useCallback((newItem: Omit<CartItem, "quantity">) => {
     setItems((prev) => {
@@ -57,7 +103,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, quantity } : i)));
   }, []);
 
-  const clearCart = useCallback(() => setItems([]), []);
+  const clearCart = useCallback(() => {
+    setItems([]);
+    setPromoApplied(false);
+    setKitchenNotesState("");
+  }, []);
+
+  const applyPromo = useCallback((code: string): boolean => {
+    if (code.length >= 1) {
+      setPromoApplied(true);
+      return true;
+    }
+    return false;
+  }, []);
+
+  const removePromo = useCallback(() => {
+    setPromoApplied(false);
+  }, []);
+
+  const setKitchenNotes = useCallback((notes: string) => {
+    setKitchenNotesState(notes);
+  }, []);
 
   const totalItems = useMemo(
     () => items.reduce((sum, i) => sum + i.quantity, 0),
@@ -67,9 +133,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     () => items.reduce((sum, i) => sum + i.price * i.quantity, 0),
     [items],
   );
-  const tax = subtotal * 0.08;
-  const serviceCharge = subtotal * 0.15;
-  const total = subtotal + tax + serviceCharge;
+  const discount = promoApplied ? subtotal * 0.25 : 0;
+  const discountedSubtotal = subtotal - discount;
+  const tax = discountedSubtotal * 0.08;
+  const serviceCharge = discountedSubtotal * 0.15;
+  const total = discountedSubtotal + tax + serviceCharge;
 
   return (
     <CartContext.Provider
@@ -84,6 +152,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
         tax,
         serviceCharge,
         total,
+        promoApplied,
+        applyPromo,
+        removePromo,
+        discount,
+        kitchenNotes,
+        setKitchenNotes,
       }}
     >
       {children}

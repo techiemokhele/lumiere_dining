@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,53 +29,62 @@ const kitchenNotesFormSchema = z.object({ notes: z.string().optional() });
 type KitchenNotesFormValues = z.infer<typeof kitchenNotesFormSchema>;
 
 export default function MyCartMainPage() {
-  const { items, subtotal, tax, serviceCharge, total } = useCart();
+  const {
+    items,
+    subtotal,
+    tax,
+    serviceCharge,
+    total,
+    kitchenNotes,
+    setKitchenNotes,
+  } = useCart();
 
   const form = useForm<KitchenNotesFormValues>({
-    defaultValues: { notes: "" },
+    defaultValues: { notes: kitchenNotes || "" },
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     resolver: zodResolver(kitchenNotesFormSchema),
   });
 
   const onSubmit = async (values: KitchenNotesFormValues) => {
-    console.log("Kitchen notes:", values);
+    setKitchenNotes(values.notes || "");
   };
 
-  const cartItemIds = new Set(items.map((i) => i.id));
+  const cartItemIds = useMemo(() => items.map((i) => i.id), [items]);
 
-  const cartCategories = new Set<string>();
-  for (const cartItem of items) {
-    for (const section of landingMenuData) {
-      if (section.items.some((mi) => mi.name === cartItem.id)) {
-        cartCategories.add(section.id);
+  const relatedItems = useMemo(() => {
+    const idSet = new Set(cartItemIds);
+
+    const cartCats = new Set<string>();
+    for (const id of cartItemIds) {
+      for (const section of landingMenuData) {
+        if (section.items.some((mi) => mi.name === id)) {
+          cartCats.add(section.id);
+        }
       }
     }
-  }
 
-  const prioritized = landingMenuData
-    .filter((section) => !cartCategories.has(section.id))
-    .flatMap((section) => section.items)
-    .filter((item) => !cartItemIds.has(item.name));
+    const prioritized = landingMenuData
+      .filter((section) => !cartCats.has(section.id))
+      .flatMap((section) => section.items)
+      .filter((item) => !idSet.has(item.name));
 
-  const fallback = landingMenuData
-    .filter((section) => cartCategories.has(section.id))
-    .flatMap((section) => section.items)
-    .filter((item) => !cartItemIds.has(item.name));
+    const fallback = landingMenuData
+      .filter((section) => cartCats.has(section.id))
+      .flatMap((section) => section.items)
+      .filter((item) => !idSet.has(item.name));
 
-  const shuffle = <T,>(arr: T[]): T[] => {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
+    const shuffle = <T,>(arr: T[]): T[] => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
 
-  const relatedItems = [...shuffle(prioritized), ...shuffle(fallback)].slice(
-    0,
-    4,
-  );
+    return [...shuffle(prioritized), ...shuffle(fallback)].slice(0, 4);
+  }, [cartItemIds.join(",")]);
 
   if (items.length === 0) return <EmptyCartComponent />;
 
