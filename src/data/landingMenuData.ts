@@ -82,7 +82,7 @@ export const landingMenuData: MenuSection[] = [
         images: [
           "https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=800&q=80",
           "https://images.unsplash.com/photo-1505575967455-40e256f73376?w=800&q=80",
-          "https://images.unsplash.com/photo-1572441710808-3678bdb2e23c?w=800&q=80",
+          "https://images.unsplash.com/photo-1577969181928-69c4e557c99a?q=80&w=764",
         ],
         rating: 4.7,
         reviewCount: 98,
@@ -194,7 +194,7 @@ export const landingMenuData: MenuSection[] = [
           "https://images.unsplash.com/photo-1626197031507-c17099753214?w=800&q=80",
         images: [
           "https://images.unsplash.com/photo-1626197031507-c17099753214?w=800&q=80",
-          "https://images.unsplash.com/photo-1606859427560-5b7ef8fa2084?w=800&q=80",
+          "https://images.unsplash.com/photo-1761314036797-8b6ef2c159c7?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=800&q=80",
         ],
         rating: 4.5,
