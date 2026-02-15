@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -45,6 +45,8 @@ export default function CategoryPage() {
   const [sortBy, setSortBy] = useState<SortOption>("default");
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const gridRef = useRef<HTMLDivElement>(null);
 
   if (!section) {
     notFound();
@@ -135,6 +137,10 @@ export default function CategoryPage() {
     setCurrentPage(1);
   };
 
+  const scrollToGrid = () => {
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const hasActiveFilters =
     searchQuery || selectedTags.length > 0 || sortBy !== "default";
 
@@ -150,10 +156,6 @@ export default function CategoryPage() {
         );
       }).length;
 
-  const pageTitle = searchQuery.trim()
-    ? `Results for "${searchQuery}"`
-    : section.title;
-
   const pageDescription = searchQuery.trim()
     ? isSearchingAcrossCategories
       ? `Showing matches from ${section.title} and other categories`
@@ -162,8 +164,11 @@ export default function CategoryPage() {
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
-      <PaddingContainer size="small">
-        <div className="flex flex-col w-full gap-8 py-10 lg:mt-0 -mt-12 pt-20 lg:pt-24">
+      <PaddingContainer size="small" className="w-full">
+        <div
+          ref={gridRef}
+          className="flex flex-col w-full gap-8 py-10 lg:mt-0 -mt-12 pt-20 lg:pt-24 scroll-m-16 overflow-x-hidden"
+        >
           <div className="flex flex-col gap-4">
             <Link
               href="/menu"
@@ -174,10 +179,19 @@ export default function CategoryPage() {
             </Link>
 
             <div className="flex flex-col gap-2">
-              <h1 className="font-serif font-extrabold text-3xl lg:text-5xl text-crimson-600">
-                {pageTitle}
-              </h1>
-              <p className="font-serif font-normal text-sm lg:text-base text-white-60">
+              <div className="w-full max-w-full break-words">
+                <h1 className="font-serif font-extrabold text-3xl lg:text-5xl text-crimson-600 break-words">
+                  {searchQuery ? (
+                    <>
+                      Results for{" "}
+                      <span className="break-all">"{searchQuery}"</span>
+                    </>
+                  ) : (
+                    section.title
+                  )}
+                </h1>
+              </div>
+              <p className="font-serif font-normal text-xs lg:text-sm text-white-60">
                 {pageDescription}
               </p>
             </div>
@@ -185,8 +199,8 @@ export default function CategoryPage() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <div className="flex flex-row gap-3 items-center">
-              <div className="relative flex-1">
+            <div className="flex lg:flex-row flex-col gap-3 items-center w-full">
+              <div className="relative lg:flex-1 lg:min-w-0 w-full">
                 <Search
                   size={16}
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-white-60"
@@ -195,7 +209,7 @@ export default function CategoryPage() {
                   placeholder={`Search ${section.title.toLowerCase()}...`}
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
-                  className="pl-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 font-serif text-sm"
+                  className="pl-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 rounded-3xl lg:text-sm text-xs w-full"
                 />
                 {searchQuery && (
                   <button
@@ -207,29 +221,33 @@ export default function CategoryPage() {
                 )}
               </div>
 
-              <select
-                value={sortBy}
-                onChange={(e) => handleSortChange(e.target.value as SortOption)}
-                className="bg-burgundy-800 border border-burgundy-700 text-white font-serif text-sm rounded-md px-3 py-2 outline-none cursor-pointer"
-              >
-                <option value="default">Default</option>
-                <option value="price-asc">Price: Low → High</option>
-                <option value="price-desc">Price: High → Low</option>
-                <option value="name-asc">Name: A → Z</option>
-                <option value="name-desc">Name: Z → A</option>
-              </select>
+              <div className="flex flex-row items-center gap-3 lg:shrink-0 w-full lg:w-auto justify-end">
+                <select
+                  value={sortBy}
+                  onChange={(e) =>
+                    handleSortChange(e.target.value as SortOption)
+                  }
+                  className="bg-burgundy-800 border border-burgundy-700 text-white font-serif lg:text-sm text-xs rounded-3xl px-3 py-2 outline-none cursor-pointer shrink-0"
+                >
+                  <option value="default">Default</option>
+                  <option value="price-asc">Price: Low → High</option>
+                  <option value="price-desc">Price: High → Low</option>
+                  <option value="name-asc">Name: A → Z</option>
+                  <option value="name-desc">Name: Z → A</option>
+                </select>
 
-              <Button
-                variant="outline"
-                size="icon"
-                className={cn(
-                  "border-burgundy-700 text-white-60 hover:text-white shrink-0",
-                  showFilters && "bg-burgundy-700 text-white",
-                )}
-                onClick={() => setShowFilters(!showFilters)}
-              >
-                <SlidersHorizontal size={16} />
-              </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className={cn(
+                    "border-burgundy-700 text-white-60 hover:text-white shrink-0",
+                    showFilters && "bg-burgundy-700 text-white",
+                  )}
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  <SlidersHorizontal size={16} />
+                </Button>
+              </div>
             </div>
 
             {showFilters && (
@@ -334,17 +352,30 @@ export default function CategoryPage() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-20 gap-4">
-              <p className="font-serif text-lg text-white-60">
-                No items found matching your criteria.
-              </p>
-              <Button
-                variant="outline"
-                className="border-burgundy-700 text-white"
-                onClick={clearFilters}
-              >
-                Clear filters
-              </Button>
+            <div className="col-span-full flex w-full">
+              <div className="flex flex-col flex-1 rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden">
+                <div className="flex flex-col items-center justify-center flex-1 p-10 gap-6">
+                  <Image
+                    src="/sad-chef.webp"
+                    alt="Sad Chef"
+                    width={300}
+                    height={300}
+                    className="w-60 h-60 object-contain"
+                  />
+
+                  <p className="font-serif text-lg text-white-60 text-center">
+                    No items found matching your criteria.
+                  </p>
+
+                  <Button
+                    variant="outline"
+                    className="border-burgundy-700 text-white"
+                    onClick={clearFilters}
+                  >
+                    Clear filters
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
 
@@ -355,7 +386,10 @@ export default function CategoryPage() {
                 size="icon"
                 className="border-burgundy-700 text-white-60 hover:text-white disabled:opacity-30"
                 disabled={currentPage === 1}
-                onClick={() => setCurrentPage((p) => p - 1)}
+                onClick={() => {
+                  setCurrentPage((p) => p - 1);
+                  scrollToGrid();
+                }}
               >
                 <ChevronLeft size={16} />
               </Button>
@@ -364,7 +398,10 @@ export default function CategoryPage() {
                 (page) => (
                   <button
                     key={page}
-                    onClick={() => setCurrentPage(page)}
+                    onClick={() => {
+                      setCurrentPage(page);
+                      scrollToGrid();
+                    }}
                     className={cn(
                       "w-9 h-9 rounded-md font-serif text-sm transition-colors",
                       currentPage === page
@@ -382,7 +419,10 @@ export default function CategoryPage() {
                 size="icon"
                 className="border-burgundy-700 text-white-60 hover:text-white disabled:opacity-30"
                 disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((p) => p + 1)}
+                onClick={() => {
+                  setCurrentPage((p) => p + 1);
+                  scrollToGrid();
+                }}
               >
                 <ChevronRight size={16} />
               </Button>
