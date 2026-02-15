@@ -211,6 +211,7 @@ export function FooterComponent() {
           <div className="hidden md:flex flex-row items-center gap-4">
             {[
               { label: "Cancellation", href: "/legal/cancellation-policy" },
+              { label: "Refund", href: "/legal/refund-policy" },
               { label: "Cookies", href: "/legal/cookie-policy" },
               { label: "Privacy", href: "/legal/privacy-policy" },
               { label: "Terms", href: "/legal/terms-of-service" },

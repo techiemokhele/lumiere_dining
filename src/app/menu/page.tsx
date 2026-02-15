@@ -120,11 +120,12 @@ export default function MenuPage() {
               className="flex flex-col gap-6 scroll-mt-28"
             >
               <SectionTitleComponent
+                id={section.id}
                 title={section.title}
                 description={section.description}
               />
               <div className="flex flex-col gap-6">
-                {section.items.slice(0, 3).map((item, index) => (
+                {section.items.slice(0, 4).map((item, index) => (
                   <LandingPageMenuCard
                     key={index}
                     itemDirection={index % 2 === 0 ? "left" : "right"}

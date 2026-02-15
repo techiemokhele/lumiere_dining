@@ -147,6 +147,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
 
   const legalLinks = [
     { label: "Cancellation Policy", href: "/legal/cancellation-policy" },
+    { label: "Refund Policy", href: "/legal/refund-policy" },
     { label: "Cookie Policy", href: "/legal/cookie-policy" },
     { label: "Privacy Policy", href: "/legal/privacy-policy" },
     { label: "Terms of Service", href: "/legal/terms-of-service" },
