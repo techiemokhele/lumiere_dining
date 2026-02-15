@@ -5,7 +5,15 @@ import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Plus, Search, SlidersHorizontal, X } from "lucide-react";
+import {
+  ArrowLeft,
+  Plus,
+  Search,
+  SlidersHorizontal,
+  X,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,6 +31,8 @@ type SortOption =
   | "name-asc"
   | "name-desc";
 
+const ITEMS_PER_PAGE = 12;
+
 export default function CategoryPage() {
   const params = useParams();
   const id = params.id as string;
@@ -34,6 +44,7 @@ export default function CategoryPage() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("default");
   const [showFilters, setShowFilters] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   if (!section) {
     notFound();
@@ -50,12 +61,24 @@ export default function CategoryPage() {
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
+      const otherMatches = landingMenuData
+        .filter((s) => s.id !== id)
+        .flatMap((s) => s.items)
+        .filter(
+          (item) =>
+            item.name.toLowerCase().includes(q) ||
+            item.excerpt.toLowerCase().includes(q) ||
+            item.tags.some((tag) => tag.toLowerCase().includes(q)),
+        );
+
       items = items.filter(
         (item) =>
           item.name.toLowerCase().includes(q) ||
           item.excerpt.toLowerCase().includes(q) ||
           item.tags.some((tag) => tag.toLowerCase().includes(q)),
       );
+
+      items = [...items, ...otherMatches];
     }
 
     if (selectedTags.length > 0) {
@@ -80,22 +103,62 @@ export default function CategoryPage() {
     }
 
     return items;
-  }, [section.items, searchQuery, selectedTags, sortBy]);
+  }, [section.items, searchQuery, selectedTags, sortBy, id]);
+
+  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+  const paginatedItems = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredItems.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredItems, currentPage]);
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
+  const handleSortChange = (value: SortOption) => {
+    setSortBy(value);
+    setCurrentPage(1);
+  };
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
+    setCurrentPage(1);
   };
 
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedTags([]);
     setSortBy("default");
+    setCurrentPage(1);
   };
 
   const hasActiveFilters =
     searchQuery || selectedTags.length > 0 || sortBy !== "default";
+
+  const isSearchingAcrossCategories =
+    searchQuery.trim() &&
+    filteredItems.length >
+      section.items.filter((item) => {
+        const q = searchQuery.toLowerCase();
+        return (
+          item.name.toLowerCase().includes(q) ||
+          item.excerpt.toLowerCase().includes(q) ||
+          item.tags.some((tag) => tag.toLowerCase().includes(q))
+        );
+      }).length;
+
+  const pageTitle = searchQuery.trim()
+    ? `Results for "${searchQuery}"`
+    : section.title;
+
+  const pageDescription = searchQuery.trim()
+    ? isSearchingAcrossCategories
+      ? `Showing matches from ${section.title} and other categories`
+      : `Showing matches in ${section.title}`
+    : section.description;
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
@@ -112,10 +175,10 @@ export default function CategoryPage() {
 
             <div className="flex flex-col gap-2">
               <h1 className="font-serif font-extrabold text-3xl lg:text-5xl text-crimson-600">
-                {section.title}
+                {pageTitle}
               </h1>
               <p className="font-serif font-normal text-sm lg:text-base text-white-60">
-                {section.description}
+                {pageDescription}
               </p>
             </div>
             <Separator />
@@ -131,12 +194,12 @@ export default function CategoryPage() {
                 <Input
                   placeholder={`Search ${section.title.toLowerCase()}...`}
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => handleSearchChange(e.target.value)}
                   className="pl-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 font-serif text-sm"
                 />
                 {searchQuery && (
                   <button
-                    onClick={() => setSearchQuery("")}
+                    onClick={() => handleSearchChange("")}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-white-60 hover:text-white"
                   >
                     <X size={14} />
@@ -146,7 +209,7 @@ export default function CategoryPage() {
 
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                onChange={(e) => handleSortChange(e.target.value as SortOption)}
                 className="bg-burgundy-800 border border-burgundy-700 text-white font-serif text-sm rounded-md px-3 py-2 outline-none cursor-pointer"
               >
                 <option value="default">Default</option>
@@ -194,7 +257,8 @@ export default function CategoryPage() {
             {hasActiveFilters && (
               <div className="flex flex-row items-center justify-between">
                 <p className="font-serif text-xs text-white-60">
-                  Showing {filteredItems.length} of {section.items.length} items
+                  Showing {filteredItems.length} item
+                  {filteredItems.length !== 1 ? "s" : ""}
                 </p>
                 <button
                   onClick={clearFilters}
@@ -206,9 +270,9 @@ export default function CategoryPage() {
             )}
           </div>
 
-          {filteredItems.length > 0 ? (
+          {paginatedItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredItems.map((item, index) => (
+              {paginatedItems.map((item, index) => (
                 <div
                   key={index}
                   className="group flex flex-col rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden"
@@ -280,6 +344,47 @@ export default function CategoryPage() {
                 onClick={clearFilters}
               >
                 Clear filters
+              </Button>
+            </div>
+          )}
+
+          {totalPages > 1 && (
+            <div className="flex flex-row items-center justify-center gap-2 pt-4">
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-burgundy-700 text-white-60 hover:text-white disabled:opacity-30"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage((p) => p - 1)}
+              >
+                <ChevronLeft size={16} />
+              </Button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={cn(
+                      "w-9 h-9 rounded-md font-serif text-sm transition-colors",
+                      currentPage === page
+                        ? "bg-primary text-white"
+                        : "text-white-60 hover:text-white hover:bg-burgundy-700",
+                    )}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
+
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-burgundy-700 text-white-60 hover:text-white disabled:opacity-30"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage((p) => p + 1)}
+              >
+                <ChevronRight size={16} />
               </Button>
             </div>
           )}
