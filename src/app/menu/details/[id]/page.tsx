@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
+import { ReviewFormComponent } from "@/components/product/ReviewFormComponent";
 import { landingMenuData } from "@/data/landingMenuData";
 import type { MenuItem } from "@/data/landingMenuData";
 import { useCart } from "@/context/CartContext";
@@ -407,6 +408,8 @@ export default function ProductDetailPage() {
               </div>
             </div>
           </div>
+
+          <ReviewFormComponent itemName={item.name} />
 
           {pairingItems.length > 0 && (
             <div className="flex flex-col gap-6 pt-6">
