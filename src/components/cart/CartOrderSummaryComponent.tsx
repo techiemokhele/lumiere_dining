@@ -84,6 +84,23 @@ export function CartOrderSummaryComponent({
         throw new Error(data.error || "Checkout failed");
       }
 
+      localStorage.setItem(
+        "lumiere-last-order",
+        JSON.stringify({
+          items: items.map((i) => ({
+            name: i.name,
+            quantity: i.quantity,
+            price: i.price,
+          })),
+          kitchenNotes,
+          discount,
+          tax,
+          serviceCharge,
+          subtotal,
+          total,
+        }),
+      );
+
       window.location.href = data.redirectUrl;
     } catch (error) {
       console.error("Checkout error:", error);
