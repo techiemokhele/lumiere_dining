@@ -120,6 +120,7 @@ export default function MenuPage() {
               className="flex flex-col gap-6 scroll-mt-28"
             >
               <SectionTitleComponent
+                id={section.id}
                 title={section.title}
                 description={section.description}
               />
