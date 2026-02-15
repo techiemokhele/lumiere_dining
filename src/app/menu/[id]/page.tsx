@@ -33,7 +33,7 @@ type SortOption =
 
 const ITEMS_PER_PAGE = 12;
 
-export default function CategoryPage() {
+export default function MenuSearchAndFilterCategoryPage() {
   const params = useParams();
   const id = params.id as string;
   const { addItem } = useCart();
@@ -295,7 +295,10 @@ export default function CategoryPage() {
                   key={index}
                   className="group flex flex-col rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden"
                 >
-                  <div className="relative w-full h-52 overflow-hidden">
+                  <Link
+                    href={`/menu/details/${item.id}`}
+                    className="relative w-full h-52 overflow-hidden block"
+                  >
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -303,13 +306,18 @@ export default function CategoryPage() {
                       className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-col flex-1 gap-3 p-5">
                     <div className="flex flex-row justify-between items-center">
-                      <p className="font-serif font-bold text-lg text-white">
-                        {item.name}
-                      </p>
+                      <Link
+                        href={`/menu/details/${item.id}`}
+                        className="hover:text-primary transition-colors"
+                      >
+                        <p className="font-serif font-bold text-lg text-white">
+                          {item.name}
+                        </p>
+                      </Link>
                       <p className="font-serif font-bold text-lg text-primary">
                         R{item.price}
                       </p>
@@ -335,7 +343,7 @@ export default function CategoryPage() {
                         className="bg-burgundy-700 hover:bg-crimson-500"
                         onClick={() =>
                           addItem({
-                            id: item.name,
+                            id: item.id,
                             name: item.name,
                             price: item.price,
                             image: item.image,
