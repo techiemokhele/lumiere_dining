@@ -84,6 +84,7 @@ export default function MyCartMainPage() {
     };
 
     return [...shuffle(prioritized), ...shuffle(fallback)].slice(0, 4);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItemIds.join(",")]);
 
   if (items.length === 0) return <EmptyCartComponent />;

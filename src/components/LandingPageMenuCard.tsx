@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,7 @@ import { useCart } from "@/context/CartContext";
 
 interface MenuCardProps {
   itemDirection: "left" | "right";
+  id: string;
   name: string;
   price: number;
   excerpt: string;
@@ -18,6 +20,7 @@ interface MenuCardProps {
 
 export function LandingPageMenuCard({
   itemDirection,
+  id,
   name,
   price,
   excerpt,
@@ -37,7 +40,15 @@ export function LandingPageMenuCard({
     >
       <div className="flex flex-col lg:w-2/3 w-full gap-4 p-6">
         <div className="flex flex-row justify-between items-center">
-          <p className="font-serif font-bold text-xl text-white">{name}</p>
+          <Link
+            href={`/menu/details/${name
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/(^-|-$)/g, "")}`}
+            className="hover:text-primary transition-colors"
+          >
+            <p className="font-serif font-bold text-xl text-white">{name}</p>
+          </Link>
           <p className="font-serif font-bold text-xl text-primary">R{price}</p>
         </div>
 
@@ -56,7 +67,7 @@ export function LandingPageMenuCard({
         <div className="flex justify-end mt-auto">
           <Button
             className="bg-burgundy-700 hover:bg-crimson-500"
-            onClick={() => addItem({ id: name, name, price, image, excerpt })}
+            onClick={() => addItem({ id: id, name, price, image, excerpt })}
           >
             <Plus size={16} />
             <span>Add to Order</span>
@@ -64,7 +75,10 @@ export function LandingPageMenuCard({
         </div>
       </div>
 
-      <div className="lg:w-1/3 w-full h-64 lg:h-auto relative">
+      <Link
+        href={`/menu/details/${id}`}
+        className="lg:w-1/3 w-full h-64 lg:h-auto relative block"
+      >
         <Image
           src={image}
           alt={name}
@@ -78,7 +92,7 @@ export function LandingPageMenuCard({
         "
           sizes="(max-width: 1024px) 100vw, 33vw"
         />
-      </div>
+      </Link>
     </div>
   );
 }
