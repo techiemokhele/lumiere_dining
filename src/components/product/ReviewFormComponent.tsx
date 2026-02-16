@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { LoaderCircle, Send } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { LoaderCircle, Send, LogIn } from "lucide-react";
 import z from "zod";
 import { useToast } from "@/lib/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,21 +16,6 @@ import { Button } from "../ui/button";
 import { InteractiveStarRating } from "./InteractiveStarRatingComponent";
 
 const reviewFormSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, "Name must be at least 2 characters.")
-    .max(100, "Name cannot exceed 100 characters.")
-    .refine(
-      (value) => /^[a-zA-Z\s'-]+$/.test(value),
-      "Name can only contain letters, spaces, hyphens, and apostrophes.",
-    ),
-  email: z
-    .string()
-    .trim()
-    .min(1, "Email is required.")
-    .email("Please enter a valid email address.")
-    .refine((value) => !/\s/.test(value), "Email cannot contain spaces."),
   rating: z
     .number()
     .min(1, "Please select a rating.")
@@ -48,13 +35,12 @@ const reviewFormSchema = z.object({
 type ReviewFormData = z.infer<typeof reviewFormSchema>;
 
 export function ReviewFormComponent({ itemName }: { itemName: string }) {
+  const { data: session, status } = useSession();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<ReviewFormData>({
     defaultValues: {
-      name: "",
-      email: "",
       rating: 0,
       title: "",
       review: "",
@@ -72,7 +58,22 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch("/api/reviews/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          itemName,
+          rating: values.rating,
+          title: values.title,
+          review: values.review,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit review.");
+      }
 
       toast({
         title: "Review Submitted!",
@@ -81,11 +82,13 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
       });
 
       form.reset();
-    } catch {
+    } catch (error) {
       toast({
         title: "Submission Failed",
         description:
-          "There was an error submitting your review. Please try again.",
+          error instanceof Error
+            ? error.message
+            : "There was an error submitting your review. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -105,58 +108,79 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
         </p>
       </div>
 
-      <div className="rounded-2xl bg-burgundy-800 p-6 lg:p-8">
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-5"
-          >
-            <FormField
-              control={form.control}
-              name="rating"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
-                    Your Rating
-                  </FormLabel>
-                  <FormControl>
-                    <InteractiveStarRating
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  </FormControl>
-                  {form.formState.errors.rating ? (
-                    <p className="text-crimson-500 text-xxs font-normal mt-1">
-                      {form.formState.errors.rating.message}
-                    </p>
-                  ) : (
-                    <div className="h-2 py-1.5" />
-                  )}
-                </FormItem>
-              )}
-            />
+      {status !== "authenticated" ? (
+        <div className="flex flex-col items-center gap-4 py-12 rounded-2xl bg-burgundy-800">
+          <LogIn size={32} className="text-white-60" />
+          <p className="text-sm text-white-60 text-center">
+            You need to be signed in to leave a review.
+          </p>
+          <Button asChild className="bg-crimson-600 hover:bg-crimson-500 gap-2">
+            <Link href="/auth/sign-in">
+              <LogIn size={16} />
+              <span>Sign In to Review</span>
+            </Link>
+          </Button>
+        </div>
+      ) : (
+        <div className="rounded-2xl bg-burgundy-800 p-6 lg:p-8">
+          <div className="flex flex-row items-center gap-2 mb-5">
+            <p className="text-xs text-white-60">
+              Reviewing as{" "}
+              <span className="text-white font-semibold">
+                {session.user?.name}
+              </span>
+            </p>
+          </div>
 
-            <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-5"
+            >
               <FormField
                 control={form.control}
-                name="name"
+                name="rating"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
-                      Your Name
+                      Your Rating
+                    </FormLabel>
+                    <FormControl>
+                      <InteractiveStarRating
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    {form.formState.errors.rating ? (
+                      <p className="text-crimson-500 text-xxs font-normal mt-1">
+                        {form.formState.errors.rating.message}
+                      </p>
+                    ) : (
+                      <div className="h-2 py-1.5" />
+                    )}
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                      Review Title
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         type="text"
-                        autoComplete="name"
-                        placeholder="e.g. Jane Doe"
+                        placeholder="Summarise your experience"
                         className="bg-burgundy-900 border-burgundy-700 text-white placeholder:text-white-60"
                       />
                     </FormControl>
-                    {form.formState.errors.name ? (
+                    {form.formState.errors.title ? (
                       <p className="text-crimson-500 text-xxs font-normal mt-1">
-                        {form.formState.errors.name.message}
+                        {form.formState.errors.title.message}
                       </p>
                     ) : (
                       <div className="h-2 py-1.5" />
@@ -167,24 +191,23 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
 
               <FormField
                 control={form.control}
-                name="email"
+                name="review"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
-                      Email Address
+                      Your Review
                     </FormLabel>
                     <FormControl>
-                      <Input
+                      <Textarea
                         {...field}
-                        type="email"
-                        autoComplete="email"
-                        placeholder="jane@example.com"
-                        className="bg-burgundy-900 border-burgundy-700 text-white placeholder:text-white-60"
+                        rows={5}
+                        placeholder="Tell us about your experience with this dish..."
+                        className="bg-burgundy-900 border-burgundy-700 text-white placeholder:text-white-60 resize-none"
                       />
                     </FormControl>
-                    {form.formState.errors.email ? (
+                    {form.formState.errors.review ? (
                       <p className="text-crimson-500 text-xxs font-normal mt-1">
-                        {form.formState.errors.email.message}
+                        {form.formState.errors.review.message}
                       </p>
                     ) : (
                       <div className="h-2 py-1.5" />
@@ -192,84 +215,30 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
                   </FormItem>
                 )}
               />
-            </div>
 
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
-                    Review Title
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="text"
-                      placeholder="Summarise your experience"
-                      className="bg-burgundy-900 border-burgundy-700 text-white placeholder:text-white-60"
-                    />
-                  </FormControl>
-                  {form.formState.errors.title ? (
-                    <p className="text-crimson-500 text-xxs font-normal mt-1">
-                      {form.formState.errors.title.message}
-                    </p>
-                  ) : (
-                    <div className="h-2 py-1.5" />
-                  )}
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="review"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
-                    Your Review
-                  </FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      rows={5}
-                      placeholder="Tell us about your experience with this dish..."
-                      className="bg-burgundy-900 border-burgundy-700 text-white placeholder:text-white-60 resize-none"
-                    />
-                  </FormControl>
-                  {form.formState.errors.review ? (
-                    <p className="text-crimson-500 text-xxs font-normal mt-1">
-                      {form.formState.errors.review.message}
-                    </p>
-                  ) : (
-                    <div className="h-2 py-1.5" />
-                  )}
-                </FormItem>
-              )}
-            />
-
-            <Button
-              type="submit"
-              variant="default"
-              size="lg"
-              disabled={isSubmitting}
-              className="flex flex-row gap-2 items-center justify-center bg-crimson-600 hover:bg-crimson-500 disabled:opacity-50 self-end rounded-full"
-            >
-              {isSubmitting ? (
-                <>
-                  <LoaderCircle className="animate-spin h-4 w-4" />
-                  <span>Submitting...</span>
-                </>
-              ) : (
-                <>
-                  <span>Submit Review</span>
-                  <Send size={16} className="text-white" />
-                </>
-              )}
-            </Button>
-          </form>
-        </Form>
-      </div>
+              <Button
+                type="submit"
+                variant="default"
+                size="lg"
+                disabled={isSubmitting}
+                className="flex flex-row gap-2 items-center justify-center bg-crimson-600 hover:bg-crimson-500 disabled:opacity-50 self-end rounded-full"
+              >
+                {isSubmitting ? (
+                  <>
+                    <LoaderCircle className="animate-spin h-4 w-4" />
+                    <span>Submitting...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Submit Review</span>
+                    <Send size={16} className="text-white" />
+                  </>
+                )}
+              </Button>
+            </form>
+          </Form>
+        </div>
+      )}
     </div>
   );
 }

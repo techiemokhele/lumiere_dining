@@ -45,7 +45,7 @@ const NOTES_KEY = "lumiere-notes";
 function loadFromStorage<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
-    const stored = localStorage.getItem(key);
+    const stored = sessionStorage.getItem(key);
     return stored ? JSON.parse(stored) : fallback;
   } catch {
     return fallback;
@@ -69,17 +69,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem(CART_KEY, JSON.stringify(items));
+    sessionStorage.setItem(CART_KEY, JSON.stringify(items));
   }, [items, hydrated]);
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem(PROMO_KEY, JSON.stringify(promoApplied));
+    sessionStorage.setItem(PROMO_KEY, JSON.stringify(promoApplied));
   }, [promoApplied, hydrated]);
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem(NOTES_KEY, JSON.stringify(kitchenNotes));
+    sessionStorage.setItem(NOTES_KEY, JSON.stringify(kitchenNotes));
   }, [kitchenNotes, hydrated]);
 
   const addItem = useCallback((newItem: Omit<CartItem, "quantity">) => {
