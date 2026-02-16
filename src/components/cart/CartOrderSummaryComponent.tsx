@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Loader2, X } from "lucide-react";
+import { ArrowRight, Loader2, X, LogIn } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
@@ -30,6 +32,7 @@ export function CartOrderSummaryComponent({
   serviceCharge,
   total,
 }: CartSummaryProps) {
+  const { status } = useSession();
   const {
     items,
     promoApplied,
@@ -84,7 +87,7 @@ export function CartOrderSummaryComponent({
         throw new Error(data.error || "Checkout failed");
       }
 
-      localStorage.setItem(
+      sessionStorage.setItem(
         "lumiere-last-order",
         JSON.stringify({
           items: items.map((i) => ({
@@ -107,6 +110,8 @@ export function CartOrderSummaryComponent({
       setIsCheckingOut(false);
     }
   };
+
+  const isAuthenticated = status === "authenticated";
 
   return (
     <div className="flex lg:flex-col flex-col-reverse gap-6 w-full relative">
@@ -173,25 +178,39 @@ export function CartOrderSummaryComponent({
           </div>
         </div>
 
-        <Button
-          variant="default"
-          size="lg"
-          className="rounded-full"
-          onClick={handleCheckout}
-          disabled={isCheckingOut}
-        >
-          {isCheckingOut ? (
-            <>
-              <Loader2 size={16} className="mr-2 animate-spin" />
-              <span>Processing...</span>
-            </>
-          ) : (
-            <>
-              <span>Proceed to Checkout</span>
-              <ArrowRight className="ml-2" />
-            </>
-          )}
-        </Button>
+        {isAuthenticated ? (
+          <Button
+            variant="default"
+            size="lg"
+            className="rounded-full"
+            onClick={handleCheckout}
+            disabled={isCheckingOut}
+          >
+            {isCheckingOut ? (
+              <>
+                <Loader2 size={16} className="mr-2 animate-spin" />
+                <span>Processing...</span>
+              </>
+            ) : (
+              <>
+                <span>Proceed to Checkout</span>
+                <ArrowRight className="ml-2" />
+              </>
+            )}
+          </Button>
+        ) : (
+          <Button
+            asChild
+            variant="default"
+            size="lg"
+            className="rounded-full bg-crimson-600 hover:bg-crimson-500"
+          >
+            <Link href="/auth/sign-in" className="gap-2">
+              <LogIn size={16} />
+              <span>Sign In to Checkout</span>
+            </Link>
+          </Button>
+        )}
 
         <p className="font-normal text-xxs text-white-60 flex flex-col self-center text-center w-56">
           Secure checkout provided by Yoco. Need help?

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 import {
   ChevronRightIcon,
   ChevronDownIcon,
@@ -9,6 +11,8 @@ import {
   ShoppingBag,
   TextSearchIcon,
   UserCircle,
+  LogOut,
+  LogIn,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
@@ -28,6 +32,7 @@ import { Button } from "../ui/button";
 export function NavComponent() {
   const { isActive } = useActivePath();
   const { totalItems } = useCart();
+  const { data: session, status } = useSession();
 
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
@@ -50,6 +55,9 @@ export function NavComponent() {
     { label: "Newsletter", href: "/newsletter" },
     { label: "Contact", href: "/contact-us" },
   ];
+
+  const accountHref =
+    status === "authenticated" ? "/my-account" : "/auth/sign-in";
 
   return (
     <PaddingContainer
@@ -117,9 +125,21 @@ export function NavComponent() {
                 )}
               </Button>
             </Link>
-            <Link href="/my-account">
+            <Link href={accountHref}>
               <Button variant="link" size="icon" className="p-0">
-                <UserCircle size={24} className="text-white" />
+                {session?.user?.image ? (
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-crimson-500">
+                    <Image
+                      src={session.user.image}
+                      alt="Profile"
+                      fill
+                      className="object-cover"
+                      sizes="32px"
+                    />
+                  </div>
+                ) : (
+                  <UserCircle size={24} className="text-white" />
+                )}
               </Button>
             </Link>
           </div>
@@ -132,6 +152,7 @@ export function NavComponent() {
 function MobileSheet({ children }: { children: React.ReactNode }) {
   const { isActive } = useActivePath();
   const { totalItems } = useCart();
+  const { data: session, status } = useSession();
 
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [isLegalOpen, setIsLegalOpen] = useState<boolean>(false);
@@ -161,6 +182,9 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
     const currentDate = new Date();
     return currentDate.getFullYear();
   };
+
+  const accountHref =
+    status === "authenticated" ? "/my-account" : "/auth/sign-in";
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={handleSheetOpenChange}>
@@ -254,7 +278,37 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
               </div>
             </div>
             <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center justify-center gap-3 px-6">
-              <div className="flex flex-row gap-6">
+              {session?.user && (
+                <div className="flex flex-row items-center justify-between w-full px-2 mb-1">
+                  <div className="flex flex-row items-center gap-2">
+                    {session.user.image ? (
+                      <div className="relative w-7 h-7 rounded-full overflow-hidden">
+                        <Image
+                          src={session.user.image}
+                          alt="Profile"
+                          fill
+                          className="object-cover"
+                          sizes="28px"
+                        />
+                      </div>
+                    ) : (
+                      <UserCircle size={20} className="text-white-60" />
+                    )}
+                    <span className="text-xs text-white truncate max-w-[140px]">
+                      {session.user.name}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="flex flex-row items-center gap-1 text-xxs text-crimson-500 hover:text-crimson-600 transition-colors"
+                  >
+                    <LogOut size={12} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
+
+              <div className="flex flex-row gap-6 w-full">
                 <Button asChild variant="default" className="w-full">
                   <Link href="/my-cart" className="relative">
                     <Button variant="link" size="icon" className="p-0">
@@ -273,8 +327,22 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                   </Link>
                 </Button>
                 <Button asChild variant="default" className="w-full">
-                  <Link href="/my-account">
-                    <UserCircle size={24} className="text-white" />
+                  <Link href={accountHref}>
+                    {session?.user?.image ? (
+                      <div className="relative w-6 h-6 rounded-full overflow-hidden">
+                        <Image
+                          src={session.user.image}
+                          alt="Profile"
+                          fill
+                          className="object-cover"
+                          sizes="24px"
+                        />
+                      </div>
+                    ) : status === "authenticated" ? (
+                      <UserCircle size={24} className="text-white" />
+                    ) : (
+                      <LogIn size={24} className="text-white" />
+                    )}
                   </Link>
                 </Button>
               </div>

@@ -40,27 +40,34 @@ export const authOptions: NextAuthOptions = {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
+          image: user.profileImage || null,
         };
       },
     }),
   ],
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 30 * 24 * 60 * 60,
   },
   pages: {
     signIn: "/auth/sign-in",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
+        token.image = user.image;
+      }
+      if (trigger === "update" && session) {
+        if (session.name) token.name = session.name;
+        if (session.image !== undefined) token.image = session.image;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         (session.user as Record<string, unknown>).id = token.id;
+        session.user.image = (token.image as string) || null;
       }
       return session;
     },

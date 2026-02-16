@@ -5,7 +5,11 @@ export interface IUser extends Document {
   email: string;
   phone: string;
   password: string;
+  profileImage: string;
   acceptedTerms: boolean;
+  newsletterSubscribed: boolean;
+  resetToken: string | null;
+  resetTokenExpiry: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -38,10 +42,26 @@ const UserSchema = new Schema<IUser>(
       required: [true, "Password is required"],
       minlength: [8, "Password must be at least 8 characters"],
     },
+    profileImage: {
+      type: String,
+      default: "",
+    },
     acceptedTerms: {
       type: Boolean,
       required: [true, "You must accept the terms and conditions"],
       default: false,
+    },
+    newsletterSubscribed: {
+      type: Boolean,
+      default: true,
+    },
+    resetToken: {
+      type: String,
+      default: null,
+    },
+    resetTokenExpiry: {
+      type: Date,
+      default: null,
     },
   },
   {
