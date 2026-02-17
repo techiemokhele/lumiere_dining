@@ -22,7 +22,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageContainer } from "@/components/structure/PageContainer";
-import { FindTableComponent } from "@/components/FindTableComponent";
 import { useCart } from "@/context/CartContext";
 import { landingMenuData } from "@/data/landingMenuData";
 import { reviews, services, slideshowImages } from "@/data/homePageStaticData";
@@ -101,7 +100,12 @@ export default function LandingPage() {
           </p>
 
           <div className="flex md:flex-row flex-col gap-4 mt-2">
-            <Button variant="default" size="lg" asChild className="rounded-full">
+            <Button
+              variant="default"
+              size="lg"
+              asChild
+              className="rounded-full"
+            >
               <Link href="/menu" className="gap-2">
                 <span>Explore Menu</span>
                 <ArrowRight size={16} />
@@ -118,25 +122,19 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={scrollToPopular}
-          className="absolute bottom-10 z-10 flex flex-col items-center gap-2 animate-bounce cursor-pointer"
+          className="absolute bottom-10 z-10 flex flex-col items-center gap-2 animate-bounce cursor-pointer p-0 hover:bg-transparent"
           aria-label="Scroll to popular dishes"
         >
           <span className="text-xxs text-white/50 uppercase tracking-widest">
             Discover
           </span>
           <ArrowDown size={20} className="text-white/50" />
-        </button>
+        </Button>
       </section>
-
-      <div className="relative lg:-mt-28 -mt-16 z-30 w-full px-4 lg:px-8 xl:px-16">
-        <FindTableComponent
-          onSubmit={(data) => {
-            console.log("Reservation data:", data);
-          }}
-        />
-      </div>
 
       <section
         ref={popularRef}
@@ -174,7 +172,7 @@ export default function LandingPage() {
                 key={dish.id}
                 className="group flex flex-col rounded-2xl bg-burgundy-800/60 border border-burgundy-700/50 overflow-hidden hover:border-crimson-600/30 transition-all duration-300"
               >
-                <Link href={`/menu/${dish.id}`}>
+                <Link href={`/menu/details/${dish.id}`}>
                   <div className="relative h-52 w-full overflow-hidden">
                     <Image
                       src={dish.image}
@@ -294,8 +292,8 @@ export default function LandingPage() {
 
       <section className="w-full px-4 lg:px-8 xl:px-16 py-16 lg:py-24">
         <div className="max-w-7xl mx-auto">
-          <div className="flex lg:flex-row flex-col rounded-2xl overflow-hidden bg-burgundy-800/60 border border-burgundy-700/50">
-            <div className="lg:w-1/2 w-full relative h-64 lg:h-auto min-h-[300px]">
+          <div className="flex md:flex-row flex-col rounded-2xl overflow-hidden bg-burgundy-800/60 border border-burgundy-700/50">
+            <div className="lg:w-1/2 w-full relative h-64 md:h-auto min-h-[300px]">
               <Image
                 src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80"
                 alt="Lumière Dining interior"
@@ -350,7 +348,7 @@ export default function LandingPage() {
                 variant="default"
                 size="lg"
                 asChild
-                className="self-start gap-2 mt-2"
+                className="self-start gap-2 mt-2 rounded-full"
               >
                 <Link href="/reservations">
                   <CalendarDays size={16} />
@@ -377,7 +375,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-6">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
             {reviews.map((review) => (
               <div
                 key={review.id}
@@ -403,7 +401,7 @@ export default function LandingPage() {
                   &ldquo;{review.text}&rdquo;
                 </p>
                 <div className="flex items-center justify-between mt-auto pt-2">
-                  <div>
+                  <div className="flex flex-col gap-1">
                     <p className="font-bold text-sm text-white">
                       {review.name}
                     </p>
@@ -439,8 +437,8 @@ export default function LandingPage() {
 
       <section className="w-full px-4 lg:px-8 xl:px-16 py-16 lg:py-24">
         <div className="max-w-7xl mx-auto">
-          <div className="flex lg:flex-row-reverse flex-col rounded-2xl overflow-hidden bg-burgundy-800 border border-burgundy-700/50">
-            <div className="lg:w-1/2 w-full flex flex-col justify-center gap-6 p-8 lg:p-12">
+          <div className="flex md:flex-row-reverse flex-col rounded-2xl overflow-hidden bg-burgundy-800 border border-burgundy-700/50">
+            <div className="md:w-1/2 w-full flex flex-col justify-center gap-6 p-8 md:p-12">
               <p className="flex items-center gap-3 font-normal text-xxs text-crimson-600 uppercase tracking-widest">
                 <ShoppingBag size={14} className="text-crimson-600" />
                 shop
@@ -472,7 +470,7 @@ export default function LandingPage() {
               </Button>
             </div>
 
-            <div className="lg:w-1/2 w-full relative h-64 lg:h-auto min-h-[280px]">
+            <div className="md:w-1/2 w-full relative h-64 md:h-auto min-h-[280px]">
               <Image
                 src="/knife-product.jpg"
                 alt="Premium kitchen products"
