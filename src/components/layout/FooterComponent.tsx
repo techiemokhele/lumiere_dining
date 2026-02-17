@@ -78,13 +78,19 @@ export function FooterComponent() {
     } catch (error) {
       console.error("Newsletter subscription error:", error);
 
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "There was an error processing your subscription. Please try again.";
+
+      const isAlreadySubscribed = errorMessage.includes("already subscribed");
+
       toast({
-        title: "Subscription Failed",
-        description:
-          error instanceof Error
-            ? error.message
-            : "There was an error processing your subscription. Please try again.",
-        variant: "destructive",
+        title: isAlreadySubscribed
+          ? "Already Subscribed"
+          : "Subscription Failed",
+        description: errorMessage,
+        variant: isAlreadySubscribed ? "default" : "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -97,17 +103,15 @@ export function FooterComponent() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-16 lg:gap-y-8 gap-y-4">
           <div className="flex flex-col gap-4">
             <LogoComponent showText={true} isFooter={true} />
-            <p className="font-serif font-normal xl:text-sm text-xs text-white">
+            <p className="font-normal xl:text-sm text-xs text-white">
               A culinary where flower meets art. Experience the finest dining in
               the heart of the city.
             </p>
           </div>
 
           <div className="flex flex-col gap-4 pt-1">
-            <p className="font-serif font-bold xl:text-xl text-lg text-white">
-              Visit Us
-            </p>
-            <p className="font-serif font-normal xl:text-sm text-xs text-white">
+            <p className="font-bold xl:text-xl text-lg text-white">Visit Us</p>
+            <p className="font-normal xl:text-sm text-xs text-white">
               19 Dock Road, <br />
               Cape Town, 8001, South Africa
             </p>
@@ -116,44 +120,44 @@ export function FooterComponent() {
               className="flex items-start justify-start p-0"
               onClick={() => setIsDirectionsOpen(true)}
             >
-              <span className="font-serif font-normal xl:text-sm text-xs text-burgundy">
+              <span className="font-normal xl:text-sm text-xs text-burgundy">
                 Get Directions
               </span>
             </Button>
           </div>
 
           <div className="flex flex-col gap-4 pt-1">
-            <p className="font-serif font-bold xl:text-xl text-lg text-white">
+            <p className="font-bold xl:text-xl text-lg text-white">
               Opening Hours
             </p>
             <div className="flex flex-row justify-between items-center">
-              <p className="font-serif font-normal xl:text-sm text-xs text-white">
+              <p className="font-normal xl:text-sm text-xs text-white">
                 Mon - Thu:
               </p>
-              <p className="font-serif font-normal xl:text-sm text-xs text-white">
+              <p className="font-normal xl:text-sm text-xs text-white">
                 7am - 10pm
               </p>
             </div>
             <div className="flex flex-row justify-between items-center">
-              <p className="font-serif font-normal xl:text-sm text-xs text-white">
+              <p className="font-normal xl:text-sm text-xs text-white">
                 Fri - Sat:
               </p>
-              <p className="font-serif font-normal xl:text-sm text-xs text-white">
+              <p className="font-normal xl:text-sm text-xs text-white">
                 7am - 12am
               </p>
             </div>
             <div className="flex flex-row justify-between items-center">
-              <p className="font-serif font-normal xl:text-sm text-xs text-white">
+              <p className="font-normal xl:text-sm text-xs text-white">
                 Sunday:
               </p>
-              <p className="font-serif font-normal xl:text-sm text-xs text-white">
+              <p className="font-normal xl:text-sm text-xs text-white">
                 8am - 10pm
               </p>
             </div>
           </div>
 
           <div className="flex flex-col gap-4 pt-1">
-            <p className="font-serif font-bold xl:text-xl text-lg text-white">
+            <p className="font-bold xl:text-xl text-lg text-white">
               Newsletter
             </p>
             <form
@@ -204,7 +208,7 @@ export function FooterComponent() {
         <Separator orientation="horizontal" className="my-4" />
 
         <div className="flex flex-row justify-between items-center">
-          <p className="font-serif font-normal text-xxs text-white-60">
+          <p className="font-normal text-xxs text-white-60">
             &copy; {showCurrentYear()} Lumière Dining. All rights reserved.
           </p>
 
@@ -220,7 +224,7 @@ export function FooterComponent() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "font-serif font-normal text-xs transition-colors",
+                  "font-normal text-xs transition-colors",
                   isActive(link.href)
                     ? "text-primary font-semibold"
                     : "text-white-60 hover:text-white",

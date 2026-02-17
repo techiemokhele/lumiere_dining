@@ -106,7 +106,28 @@ export default function ReservationPage() {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const partySizeData = ["1", "2", "3", "4", "5", "6", "7", "8+"];
+  const partySizeData = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20+",
+  ];
 
   const timeSlots: Record<string, TimeSlot[]> = {
     dinner: [
@@ -212,30 +233,34 @@ export default function ReservationPage() {
   return (
     <PageContainer showNavigation={true} showFooter={true}>
       <div className="flex lg:flex-row flex-col w-full lg:-mt-[52px] -mt-12">
+        {/* Hero left side */}
         <div
-          className="relative flex flex-col lg:min-h-full min-h-[100vh] lg:w-1/2 w-full items-center justify-center bg-cover bg-center lg:px-0 px-16"
+          className="relative flex flex-col lg:min-h-full min-h-[70vh] sm:min-h-[80vh] lg:w-1/2 w-full items-center justify-center bg-cover bg-center px-4 sm:px-8 lg:px-0"
           style={{ backgroundImage: `url(/reservation.jpg)` }}
         >
           <div className="absolute inset-0 lg:bg-gradient-to-l bg-gradient-to-t from-burgundy-950 via-burgundy-900/60 to-transparent pointer-events-none" />
 
-          <div className="absolute lg:bottom-10 bottom-4 bg-stone-700/40 border border-burgundy-700/30 backdrop-blur-md rounded-2xl w-full xl:max-w-xl lg:max-w-md max-w-[320px]">
-            <div className="flex flex-col gap-6 lg:px-9 px-5 py-6 z-20 opacity-100">
-              <div className="flex flex-col gap-3">
-                <h3 className="!font-extrabold xl:text-3xl text-2xl text-white">
+          <div className="absolute lg:bottom-10 bottom-4 left-4 right-4 sm:left-auto sm:right-auto bg-stone-700/40 border border-burgundy-700/30 backdrop-blur-md rounded-2xl w-auto sm:w-full xl:max-w-xl lg:max-w-md sm:max-w-sm max-w-none">
+            <div className="flex flex-col gap-4 sm:gap-6 px-4 sm:px-5 lg:px-9 py-5 sm:py-6 z-20 opacity-100">
+              <div className="flex flex-col gap-2 sm:gap-3">
+                <h3 className="!font-extrabold text-xl sm:text-2xl xl:text-3xl text-white">
                   Taste the{" "}
                   <span className="text-crimson-600">Extraordinary</span>
                 </h3>
-                <p className="font-normal xl:text-sm text-xxs text-white xl:text-start lg:text-center text-start">
+                <p className="font-normal text-xs sm:text-sm text-white text-center lg:text-start xl:text-start">
                   Immerse yourself in a culinary journey inspired by the
                   seasons.
-                  <br className="hidden lg:block" /> Secure your tale for an
+                  <br className="hidden lg:block" /> Secure your table for an
                   unforgettable moment.
                 </p>
               </div>
 
               <div className="flex flex-row items-center gap-2">
-                <MapPin size={20} className="fill-crimson-600 stroke-white" />
-                <p className="font-normal xl:text-sm text-xxs text-white">
+                <MapPin
+                  size={20}
+                  className="fill-crimson-600 stroke-white shrink-0"
+                />
+                <p className="font-normal text-xxs sm:text-sm text-white">
                   19 Dock Road, Cape Town, 8001, South Africa
                 </p>
               </div>
@@ -243,13 +268,14 @@ export default function ReservationPage() {
           </div>
         </div>
 
-        <section>
-          <div className="flex flex-col lg:gap-6 gap-8 w-full px-4 md:px-20 xl:px-0 py-10 lg:mt-24 mt-0">
+        {/* Form right side */}
+        <section className="lg:w-1/2 w-full">
+          <div className="flex flex-col gap-6 sm:gap-8 w-full px-4 sm:px-8 md:px-12 lg:px-8 xl:px-12 py-8 sm:py-10 lg:mt-24 mt-0">
             <div className="flex flex-col gap-2">
-              <h2 className="!font-extrabold xl:text-4xl lg:text-3xl text-3xl text-white">
+              <h2 className="!font-extrabold text-2xl sm:text-3xl xl:text-4xl text-white">
                 Secure Your Table
               </h2>
-              <p className="font-normal lg:text-sm text-xs text-white-60">
+              <p className="font-normal text-xs sm:text-sm text-white-60">
                 Complete the form below to confirm your reservation.
               </p>
             </div>
@@ -261,6 +287,7 @@ export default function ReservationPage() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex flex-col w-full gap-4"
               >
+                {/* Party Size */}
                 <FormField
                   control={form.control}
                   name="partySize"
@@ -270,22 +297,22 @@ export default function ReservationPage() {
                         number={1}
                         label="Party Size"
                       />
-                      <div className="flex flex-row lg:gap-2 gap-3 flex-wrap">
+                      <div className="flex flex-row flex-wrap gap-2 sm:gap-3">
                         {partySizeData.map((partySize, index) => (
                           <button
                             key={index}
                             type="button"
                             onClick={() => field.onChange(partySize)}
                             className={cn(
-                              "flex items-center justify-center lg:px-4 px-2 lg:py-2 py-1 rounded-lg border-2 transition-all duration-200 cursor-pointer hover:border-crimson-500",
+                              "flex items-center justify-center py-2 rounded-lg border-2 transition-all duration-200 cursor-pointer hover:border-crimson-500",
                               selectedPartySize === partySize
-                                ? "border-crimson-500 bg-crimson-500/10"
-                                : "border-burgundy-700 bg-burgundy-900/50",
+                                ? "border-crimson-500 bg-crimson-500/10 px-4 min-w-[5rem]"
+                                : "border-burgundy-700 bg-burgundy-900/50 px-3 min-w-[2.5rem]",
                             )}
                           >
                             <span
                               className={cn(
-                                "font-sans font-normal lg:text-sm !text-xs",
+                                "font-normal text-xs sm:text-sm whitespace-nowrap",
                                 selectedPartySize === partySize
                                   ? "text-crimson-500"
                                   : "text-white",
@@ -309,8 +336,9 @@ export default function ReservationPage() {
                   )}
                 />
 
-                <div className="flex lg:flex-row flex-col xl:gap-10 lg:gap-6 gap-10 w-full">
-                  <div className="lg:w-1/2 w-full">
+                {/* Calendar + Seating */}
+                <div className="flex flex-col xl:flex-row xl:gap-10 gap-8 w-full">
+                  <div className="xl:w-1/2 w-full">
                     <FormField
                       control={form.control}
                       name="reservationDate"
@@ -320,16 +348,29 @@ export default function ReservationPage() {
                             number={2}
                             label="Select Date Range"
                           />
-                          <Calendar
-                            mode="range"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date < new Date(new Date().setHours(0, 0, 0, 0))
-                            }
-                            className="w-full lg:w-auto rounded-lg border border-burgundy-700 bg-burgundy-900"
-                            numberOfMonths={1}
-                          />
+                          <div className="w-full overflow-hidden rounded-lg border border-burgundy-700 bg-burgundy-900">
+                            <Calendar
+                              mode="range"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date < new Date(new Date().setHours(0, 0, 0, 0))
+                              }
+                              className={cn(
+                                "w-full !p-2 sm:!p-3",
+                                "[&_.rdp-months]:w-full",
+                                "[&_.rdp-month]:w-full",
+                                "[&_.rdp-table]:w-full [&_.rdp-table]:table-fixed",
+                                "[&_.rdp-head_cell]:text-xs [&_.rdp-head_cell]:font-normal [&_.rdp-head_cell]:p-0",
+                                "[&_.rdp-cell]:p-0.5",
+                                "[&_.rdp-day]:h-8 [&_.rdp-day]:w-full sm:[&_.rdp-day]:h-9",
+                                "[&_.rdp-day]:text-xs sm:[&_.rdp-day]:text-sm",
+                                "[&_.rdp-nav_button]:h-7 [&_.rdp-nav_button]:w-7",
+                                "[&_.rdp-caption_label]:text-sm",
+                              )}
+                              numberOfMonths={1}
+                            />
+                          </div>
                           {form.formState.errors.reservationDate ? (
                             <p className="text-crimson-500 text-xxs font-normal">
                               {form.formState.errors.reservationDate.message ||
@@ -344,7 +385,7 @@ export default function ReservationPage() {
                     />
                   </div>
 
-                  <div className="lg:w-1/2 w-full">
+                  <div className="xl:w-1/2 w-full">
                     <FormField
                       control={form.control}
                       name="seatingArea"
@@ -374,7 +415,7 @@ export default function ReservationPage() {
                                   <Sofa className="h-5 w-5 text-white" />
                                 </div>
                                 <div className="flex flex-col space-y-1">
-                                  <ItemTitle className="font-bold xl:text-sm lg:text-xs text-sm text-white">
+                                  <ItemTitle className="font-bold text-sm text-white">
                                     Main Dining Room
                                   </ItemTitle>
                                   <ItemDescription className="font-normal text-xs text-white-60">
@@ -402,7 +443,7 @@ export default function ReservationPage() {
                                   <MapPin className="h-5 w-5 text-white" />
                                 </div>
                                 <div className="flex flex-col space-y-1">
-                                  <ItemTitle className="font-bold xl:text-sm lg:text-xs text-sm text-white">
+                                  <ItemTitle className="font-bold text-sm text-white">
                                     Patio
                                   </ItemTitle>
                                   <ItemDescription className="font-normal text-xs text-white-60">
@@ -430,7 +471,7 @@ export default function ReservationPage() {
                                   <Sofa className="h-5 w-5 text-white" />
                                 </div>
                                 <div className="flex flex-col space-y-1">
-                                  <ItemTitle className="font-bold xl:text-sm lg:text-xs text-sm text-white">
+                                  <ItemTitle className="font-bold text-sm text-white">
                                     Bar High-Top
                                   </ItemTitle>
                                   <ItemDescription className="font-normal text-xs text-white-60">
@@ -456,12 +497,13 @@ export default function ReservationPage() {
                   </div>
                 </div>
 
+                {/* Available Times */}
                 <FormField
                   control={form.control}
                   name="availableTime"
                   render={({ field }) => (
                     <FormItem>
-                      <div className="flex lg:flex-row flex-row justify-between items-center w-full mb-4">
+                      <div className="flex flex-row justify-between items-center w-full mb-4">
                         <FormLabelWithNumberComponent
                           number={4}
                           label="Available Times"
@@ -483,7 +525,7 @@ export default function ReservationPage() {
                                   value="dinner"
                                   aria-label="Toggle dinner"
                                   className={cn(
-                                    "px-4 py-2 lg:w-20 w-14 rounded-md transition-all duration-200 font-sans font-normal xl:text-sm text-xs",
+                                    "px-3 sm:px-4 py-2 rounded-md transition-all duration-200 font-normal text-xs sm:text-sm",
                                     occasionField.value === "dinner"
                                       ? "!bg-crimson-600 text-white"
                                       : "bg-transparent text-white hover:bg-burgundy-800",
@@ -495,7 +537,7 @@ export default function ReservationPage() {
                                   value="lunch"
                                   aria-label="Toggle lunch"
                                   className={cn(
-                                    "px-4 py-2 lg:w-20 w-14 rounded-md transition-all duration-200 font-sans font-normal xl:text-sm text-xs",
+                                    "px-3 sm:px-4 py-2 rounded-md transition-all duration-200 font-normal text-xs sm:text-sm",
                                     occasionField.value === "lunch"
                                       ? "!bg-crimson-600 text-white"
                                       : "bg-transparent text-white hover:bg-burgundy-800",
@@ -509,7 +551,7 @@ export default function ReservationPage() {
                         />
                       </div>
 
-                      <div className="flex flex-row xl:gap-2 lg:gap-2 gap-[21px] flex-wrap">
+                      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3">
                         {timeSlots[selectedOccasionType]?.map((slot, index) => (
                           <button
                             key={index}
@@ -521,7 +563,7 @@ export default function ReservationPage() {
                             }}
                             disabled={!slot.available}
                             className={cn(
-                              "flex flex-col items-center justify-center px-6 py-3 xl:w-28 lg:w-32 w-auto rounded-lg border-2 transition-all duration-200",
+                              "flex flex-col items-center justify-center px-2 py-2.5 sm:py-3 rounded-lg border-2 transition-all duration-200",
                               !slot.available
                                 ? "border-burgundy-800 bg-burgundy-950/50 cursor-not-allowed opacity-50"
                                 : selectedTime === slot.time
@@ -531,19 +573,17 @@ export default function ReservationPage() {
                           >
                             <span
                               className={cn(
-                                "font-sans font-semibold text-xs",
+                                "font-semibold text-xs",
                                 !slot.available
                                   ? "text-white-60"
-                                  : selectedTime === slot.time
-                                    ? "text-white"
-                                    : "text-white",
+                                  : "text-white",
                               )}
                             >
                               {slot.time}
                             </span>
                             <span
                               className={cn(
-                                "font-sans font-normal lg:text-xxs text-[10px] mt-1",
+                                "font-normal text-[10px] mt-1",
                                 !slot.available
                                   ? "text-white-60"
                                   : selectedTime === slot.time
@@ -569,19 +609,20 @@ export default function ReservationPage() {
 
                 <div className="border-t border-burgundy-800" />
 
+                {/* Contact Details */}
                 <div className="flex flex-col w-full gap-4">
-                  <h2 className="font-sans !font-bold lg:text-xl text-lg text-white">
+                  <h2 className="!font-bold text-lg sm:text-xl text-white">
                     Contact Details
                   </h2>
 
-                  <div className="flex lg:flex-row flex-col lg:gap-6 gap-4 w-full">
-                    <div className="lg:w-1/2 w-full">
+                  <div className="flex sm:flex-row flex-col sm:gap-4 lg:gap-6 gap-4 w-full">
+                    <div className="sm:w-1/2 w-full">
                       <FormField
                         control={form.control}
                         name="firstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                            <FormLabel className="font-normal text-xs text-white-60 uppercase">
                               first name
                             </FormLabel>
                             <FormControl>
@@ -605,13 +646,13 @@ export default function ReservationPage() {
                       />
                     </div>
 
-                    <div className="lg:w-1/2 w-full">
+                    <div className="sm:w-1/2 w-full">
                       <FormField
                         control={form.control}
                         name="lastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                            <FormLabel className="font-normal text-xs text-white-60 uppercase">
                               last name
                             </FormLabel>
                             <FormControl>
@@ -636,14 +677,14 @@ export default function ReservationPage() {
                     </div>
                   </div>
 
-                  <div className="flex lg:flex-row flex-col lg:gap-6 gap-4 w-full">
-                    <div className="lg:w-1/2 w-full">
+                  <div className="flex sm:flex-row flex-col sm:gap-4 lg:gap-6 gap-4 w-full">
+                    <div className="sm:w-1/2 w-full">
                       <FormField
                         control={form.control}
                         name="phoneNumber"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                            <FormLabel className="font-normal text-xs text-white-60 uppercase">
                               phone number
                             </FormLabel>
                             <FormControl>
@@ -667,13 +708,13 @@ export default function ReservationPage() {
                       />
                     </div>
 
-                    <div className="lg:w-1/2 w-full">
+                    <div className="sm:w-1/2 w-full">
                       <FormField
                         control={form.control}
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                            <FormLabel className="font-normal text-xs text-white-60 uppercase">
                               email address
                             </FormLabel>
                             <FormControl>
@@ -703,7 +744,7 @@ export default function ReservationPage() {
                     name="specialRequests"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                        <FormLabel className="font-normal text-xs text-white-60 uppercase">
                           special requests (optional)
                         </FormLabel>
                         <FormControl>
@@ -728,6 +769,7 @@ export default function ReservationPage() {
 
                 <div className="border-t border-burgundy-800" />
 
+                {/* Terms + Submit */}
                 <div className="flex flex-col w-full gap-4">
                   <FormField
                     control={form.control}
@@ -742,7 +784,7 @@ export default function ReservationPage() {
                               className="mt-0.5"
                             />
                           </FormControl>
-                          <FormLabel className="font-normal lg:text-xs !text-xxs text-white cursor-pointer">
+                          <FormLabel className="font-normal text-xxs sm:text-xs text-white cursor-pointer">
                             I agree with the{" "}
                             <Link
                               href="/legal/cancellation-policy"
@@ -774,7 +816,7 @@ export default function ReservationPage() {
                     type="submit"
                     variant="default"
                     size="lg"
-                    className="flex flex-row gap-2 items-center justify-center bg-crimson-600 hover:bg-crimson-500"
+                    className="flex flex-row gap-2 items-center justify-center bg-crimson-600 hover:bg-crimson-500 rounded-full"
                   >
                     {isSubmitting ? (
                       <>
@@ -790,7 +832,7 @@ export default function ReservationPage() {
                   </Button>
 
                   <div className="flex items-center justify-center">
-                    <p className="font-normal lg:text-xs text-xxs text-white-60">
+                    <p className="font-normal text-xxs sm:text-xs text-white-60">
                       Powered by Lumière Table Management
                     </p>
                   </div>
