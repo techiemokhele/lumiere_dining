@@ -18,6 +18,7 @@ import {
   Send,
   Flame,
   Sparkles,
+  LoaderCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +39,8 @@ export default function LandingPage() {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [subscribed, setSubscribed] = useState<boolean>(false);
+  const [isSubscribing, setIsSubscribing] = useState<boolean>(false);
+  const [subscribeError, setSubscribeError] = useState<string>("");
 
   const popularRef = useRef<HTMLElement>(null);
 
@@ -53,11 +56,36 @@ export default function LandingPage() {
     popularRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
+    if (!email.trim()) return;
+
+    setIsSubscribing(true);
+    setSubscribeError("");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to subscribe");
+      }
+
       setSubscribed(true);
       setEmail("");
+    } catch (error) {
+      setSubscribeError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
@@ -589,24 +617,42 @@ export default function LandingPage() {
           ) : (
             <form
               onSubmit={handleSubscribe}
-              className="flex flex-row gap-3 w-full max-w-md"
+              className="flex flex-col gap-3 w-full max-w-md"
             >
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="flex-1 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white/40"
-              />
-              <Button
-                type="submit"
-                variant="default"
-                className="rounded-lg gap-2 shrink-0"
-              >
-                <span className="hidden sm:inline">Subscribe</span>
-                <Send size={16} />
-              </Button>
+              <div className="flex flex-row gap-3 w-full">
+                <Input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setSubscribeError("");
+                  }}
+                  required
+                  disabled={isSubscribing}
+                  className={`flex-1 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white/40 ${subscribeError ? "border-crimson-500" : ""}`}
+                />
+                <Button
+                  type="submit"
+                  variant="default"
+                  disabled={isSubscribing}
+                  className="rounded-lg gap-2 shrink-0 disabled:opacity-50"
+                >
+                  {isSubscribing ? (
+                    <LoaderCircle className="animate-spin h-4 w-4" />
+                  ) : (
+                    <>
+                      <span className="hidden sm:inline">Subscribe</span>
+                      <Send size={16} />
+                    </>
+                  )}
+                </Button>
+              </div>
+              {subscribeError && (
+                <p className="text-crimson-500 text-xs font-normal">
+                  {subscribeError}
+                </p>
+              )}
             </form>
           )}
 
