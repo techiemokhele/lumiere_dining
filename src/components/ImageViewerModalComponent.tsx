@@ -42,6 +42,7 @@ export function ImageViewerModalComponent({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, selectedIndex]);
 
   const handlePrevious = () => {
@@ -92,7 +93,7 @@ export function ImageViewerModalComponent({
           className="absolute top-4 right-4 z-50 p-2 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 transition-colors"
           aria-label="Close viewer"
         >
-          <X className="w-6 h-6 text-white" />
+          <X className="w-4 h-4 text-white" />
         </button>
 
         <button
@@ -103,7 +104,7 @@ export function ImageViewerModalComponent({
           className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 transition-colors"
           aria-label="Previous image"
         >
-          <ChevronLeft className="w-6 h-6 text-white" />
+          <ChevronLeft className="w-4 h-4 text-white" />
         </button>
 
         <button
@@ -114,11 +115,11 @@ export function ImageViewerModalComponent({
           className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-burgundy-900/80 hover:bg-burgundy-800 transition-colors"
           aria-label="Next image"
         >
-          <ChevronRight className="w-6 h-6 text-white" />
+          <ChevronRight className="w-4 h-4 text-white" />
         </button>
 
         <div
-          className="flex-1 flex items-center justify-center p-4 md:p-8"
+          className="flex-1 flex items-center justify-center px-4 pb-4 pt-8 md:p-8"
           onClick={(e) => e.stopPropagation()}
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
@@ -157,10 +158,10 @@ export function ImageViewerModalComponent({
           className="px-4 md:px-8 py-4 bg-gradient-to-t from-black/80 to-transparent"
           onClick={(e) => e.stopPropagation()}
         >
-          <h3 className="font-serif font-bold text-xl text-white mb-1">
+          <h3 className="font-bold text-xl text-crimson-600 mb-1">
             {currentItem.title}
           </h3>
-          <p className="font-sans text-sm text-white/80">
+          <p className="lg:text-sm text-xs text-white/80">
             {currentItem.description}
           </p>
         </div>

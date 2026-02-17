@@ -62,10 +62,10 @@ export function MasonryGalleryComponent({
     <>
       <div className="flex flex-col w-full gap-6 mb-16">
         <div className="flex flex-col gap-2">
-          <h2 className="font-serif font-extrabold lg:text-3xl text-2xl text-crimson-600">
+          <h2 className="font-extrabold lg:text-3xl text-2xl text-crimson-600">
             {title}
           </h2>
-          <p className="font-sans font-normal lg:text-base text-sm text-white/80 max-w-3xl">
+          <p className="font-normal lg:text-base text-sm text-white/80 max-w-3xl">
             {description}
           </p>
         </div>
@@ -123,12 +123,10 @@ export function MasonryGalleryComponent({
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="font-serif font-bold text-lg text-white mb-1">
+                    <h3 className="font-bold text-lg text-white mb-1">
                       {item.title}
                     </h3>
-                    <p className="font-sans text-sm text-white/90">
-                      {item.description}
-                    </p>
+                    <p className="text-sm text-white/90">{item.description}</p>
                   </div>
                 </div>
 
