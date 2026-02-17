@@ -26,7 +26,7 @@ export default function GalleryPage() {
           onClick={() =>
             galleryRef.current?.scrollIntoView({ behavior: "smooth" })
           }
-          image="./gallery-header.jpg"
+          image="/gallery-header.jpg"
           badgeText="Gallery of fame"
           addBadgeBorder={true}
           title="Explore Our Gallery of Delightful Moments"

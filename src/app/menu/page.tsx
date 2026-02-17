@@ -77,7 +77,7 @@ export default function MenuPage() {
     <PageContainer showNavigation={true} showFooter={true}>
       <div ref={headerRef} className="lg:-mt-[52px] -mt-12 w-full">
         <HeaderComponent
-          image="./menu-header.jpg"
+          image="/menu-header.jpg"
           badgeText="Seasonal Tasting Menu"
           addBadgeBorder={true}
           title="A Symphony of Flavors"

@@ -28,7 +28,7 @@ export default function OurStoryPage() {
           onClick={() =>
             experienceRef.current?.scrollIntoView({ behavior: "smooth" })
           }
-          image="./story-header.jpg"
+          image="/story-header.jpg"
           badgeText="Since 2008"
           addBadgeBorder={false}
           title="A Symphony of Taste"

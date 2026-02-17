@@ -137,7 +137,7 @@ export default function ContactPage() {
           onClick={() =>
             getInTouchRef.current?.scrollIntoView({ behavior: "smooth" })
           }
-          image="./contact-us-header.jpg"
+          image="/contact-us-header.jpg"
           badgeText="Contact Us"
           addBadgeBorder={true}
           title="Get In Touch With Us"
