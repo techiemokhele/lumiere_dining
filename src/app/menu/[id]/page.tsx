@@ -184,7 +184,9 @@ export default function MenuSearchAndFilterCategoryPage() {
                   {searchQuery ? (
                     <>
                       Results for{" "}
-                      <span className="break-all">"{searchQuery}"</span>
+                      <span className="break-all">
+                        &ldquo;{searchQuery}&rdquo;
+                      </span>
                     </>
                   ) : (
                     section.title
