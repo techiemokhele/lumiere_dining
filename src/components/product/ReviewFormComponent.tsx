@@ -41,7 +41,13 @@ interface ReviewData {
   createdAt: string;
 }
 
-export function ReviewFormComponent({ itemName }: { itemName: string }) {
+export function ReviewFormComponent({
+  itemName,
+  onCountChange,
+}: {
+  itemName: string;
+  onCountChange?: (count: number) => void;
+}) {
   const { data: session, status } = useSession();
   const { toast } = useToast();
 
@@ -54,6 +60,7 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
       const res = await fetch(`/api/reviews/${encodeURIComponent(itemName)}`);
       const data = await res.json();
       setReviews(data.reviews || []);
+      if (onCountChange) onCountChange(data.count ?? 0);
     } catch {
     } finally {
       setReviewsLoading(false);

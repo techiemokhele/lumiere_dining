@@ -9,11 +9,12 @@ export async function GET(
   try {
     await connectDB();
     const itemName = decodeURIComponent(params.itemName);
-    const count = await Review.countDocuments({ itemName });
-    const reviews = await Review.find({ itemName })
-      .sort({ createdAt: -1 })
-      .limit(5)
-      .lean();
+
+    const [reviews, count] = await Promise.all([
+      Review.find({ itemName }).sort({ createdAt: -1 }).limit(5).lean(),
+      Review.countDocuments({ itemName }),
+    ]);
+
     return NextResponse.json({ reviews, count });
   } catch {
     return NextResponse.json(
