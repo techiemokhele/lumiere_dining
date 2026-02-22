@@ -18,14 +18,14 @@ export default function CheckoutSuccessPage() {
 
     const sendConfirmationAndClear = async () => {
       try {
-        const orderData = localStorage.getItem("lumiere-last-order");
+        const orderData = sessionStorage.getItem("lumiere-last-order");
         if (orderData) {
           await fetch("/api/order-confirmation", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: orderData,
           });
-          localStorage.removeItem("lumiere-last-order");
+          sessionStorage.removeItem("lumiere-last-order");
         }
       } catch (error) {
         console.error("Failed to send order confirmation:", error);

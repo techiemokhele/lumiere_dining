@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { LoaderCircle, Send, LogIn } from "lucide-react";
+import { LoaderCircle, Send, LogIn, Star } from "lucide-react";
 import z from "zod";
 import { useToast } from "@/lib/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import { Separator } from "../ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
@@ -16,35 +17,57 @@ import { Button } from "../ui/button";
 import { InteractiveStarRating } from "./InteractiveStarRatingComponent";
 
 const reviewFormSchema = z.object({
-  rating: z
-    .number()
-    .min(1, "Please select a rating.")
-    .max(5, "Rating cannot exceed 5."),
+  rating: z.number().min(1, "Please select a rating.").max(5),
   title: z
     .string()
     .trim()
     .min(3, "Review title must be at least 3 characters.")
-    .max(150, "Review title cannot exceed 150 characters."),
+    .max(150),
   review: z
     .string()
     .trim()
     .min(10, "Review must be at least 10 characters.")
-    .max(1000, "Review cannot exceed 1000 characters."),
+    .max(1000),
 });
 
 type ReviewFormData = z.infer<typeof reviewFormSchema>;
 
+interface ReviewData {
+  _id: string;
+  userName: string;
+  rating: number;
+  title: string;
+  review: string;
+  createdAt: string;
+}
+
 export function ReviewFormComponent({ itemName }: { itemName: string }) {
   const { data: session, status } = useSession();
   const { toast } = useToast();
+
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [reviews, setReviews] = useState<ReviewData[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState<boolean>(true);
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch(`/api/reviews/${encodeURIComponent(itemName)}`);
+      const data = await res.json();
+      setReviews(data.reviews || []);
+    } catch {
+    } finally {
+      setReviewsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchReviews();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemName]);
 
   const form = useForm<ReviewFormData>({
-    defaultValues: {
-      rating: 0,
-      title: "",
-      review: "",
-    },
+    defaultValues: { rating: 0, title: "", review: "" },
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     resolver: zodResolver(reviewFormSchema),
@@ -56,39 +79,27 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
   ) => {
     e?.preventDefault();
     setIsSubmitting(true);
-
     try {
       const response = await fetch("/api/reviews/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          itemName,
-          rating: values.rating,
-          title: values.title,
-          review: values.review,
-        }),
+        body: JSON.stringify({ itemName, ...values }),
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
+      if (!response.ok)
         throw new Error(data.error || "Failed to submit review.");
-      }
 
       toast({
         title: "Review Submitted!",
-        description: `Thank you for reviewing ${itemName}. Your feedback helps other guests.`,
-        variant: "default",
+        description: `Thank you for reviewing ${itemName}.`,
       });
-
       form.reset();
+      fetchReviews();
     } catch (error) {
       toast({
         title: "Submission Failed",
         description:
-          error instanceof Error
-            ? error.message
-            : "There was an error submitting your review. Please try again.",
+          error instanceof Error ? error.message : "Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -104,7 +115,7 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
           Leave a Review
         </h2>
         <p className="lg:text-sm text-xs text-white-60">
-          Share your experience with {itemName} to help other guests
+          Share your experience with {itemName}
         </p>
       </div>
 
@@ -123,15 +134,12 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
         </div>
       ) : (
         <div className="rounded-2xl bg-burgundy-800 p-6 lg:p-8">
-          <div className="flex flex-row items-center gap-2 mb-5">
-            <p className="text-xs text-white-60">
-              Reviewing as{" "}
-              <span className="text-white font-semibold">
-                {session.user?.name}
-              </span>
-            </p>
-          </div>
-
+          <p className="text-xs text-white-60 mb-5">
+            Reviewing as{" "}
+            <span className="text-white font-semibold">
+              {session.user?.name}
+            </span>
+          </p>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -151,12 +159,10 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
                         onChange={field.onChange}
                       />
                     </FormControl>
-                    {form.formState.errors.rating ? (
-                      <p className="text-crimson-500 text-xxs font-normal mt-1">
+                    {form.formState.errors.rating && (
+                      <p className="text-crimson-500 text-xxs mt-1">
                         {form.formState.errors.rating.message}
                       </p>
-                    ) : (
-                      <div className="h-2 py-1.5" />
                     )}
                   </FormItem>
                 )}
@@ -173,17 +179,14 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
                     <FormControl>
                       <Input
                         {...field}
-                        type="text"
                         placeholder="Summarise your experience"
                         className="bg-burgundy-900 border-burgundy-700 text-white placeholder:text-white-60"
                       />
                     </FormControl>
-                    {form.formState.errors.title ? (
-                      <p className="text-crimson-500 text-xxs font-normal mt-1">
+                    {form.formState.errors.title && (
+                      <p className="text-crimson-500 text-xxs mt-1">
                         {form.formState.errors.title.message}
                       </p>
-                    ) : (
-                      <div className="h-2 py-1.5" />
                     )}
                   </FormItem>
                 )}
@@ -201,16 +204,14 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
                       <Textarea
                         {...field}
                         rows={5}
-                        placeholder="Tell us about your experience with this dish..."
+                        placeholder="Tell us about your experience..."
                         className="bg-burgundy-900 border-burgundy-700 text-white placeholder:text-white-60 resize-none"
                       />
                     </FormControl>
-                    {form.formState.errors.review ? (
-                      <p className="text-crimson-500 text-xxs font-normal mt-1">
+                    {form.formState.errors.review && (
+                      <p className="text-crimson-500 text-xxs mt-1">
                         {form.formState.errors.review.message}
                       </p>
-                    ) : (
-                      <div className="h-2 py-1.5" />
                     )}
                   </FormItem>
                 )}
@@ -218,10 +219,8 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
 
               <Button
                 type="submit"
-                variant="default"
-                size="lg"
                 disabled={isSubmitting}
-                className="flex flex-row gap-2 items-center justify-center bg-crimson-600 hover:bg-crimson-500 disabled:opacity-50 self-end rounded-full"
+                className="bg-crimson-600 hover:bg-crimson-500 self-end rounded-full gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -231,12 +230,52 @@ export function ReviewFormComponent({ itemName }: { itemName: string }) {
                 ) : (
                   <>
                     <span>Submit Review</span>
-                    <Send size={16} className="text-white" />
+                    <Send size={16} />
                   </>
                 )}
               </Button>
             </form>
           </Form>
+        </div>
+      )}
+
+      {!reviewsLoading && reviews.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <h3 className="font-bold text-lg text-white">Recent Reviews</h3>
+          {reviews.map((r) => (
+            <div
+              key={r._id}
+              className="flex flex-col gap-3 p-5 rounded-2xl bg-burgundy-800"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      size={14}
+                      className={cn(
+                        star <= r.rating
+                          ? "fill-amber-400 text-amber-400"
+                          : "text-burgundy-700",
+                      )}
+                    />
+                  ))}
+                </div>
+                <span className="text-xxs text-white-60">
+                  {new Date(r.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+              <p className="font-semibold text-sm text-white">{r.title}</p>
+              <p className="text-xs text-white-60 leading-relaxed">
+                {r.review}
+              </p>
+              <p className="text-xxs text-white-40">— {r.userName}</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
