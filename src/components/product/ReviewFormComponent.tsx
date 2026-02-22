@@ -284,7 +284,7 @@ export function ReviewFormComponent({
               </p>
               <div className="flex flex-row items-center gap-2 mt-1">
                 <UserAvatar src={r.userImage} alt={r.userName} size={24} />
-                <p className="text-xxs text-white-40">— {r.userName}</p>
+                <p className="text-xxs text-white-40">{r.userName}</p>
               </div>
             </div>
           ))}

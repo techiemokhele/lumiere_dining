@@ -132,7 +132,7 @@ export function NavComponent() {
                     <UserAvatar
                       src={session.user.image}
                       alt="Profile"
-                      size={32}
+                      size={28}
                     />
                   </div>
                 ) : (
@@ -322,13 +322,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                 </Button>
                 <Button asChild variant="default" className="w-full">
                   <Link href={accountHref}>
-                    {session?.user?.image ? (
-                      <UserAvatar
-                        src={session.user.image}
-                        alt="Profile"
-                        size={24}
-                      />
-                    ) : status === "authenticated" ? (
+                    {status === "authenticated" ? (
                       <UserCircle size={24} className="text-white" />
                     ) : (
                       <LogIn size={24} className="text-white" />
