@@ -1,4 +1,4 @@
-interface MenuItem {
+interface ShopProduct {
   id: string;
   name: string;
   price: number;
@@ -9,17 +9,16 @@ interface MenuItem {
   images: string[];
   rating: number;
   reviewCount: number;
-  ingredients: string[];
-  preparationNotes: string;
-  allergies: string[];
-  pairings: string[];
+  details: string[];
+  careInstructions: string;
+  relatedProducts: string[];
 }
 
-interface MenuSection {
+interface ShopCategory {
   id: string;
   title: string;
   description: string;
-  items: MenuItem[];
+  items: ShopProduct[];
 }
 
-export type { MenuItem, MenuSection };
+export type { ShopProduct, ShopCategory };

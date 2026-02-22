@@ -1,28 +1,25 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
-import { useParams } from "next/navigation";
-import { notFound } from "next/navigation";
+import { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowLeft,
-  Plus,
   Search,
   SlidersHorizontal,
   X,
   ChevronLeft,
   ChevronRight,
+  Star,
+  ShoppingBag,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useShop } from "@/lib/hooks/use-shop";
 import { cn } from "@/lib/utils";
-import { useMenu } from "@/lib/hooks/use-menu";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
-import { PaddingContainer } from "@/components/structure/PaddingContainer";
+import { HeaderComponent } from "@/components/layout/HeaderComponent";
 import { LoaderComponent } from "@/components/LoaderComponent";
 
 type SortOption =
@@ -34,53 +31,54 @@ type SortOption =
 
 const ITEMS_PER_PAGE = 12;
 
-export default function MenuSearchAndFilterCategoryPage() {
-  const params = useParams();
-  const id = params.id as string;
+export default function ShopPage() {
   const { addItem } = useCart();
+  const { shopData, loading } = useShop();
 
-  const { menuData, loading } = useMenu();
-  const section = menuData.find((s) => s.id === id);
+  const allProducts = shopData.flatMap((s) => s.items);
 
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("default");
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
 
   const gridRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const headerObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeaderVisible(entry.isIntersecting);
+      },
+      { rootMargin: "0px 0px -80% 0px", threshold: 0 },
+    );
+    if (headerRef.current) headerObserver.observe(headerRef.current);
+    return () => headerObserver.disconnect();
+  }, []);
 
   const allTags = useMemo(() => {
-    if (!section) return [];
     const tags = new Set<string>();
-    section.items.forEach((item) => item.tags.forEach((tag) => tags.add(tag)));
+    allProducts.forEach((item) => item.tags.forEach((tag) => tags.add(tag)));
     return Array.from(tags).sort();
-  }, [section]);
+  }, [allProducts]);
 
   const filteredItems = useMemo(() => {
-    if (!section) return [];
-    let items = [...section.items];
+    let items =
+      activeCategory === "all"
+        ? [...allProducts]
+        : shopData.find((s) => s.id === activeCategory)?.items || [];
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      const otherMatches = menuData
-        .filter((s) => s.id !== id)
-        .flatMap((s) => s.items)
-        .filter(
-          (item) =>
-            item.name.toLowerCase().includes(q) ||
-            item.excerpt.toLowerCase().includes(q) ||
-            item.tags.some((tag) => tag.toLowerCase().includes(q)),
-        );
-
       items = items.filter(
         (item) =>
           item.name.toLowerCase().includes(q) ||
           item.excerpt.toLowerCase().includes(q) ||
           item.tags.some((tag) => tag.toLowerCase().includes(q)),
       );
-
-      items = [...items, ...otherMatches];
     }
 
     if (selectedTags.length > 0) {
@@ -105,21 +103,15 @@ export default function MenuSearchAndFilterCategoryPage() {
     }
 
     return items;
-  }, [section, searchQuery, selectedTags, sortBy, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shopData, activeCategory, searchQuery, selectedTags, sortBy]);
 
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+
   const paginatedItems = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
     return filteredItems.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredItems, currentPage]);
-
-  if (loading)
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <LoaderComponent />
-      </div>
-    );
-  if (!section) return notFound();
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
@@ -128,6 +120,11 @@ export default function MenuSearchAndFilterCategoryPage() {
 
   const handleSortChange = (value: SortOption) => {
     setSortBy(value);
+    setCurrentPage(1);
+  };
+
+  const handleCategoryChange = (id: string) => {
+    setActiveCategory(id);
     setCurrentPage(1);
   };
 
@@ -152,62 +149,53 @@ export default function MenuSearchAndFilterCategoryPage() {
   const hasActiveFilters =
     searchQuery || selectedTags.length > 0 || sortBy !== "default";
 
-  const isSearchingAcrossCategories =
-    searchQuery.trim() &&
-    filteredItems.length >
-      section.items.filter((item) => {
-        const q = searchQuery.toLowerCase();
-        return (
-          item.name.toLowerCase().includes(q) ||
-          item.excerpt.toLowerCase().includes(q) ||
-          item.tags.some((tag) => tag.toLowerCase().includes(q))
-        );
-      }).length;
-
-  const pageDescription = searchQuery.trim()
-    ? isSearchingAcrossCategories
-      ? `Showing matches from ${section.title} and other categories`
-      : `Showing matches in ${section.title}`
-    : section.description;
+  const categories = [
+    { id: "all", title: "All Products" },
+    ...shopData.map((s) => ({ id: s.id, title: s.title })),
+  ];
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
-      <PaddingContainer size="small" className="w-full">
+      <div ref={headerRef} className="lg:-mt-[52px] -mt-12 w-full">
+        <HeaderComponent
+          image="/knife-product.jpg"
+          badgeText="Lumière Collection"
+          addBadgeBorder={true}
+          title="Bring Lumière Home"
+          description="Discover our exclusive collection of artisanal pantry goods, premium kitchen tools, signed cookbooks, and curated gifts — each selected by Chef Antonie."
+          onClick={scrollToGrid}
+        />
+      </div>
+
+      <div
+        className={cn(
+          "flex flex-col sticky lg:top-[0px] top-12 z-10 transition-colors duration-300 gap-4 w-full",
+          !isHeaderVisible && "bg-burgundy-700/95 backdrop-blur-md shadow-lg",
+        )}
+      >
+        <div className="flex flex-row justify-center items-center lg:gap-6 gap-4 pt-4">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => handleCategoryChange(cat.id)}
+              className={cn(
+                "font-serif text-xs md:text-lg transition-all",
+                "text-white/80 hover:text-white",
+                activeCategory === cat.id && "!font-extrabold text-white",
+              )}
+            >
+              {cat.title}
+            </button>
+          ))}
+        </div>
+        <Separator />
+      </div>
+
+      <div className="w-full px-4 lg:px-8 xl:px-16">
         <div
           ref={gridRef}
-          className="flex flex-col w-full gap-8 py-10 lg:mt-0 -mt-12 pt-20 lg:pt-24 scroll-m-16 overflow-x-hidden"
+          className="flex flex-col w-full gap-8 py-10 max-w-7xl mx-auto scroll-m-16 overflow-x-hidden"
         >
-          <div className="flex flex-col gap-4">
-            <Link
-              href="/menu"
-              className="flex flex-row items-center gap-2 text-white-60 hover:text-white transition-colors w-fit"
-            >
-              <ArrowLeft size={16} />
-              <span className="font-serif text-sm">Back to Menu</span>
-            </Link>
-
-            <div className="flex flex-col gap-2">
-              <div className="w-full max-w-full break-words">
-                <h1 className="font-serif font-extrabold text-3xl lg:text-5xl text-crimson-600 break-words">
-                  {searchQuery ? (
-                    <>
-                      Results for{" "}
-                      <span className="break-all">
-                        &ldquo;{searchQuery}&rdquo;
-                      </span>
-                    </>
-                  ) : (
-                    section.title
-                  )}
-                </h1>
-              </div>
-              <p className="font-serif font-normal text-xs lg:text-sm text-white-60">
-                {pageDescription}
-              </p>
-            </div>
-            <Separator />
-          </div>
-
           <div className="flex flex-col gap-4">
             <div className="flex lg:flex-row flex-col gap-3 items-center w-full">
               <div className="relative lg:flex-1 lg:min-w-0 w-full">
@@ -216,7 +204,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-white-60"
                 />
                 <Input
-                  placeholder={`Search ${section.title.toLowerCase()}...`}
+                  placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   className="pl-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 rounded-3xl lg:text-sm text-xs w-full"
@@ -285,7 +273,7 @@ export default function MenuSearchAndFilterCategoryPage() {
             {hasActiveFilters && (
               <div className="flex flex-row items-center justify-between">
                 <p className="font-serif text-xs text-white-60">
-                  Showing {filteredItems.length} item
+                  Showing {filteredItems.length} product
                   {filteredItems.length !== 1 ? "s" : ""}
                 </p>
                 <button
@@ -298,59 +286,69 @@ export default function MenuSearchAndFilterCategoryPage() {
             )}
           </div>
 
-          {paginatedItems.length > 0 ? (
+          {loading ? (
+            <LoaderComponent />
+          ) : paginatedItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {paginatedItems.map((item, index) => (
+              {paginatedItems.map((item) => (
                 <div
-                  key={index}
-                  className="group flex flex-col rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden"
+                  key={item.id}
+                  className="group flex flex-col rounded-2xl bg-burgundy-800/60 border border-burgundy-700/50 overflow-hidden hover:border-crimson-600/30 transition-all duration-300"
                 >
-                  <Link
-                    href={`/menu/details/${item.id}`}
-                    className="relative w-full h-52 overflow-hidden block"
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    />
+                  <Link href={`/shop/${item.id}`}>
+                    <div className="relative h-52 w-full overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
+                        <Star
+                          size={12}
+                          className="fill-amber-400 text-amber-400"
+                        />
+                        <span className="text-xxs text-white font-bold">
+                          {item.rating}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-3 left-3 flex gap-1.5">
+                        {item.tags.slice(0, 2).map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[10px] uppercase font-semibold bg-crimson-600/80 backdrop-blur-sm text-white px-2 py-0.5 rounded-full"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </Link>
 
-                  <div className="flex flex-col flex-1 gap-3 p-5">
-                    <div className="flex flex-row justify-between items-center">
-                      <Link
-                        href={`/menu/details/${item.id}`}
-                        className="hover:text-primary transition-colors"
-                      >
-                        <p className="font-serif font-bold text-lg text-white">
+                  <div className="flex flex-col gap-3 p-5 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <Link href={`/shop/${item.id}`}>
+                        <h3 className="font-bold text-lg text-white group-hover:text-crimson-500 transition-colors">
                           {item.name}
-                        </p>
+                        </h3>
                       </Link>
-                      <p className="font-serif font-bold text-lg text-primary">
+                      <span className="font-bold text-lg text-crimson-500 shrink-0">
                         R{item.price}
-                      </p>
+                      </span>
                     </div>
-
-                    <div className="flex flex-row gap-2 flex-wrap">
-                      {item.tags.map((tag, i) => (
-                        <Badge
-                          key={i}
-                          className="bg-burgundy-700 text-white-80 text-xs"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <p className="font-serif font-normal text-xs text-white-60 line-clamp-3 flex-1">
+                    <p className="text-xs text-white/60 line-clamp-2 flex-1">
                       {item.excerpt}
                     </p>
-
-                    <div className="flex justify-end mt-auto pt-2">
+                    <div className="flex items-center justify-between mt-auto pt-2">
+                      <span className="text-xxs text-white/40">
+                        {item.reviewCount} reviews
+                      </span>
                       <Button
-                        className="bg-burgundy-700 hover:bg-crimson-500"
+                        variant="default"
+                        size="sm"
+                        className="rounded-full gap-1.5 h-8 px-4"
                         onClick={() =>
                           addItem({
                             id: item.id,
@@ -361,8 +359,8 @@ export default function MenuSearchAndFilterCategoryPage() {
                           })
                         }
                       >
-                        <Plus size={16} />
-                        <span>Add to Order</span>
+                        <ShoppingBag size={14} />
+                        <span className="text-xs">Add</span>
                       </Button>
                     </div>
                   </div>
@@ -373,18 +371,10 @@ export default function MenuSearchAndFilterCategoryPage() {
             <div className="col-span-full flex w-full">
               <div className="flex flex-col flex-1 rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden">
                 <div className="flex flex-col items-center justify-center flex-1 p-10 gap-6">
-                  <Image
-                    src="/sad-chef.webp"
-                    alt="Sad Chef"
-                    width={300}
-                    height={300}
-                    className="w-60 h-60 object-contain"
-                  />
-
+                  <ShoppingBag size={64} className="text-white/20" />
                   <p className="font-serif text-lg text-white-60 text-center">
-                    No items found matching your criteria.
+                    No products found matching your criteria.
                   </p>
-
                   <Button
                     variant="outline"
                     className="border-burgundy-700 text-white"
@@ -447,7 +437,7 @@ export default function MenuSearchAndFilterCategoryPage() {
             </div>
           )}
         </div>
-      </PaddingContainer>
+      </div>
     </PageContainer>
   );
 }

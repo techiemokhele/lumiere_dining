@@ -16,30 +16,36 @@ import {
   X,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useShop } from "@/lib/hooks/use-shop";
 import { cn } from "@/lib/utils";
-import { useMenu } from "@/lib/hooks/use-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { ReviewFormComponent } from "@/components/product/ReviewFormComponent";
-import type { MenuItem, MenuSection } from "@/data/landingMenuData";
+import type { ShopCategory, ShopProduct } from "@/data/shopData";
 import { LoaderComponent } from "@/components/LoaderComponent";
 
-function findItemById(menuData: MenuSection[], id: string) {
-  for (const section of menuData) {
-    const item = section.items.find((i) => i.id === id);
-    if (item) return { item, sectionId: section.id };
+function findProductById(
+  shopData: ShopCategory[],
+  id: string,
+): { item: ShopProduct; categoryId: string } | null {
+  for (const category of shopData) {
+    const item = category.items.find((i) => i.id === id);
+    if (item) return { item, categoryId: category.id };
   }
   return null;
 }
 
-function findItemsByIds(menuData: MenuSection[], ids: string[]) {
-  const allItems = menuData.flatMap((s) => s.items);
+function findProductsByIds(
+  shopData: ShopCategory[],
+  ids: string[],
+): ShopProduct[] {
+  const allItems = shopData.flatMap((s) => s.items);
   return ids
     .map((id) => allItems.find((i) => i.id === id))
-    .filter(Boolean) as MenuItem[];
+    .filter(Boolean) as ShopProduct[];
 }
 
 function DetailDropdown({
@@ -110,12 +116,12 @@ function StarRating({
   );
 }
 
-function PairingCard({ item }: { item: MenuItem }) {
+function RelatedProductCard({ item }: { item: ShopProduct }) {
   const { addItem } = useCart();
 
   return (
     <Link
-      href={`/menu/details/${item.id}`}
+      href={`/shop/${item.id}`}
       className="group flex flex-col rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden min-w-[260px] lg:min-w-0"
     >
       <div className="relative w-full h-44 overflow-hidden">
@@ -202,11 +208,11 @@ function ImageLightbox({
   );
 }
 
-export default function ProductDetailPage() {
+export default function ShopProductDetailPage() {
   const params = useParams();
-  const itemId = params.id as string;
+  const productId = params.id as string;
   const { addItem } = useCart();
-  const { menuData, loading } = useMenu();
+  const { shopData, loading } = useShop();
 
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
@@ -214,13 +220,12 @@ export default function ProductDetailPage() {
   const [liveReviewCount, setLiveReviewCount] = useState<number | null>(null);
   const [liveRating, setLiveRating] = useState<number | null>(null);
 
-  const result = !loading ? findItemById(menuData, itemId) : null;
+  const result = !loading ? findProductById(shopData, productId) : null;
   const item = result?.item;
-  const sectionId = result?.sectionId;
 
-  const pairingItems = useMemo(
-    () => (item ? findItemsByIds(menuData, item.pairings) : []),
-    [menuData, item],
+  const relatedItems = useMemo(
+    () => (item ? findProductsByIds(shopData, item.relatedProducts) : []),
+    [shopData, item],
   );
 
   const handleAddToCart = useCallback(() => {
@@ -242,7 +247,7 @@ export default function ProductDetailPage() {
         <LoaderComponent />
       </div>
     );
-  if (!result || !item || !sectionId) return notFound();
+  if (!result || !item) return notFound();
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
@@ -257,11 +262,11 @@ export default function ProductDetailPage() {
       <PaddingContainer size="small" className="w-full">
         <div className="flex flex-col w-full gap-10 py-10 lg:mt-0 -mt-12 pt-20 lg:pt-24">
           <Link
-            href={`/menu/${sectionId}`}
+            href="/shop"
             className="flex flex-row items-center gap-2 text-white-60 hover:text-white transition-colors w-fit"
           >
             <ArrowLeft size={16} />
-            <span className="text-sm">Back to Menu</span>
+            <span className="text-sm">Back to Shop</span>
           </Link>
 
           <div className="flex lg:flex-row flex-col gap-8 lg:gap-12">
@@ -346,42 +351,23 @@ export default function ProductDetailPage() {
               <Separator />
 
               <div className="flex flex-col gap-3">
-                <DetailDropdown title="Ingredients" defaultOpen={false}>
+                <DetailDropdown title="Product Details" defaultOpen={false}>
                   <ul className="flex flex-row flex-wrap gap-2 pt-2">
-                    {item.ingredients.map((ing, i) => (
+                    {item.details.map((detail, i) => (
                       <li
                         key={i}
                         className="px-3 py-1 rounded-full bg-burgundy-900/60 text-xs text-white-60 border border-burgundy-700"
                       >
-                        {ing}
+                        {detail}
                       </li>
                     ))}
                   </ul>
                 </DetailDropdown>
 
-                <DetailDropdown title="Preparation Notes" defaultOpen={false}>
+                <DetailDropdown title="Care Instructions" defaultOpen={false}>
                   <p className="text-xs text-white-60 leading-relaxed pt-2">
-                    {item.preparationNotes}
+                    {item.careInstructions}
                   </p>
-                </DetailDropdown>
-
-                <DetailDropdown title="Allergies & Dietary" defaultOpen={false}>
-                  {item.allergies.length > 0 ? (
-                    <div className="flex flex-row flex-wrap gap-2 pt-2">
-                      {item.allergies.map((allergy, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 rounded-full bg-red-900/30 text-xs text-red-300 border border-red-800/50"
-                        >
-                          {allergy}
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-xs text-white-60">
-                      No common allergens identified.
-                    </p>
-                  )}
                 </DetailDropdown>
               </div>
 
@@ -415,7 +401,7 @@ export default function ProductDetailPage() {
                 >
                   <ShoppingBag size={18} />
                   <span className="font-semibold">
-                    Add to Order — R{item.price * quantity}
+                    Add to Cart — R{item.price * quantity}
                   </span>
                 </Button>
               </div>
@@ -428,25 +414,25 @@ export default function ProductDetailPage() {
             onRatingChange={setLiveRating}
           />
 
-          {pairingItems.length > 0 && (
+          {relatedItems.length > 0 && (
             <div className="flex flex-col gap-6 pt-6">
               <Separator />
               <div className="flex flex-col gap-2">
                 <h2 className="font-extrabold text-2xl lg:text-3xl text-white">
-                  Perfect Pairings
+                  You May Also Like
                 </h2>
                 <p className="lg:text-sm text-xs text-white-60">
-                  Our chef recommends these items to complement your selection
+                  Curated products that complement your selection
                 </p>
               </div>
 
               <div className="flex lg:grid lg:grid-cols-3 gap-5 overflow-x-auto pb-4 lg:pb-0 snap-x snap-mandatory lg:snap-none scrollbar-hide">
-                {pairingItems.map((pairItem) => (
+                {relatedItems.map((relItem) => (
                   <div
-                    key={pairItem.id}
+                    key={relItem.id}
                     className="snap-start shrink-0 lg:shrink w-[280px] lg:w-auto"
                   >
-                    <PairingCard item={pairItem} />
+                    <RelatedProductCard item={relItem} />
                   </div>
                 ))}
               </div>
