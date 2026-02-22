@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { LoaderCircle, ShoppingBag, ChevronDown } from "lucide-react";
+import { ShoppingBag, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 interface OrderItem {
   name: string;
@@ -159,7 +160,7 @@ export default function OrdersPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <LoaderCircle className="animate-spin h-8 w-8 text-crimson-500" />
+        <LoaderComponent />
       </div>
     );
   }

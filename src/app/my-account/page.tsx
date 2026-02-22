@@ -18,6 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/lib/hooks/use-toast";
 import { UserAvatar } from "@/components/UserAvatar";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 interface ProfileData {
   name: string;
@@ -202,7 +203,7 @@ export default function MyProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <LoaderCircle className="animate-spin h-8 w-8 text-crimson-500" />
+        <LoaderComponent />
       </div>
     );
   }
