@@ -15,6 +15,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { InteractiveStarRating } from "./InteractiveStarRatingComponent";
+import { UserAvatar } from "../UserAvatar";
 
 const reviewFormSchema = z.object({
   rating: z.number().min(1, "Please select a rating.").max(5),
@@ -35,6 +36,7 @@ type ReviewFormData = z.infer<typeof reviewFormSchema>;
 interface ReviewData {
   _id: string;
   userName: string;
+  userImage?: string;
   rating: number;
   title: string;
   review: string;
@@ -280,7 +282,10 @@ export function ReviewFormComponent({
               <p className="text-xs text-white-60 leading-relaxed">
                 {r.review}
               </p>
-              <p className="text-xxs text-white-40">— {r.userName}</p>
+              <div className="flex flex-row items-center gap-2 mt-1">
+                <UserAvatar src={r.userImage} alt={r.userName} size={24} />
+                <p className="text-xxs text-white-40">— {r.userName}</p>
+              </div>
             </div>
           ))}
         </div>

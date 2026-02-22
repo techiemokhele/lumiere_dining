@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   LoaderCircle,
   Save,
@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/lib/hooks/use-toast";
+import { UserAvatar } from "@/components/UserAvatar";
 
 interface ProfileData {
   name: string;
@@ -28,6 +29,7 @@ interface ProfileData {
 
 export default function MyProfilePage() {
   const { data: session, update: updateSession } = useSession();
+  const router = useRouter();
   const { toast } = useToast();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,6 +48,7 @@ export default function MyProfilePage() {
 
   useEffect(() => {
     fetchProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProfile = async () => {
@@ -130,6 +133,7 @@ export default function MyProfilePage() {
           prev ? { ...prev, profileImage: data.profileImage } : prev,
         );
         await updateSession({ image: data.profileImage });
+        router.refresh();
 
         toast({
           title: "Photo Updated",
@@ -227,13 +231,7 @@ export default function MyProfilePage() {
         <div className="relative group">
           <div className="relative w-20 h-20 rounded-full overflow-hidden bg-burgundy-700 flex items-center justify-center">
             {profile.profileImage ? (
-              <Image
-                src={profile.profileImage}
-                alt="Profile"
-                fill
-                className="object-cover"
-                sizes="80px"
-              />
+              <UserAvatar src={profile.profileImage} alt="Profile" size={80} />
             ) : (
               <User size={32} className="text-white-60" />
             )}
