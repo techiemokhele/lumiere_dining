@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         (session.user as Record<string, unknown>).id = token.id;
         session.user.image = (token.picture as string) || null;
-        session.user.image = (token.image as string) || null;
+        session.user.name = (token.name as string) ?? session.user.name;
       }
       return session;
     },

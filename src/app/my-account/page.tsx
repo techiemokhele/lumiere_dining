@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -31,8 +31,6 @@ export default function MyProfilePage() {
   const { data: session, update: updateSession } = useSession();
   const router = useRouter();
   const { toast } = useToast();
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -228,7 +226,7 @@ export default function MyProfilePage() {
       </div>
 
       <div className="flex flex-row items-center gap-6 p-6 rounded-2xl bg-burgundy-800">
-        <div className="relative group">
+        <label className="relative group cursor-pointer">
           <div className="relative w-20 h-20 rounded-full overflow-hidden bg-burgundy-700 flex items-center justify-center">
             {profile.profileImage ? (
               <UserAvatar src={profile.profileImage} alt="Profile" size={80} />
@@ -236,34 +234,24 @@ export default function MyProfilePage() {
               <User size={32} className="text-white-60" />
             )}
           </div>
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={uploadingImage}
-            className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-          >
+          <div className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             {uploadingImage ? (
               <LoaderCircle className="animate-spin h-5 w-5 text-white" />
             ) : (
               <Camera size={20} className="text-white" />
             )}
-          </button>
+          </div>
           <input
-            ref={fileInputRef}
             type="file"
             accept="image/jpeg,image/png,image/webp"
             className="hidden"
+            disabled={uploadingImage}
             onChange={handleImageUpload}
           />
-        </div>
+        </label>
         <div className="flex flex-col gap-1">
           <p className="font-bold text-lg text-white">{profile.name}</p>
           <p className="text-xs text-white-60">{profile.email}</p>
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="text-xxs text-crimson-500 hover:underline mt-1 text-left"
-          >
-            {profile.profileImage ? "Change Photo" : "Upload Photo"}
-          </button>
         </div>
       </div>
 
