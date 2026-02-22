@@ -15,29 +15,27 @@ import {
   ZoomIn,
   X,
 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
+import { useMenu } from "@/lib/hooks/use-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { ReviewFormComponent } from "@/components/product/ReviewFormComponent";
-import { landingMenuData } from "@/data/landingMenuData";
-import type { MenuItem } from "@/data/landingMenuData";
-import { useCart } from "@/context/CartContext";
+import type { MenuItem, MenuSection } from "@/data/landingMenuData";
 
-function findItemById(
-  id: string,
-): { item: MenuItem; sectionId: string } | null {
-  for (const section of landingMenuData) {
+function findItemById(menuData: MenuSection[], id: string) {
+  for (const section of menuData) {
     const item = section.items.find((i) => i.id === id);
     if (item) return { item, sectionId: section.id };
   }
   return null;
 }
 
-function findItemsByIds(ids: string[]): MenuItem[] {
-  const allItems = landingMenuData.flatMap((s) => s.items);
+function findItemsByIds(menuData: MenuSection[], ids: string[]) {
+  const allItems = menuData.flatMap((s) => s.items);
   return ids
     .map((id) => allItems.find((i) => i.id === id))
     .filter(Boolean) as MenuItem[];
@@ -207,22 +205,23 @@ export default function ProductDetailPage() {
   const params = useParams();
   const itemId = params.id as string;
   const { addItem } = useCart();
+  const { menuData, loading } = useMenu();
 
-  const result = findItemById(itemId);
-  if (!result) notFound();
+  const [selectedImage, setSelectedImage] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
 
-  const { item, sectionId } = result;
-
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const result = !loading ? findItemById(menuData, itemId) : null;
+  const item = result?.item;
+  const sectionId = result?.sectionId;
 
   const pairingItems = useMemo(
-    () => findItemsByIds(item.pairings),
-    [item.pairings],
+    () => (item ? findItemsByIds(menuData, item.pairings) : []),
+    [menuData, item],
   );
 
   const handleAddToCart = useCallback(() => {
+    if (!item) return;
     for (let i = 0; i < quantity; i++) {
       addItem({
         id: item.id,
@@ -233,6 +232,10 @@ export default function ProductDetailPage() {
       });
     }
   }, [addItem, item, quantity]);
+
+  if (loading)
+    return <div className="text-white/40 text-center py-20">Loading...</div>;
+  if (!result || !item || !sectionId) return notFound();
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>

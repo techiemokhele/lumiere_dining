@@ -2,15 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useMenu } from "@/lib/hooks/use-menu";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { LandingPageMenuCard } from "@/components/LandingPageMenuCard";
 import { SectionTitleComponent } from "@/components/SectionTitleComponent";
-import { landingMenuData } from "@/data/landingMenuData";
 import { HeaderComponent } from "@/components/layout/HeaderComponent";
 import { Separator } from "@/components/ui/separator";
 
 export default function MenuPage() {
+  const { menuData, loading } = useMenu();
+
   const [activeSection, setActiveSection] = useState<string>("starters");
   const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
 
@@ -93,7 +95,7 @@ export default function MenuPage() {
         )}
       >
         <div className="flex flex-row justify-center items-center lg:gap-6 gap-4 pt-4">
-          {landingMenuData.map((section, index) => (
+          {menuData.map((section, index) => (
             <button
               key={index}
               onClick={() => scrollToSection(section.id)}
@@ -111,31 +113,37 @@ export default function MenuPage() {
       </div>
 
       <PaddingContainer size="large">
-        <div className="flex flex-col w-full gap-16 py-10">
-          {landingMenuData.map((section) => (
-            <div
-              key={section.id}
-              id={section.id}
-              ref={sectionRefs[section.id as keyof typeof sectionRefs]}
-              className="flex flex-col gap-6 scroll-mt-28"
-            >
-              <SectionTitleComponent
+        {loading ? (
+          <div className="text-white/40 text-sm text-center py-10">
+            Loading menu...
+          </div>
+        ) : (
+          <div className="flex flex-col w-full gap-16 py-10">
+            {menuData.map((section) => (
+              <div
+                key={section.id}
                 id={section.id}
-                title={section.title}
-                description={section.description}
-              />
-              <div className="flex flex-col gap-6">
-                {section.items.slice(0, 4).map((item, index) => (
-                  <LandingPageMenuCard
-                    key={index}
-                    itemDirection={index % 2 === 0 ? "left" : "right"}
-                    {...item}
-                  />
-                ))}
+                ref={sectionRefs[section.id as keyof typeof sectionRefs]}
+                className="flex flex-col gap-6 scroll-mt-28"
+              >
+                <SectionTitleComponent
+                  id={section.id}
+                  title={section.title}
+                  description={section.description}
+                />
+                <div className="flex flex-col gap-6">
+                  {section.items.slice(0, 4).map((item, index) => (
+                    <LandingPageMenuCard
+                      key={index}
+                      itemDirection={index % 2 === 0 ? "left" : "right"}
+                      {...item}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </PaddingContainer>
     </PageContainer>
   );
