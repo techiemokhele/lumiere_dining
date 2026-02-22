@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCart } from "@/context/CartContext";
+import { useMenu } from "@/lib/hooks/use-menu";
 import { EmptyCartComponent } from "@/components/EmptyCartComponent";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
@@ -22,13 +24,13 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { useCart } from "@/context/CartContext";
-import { landingMenuData } from "@/data/landingMenuData";
 
 const kitchenNotesFormSchema = z.object({ notes: z.string().optional() });
 type KitchenNotesFormValues = z.infer<typeof kitchenNotesFormSchema>;
 
 export default function MyCartMainPage() {
+  const { menuData } = useMenu();
+
   const {
     items,
     subtotal,
@@ -57,19 +59,19 @@ export default function MyCartMainPage() {
 
     const cartCats = new Set<string>();
     for (const id of cartItemIds) {
-      for (const section of landingMenuData) {
+      for (const section of menuData) {
         if (section.items.some((mi) => mi.name === id)) {
           cartCats.add(section.id);
         }
       }
     }
 
-    const prioritized = landingMenuData
+    const prioritized = menuData
       .filter((section) => !cartCats.has(section.id))
       .flatMap((section) => section.items)
       .filter((item) => !idSet.has(item.name));
 
-    const fallback = landingMenuData
+    const fallback = menuData
       .filter((section) => cartCats.has(section.id))
       .flatMap((section) => section.items)
       .filter((item) => !idSet.has(item.name));

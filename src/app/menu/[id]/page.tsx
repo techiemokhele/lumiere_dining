@@ -14,15 +14,16 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
+import { useMenu } from "@/lib/hooks/use-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
-import { landingMenuData } from "@/data/landingMenuData";
-import { useCart } from "@/context/CartContext";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 type SortOption =
   | "default"
@@ -38,7 +39,8 @@ export default function MenuSearchAndFilterCategoryPage() {
   const id = params.id as string;
   const { addItem } = useCart();
 
-  const section = landingMenuData.find((s) => s.id === id);
+  const { menuData, loading } = useMenu();
+  const section = menuData.find((s) => s.id === id);
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -48,22 +50,20 @@ export default function MenuSearchAndFilterCategoryPage() {
 
   const gridRef = useRef<HTMLDivElement>(null);
 
-  if (!section) {
-    notFound();
-  }
-
   const allTags = useMemo(() => {
+    if (!section) return [];
     const tags = new Set<string>();
     section.items.forEach((item) => item.tags.forEach((tag) => tags.add(tag)));
     return Array.from(tags).sort();
   }, [section]);
 
   const filteredItems = useMemo(() => {
+    if (!section) return [];
     let items = [...section.items];
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      const otherMatches = landingMenuData
+      const otherMatches = menuData
         .filter((s) => s.id !== id)
         .flatMap((s) => s.items)
         .filter(
@@ -105,13 +105,21 @@ export default function MenuSearchAndFilterCategoryPage() {
     }
 
     return items;
-  }, [section.items, searchQuery, selectedTags, sortBy, id]);
+  }, [section, searchQuery, selectedTags, sortBy, id]);
 
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
   const paginatedItems = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
     return filteredItems.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredItems, currentPage]);
+
+  if (loading)
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <LoaderComponent />
+      </div>
+    );
+  if (!section) return notFound();
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);

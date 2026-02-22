@@ -20,21 +20,23 @@ import {
   Sparkles,
   LoaderCircle,
 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { useMenu } from "@/lib/hooks/use-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageContainer } from "@/components/structure/PageContainer";
-import { useCart } from "@/context/CartContext";
-import { landingMenuData } from "@/data/landingMenuData";
 import { reviews, services, slideshowImages } from "@/data/homePageStaticData";
-
-const allItems = landingMenuData.flatMap((s) => s.items);
-const popularDishes = allItems
-  .filter((i) => !["wines"].includes(i.id))
-  .sort((a, b) => b.rating * b.reviewCount - a.rating * a.reviewCount)
-  .slice(0, 6);
 
 export default function LandingPage() {
   const { addItem } = useCart();
+  const { menuData, loading } = useMenu();
+
+  const popularDishes = menuData
+    .flatMap((s) => s.items)
+    .filter((i) => i.id !== "wines")
+    .sort((a, b) => b.rating * b.reviewCount - a.rating * a.reviewCount)
+    .slice(0, 6);
+
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
@@ -194,84 +196,90 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-            {popularDishes.map((dish) => (
-              <div
-                key={dish.id}
-                className="group flex flex-col rounded-2xl bg-burgundy-800/60 border border-burgundy-700/50 overflow-hidden hover:border-crimson-600/30 transition-all duration-300"
-              >
-                <Link href={`/menu/details/${dish.id}`}>
-                  <div className="relative h-52 w-full overflow-hidden">
-                    <Image
-                      src={dish.image}
-                      alt={dish.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
-                      <Star
-                        size={12}
-                        className="fill-amber-400 text-amber-400"
+          {loading ? (
+            <div className="text-white/40 text-sm text-center py-10">
+              Loading...
+            </div>
+          ) : (
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+              {popularDishes.map((dish) => (
+                <div
+                  key={dish.id}
+                  className="group flex flex-col rounded-2xl bg-burgundy-800/60 border border-burgundy-700/50 overflow-hidden hover:border-crimson-600/30 transition-all duration-300"
+                >
+                  <Link href={`/menu/details/${dish.id}`}>
+                    <div className="relative h-52 w-full overflow-hidden">
+                      <Image
+                        src={dish.image}
+                        alt={dish.name}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
-                      <span className="text-xxs text-white font-bold">
-                        {dish.rating}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
+                        <Star
+                          size={12}
+                          className="fill-amber-400 text-amber-400"
+                        />
+                        <span className="text-xxs text-white font-bold">
+                          {dish.rating}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-3 left-3 flex gap-1.5">
+                        {dish.tags.slice(0, 2).map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[10px] uppercase font-semibold bg-crimson-600/80 backdrop-blur-sm text-white px-2 py-0.5 rounded-full"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </Link>
+
+                  <div className="flex flex-col gap-3 p-5 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <Link href={`/menu/${dish.id}`}>
+                        <h3 className="font-bold text-lg text-white group-hover:text-crimson-500 transition-colors">
+                          {dish.name}
+                        </h3>
+                      </Link>
+                      <span className="font-bold text-lg text-crimson-500 shrink-0">
+                        R{dish.price}
                       </span>
                     </div>
-                    <div className="absolute bottom-3 left-3 flex gap-1.5">
-                      {dish.tags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[10px] uppercase font-semibold bg-crimson-600/80 backdrop-blur-sm text-white px-2 py-0.5 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                    <p className="text-xs text-white/60 line-clamp-2 flex-1">
+                      {dish.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between mt-auto pt-2">
+                      <span className="text-xxs text-white/40">
+                        {dish.reviewCount} reviews
+                      </span>
+                      <Button
+                        variant="default"
+                        size="sm"
+                        className="rounded-full gap-1.5 h-8 px-4"
+                        onClick={() =>
+                          addItem({
+                            id: dish.id,
+                            name: dish.name,
+                            price: dish.price,
+                            image: dish.image,
+                            excerpt: dish.excerpt,
+                          })
+                        }
+                      >
+                        <ShoppingBag size={14} />
+                        <span className="text-xs">Add</span>
+                      </Button>
                     </div>
                   </div>
-                </Link>
-
-                <div className="flex flex-col gap-3 p-5 flex-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <Link href={`/menu/${dish.id}`}>
-                      <h3 className="font-bold text-lg text-white group-hover:text-crimson-500 transition-colors">
-                        {dish.name}
-                      </h3>
-                    </Link>
-                    <span className="font-bold text-lg text-crimson-500 shrink-0">
-                      R{dish.price}
-                    </span>
-                  </div>
-                  <p className="text-xs text-white/60 line-clamp-2 flex-1">
-                    {dish.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto pt-2">
-                    <span className="text-xxs text-white/40">
-                      {dish.reviewCount} reviews
-                    </span>
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className="rounded-full gap-1.5 h-8 px-4"
-                      onClick={() =>
-                        addItem({
-                          id: dish.id,
-                          name: dish.name,
-                          price: dish.price,
-                          image: dish.image,
-                          excerpt: dish.excerpt,
-                        })
-                      }
-                    >
-                      <ShoppingBag size={14} />
-                      <span className="text-xs">Add</span>
-                    </Button>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

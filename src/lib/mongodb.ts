@@ -14,6 +14,7 @@ interface MongooseCache {
 }
 
 declare global {
+  // eslint-disable-next-line no-var
   var mongooseCache: MongooseCache | undefined;
 }
 
@@ -26,7 +27,7 @@ if (!global.mongooseCache) {
   global.mongooseCache = cached;
 }
 
-async function connectDB(): Promise<typeof mongoose> {
+export async function connectDB(): Promise<typeof mongoose> {
   if (cached.conn) {
     return cached.conn;
   }
