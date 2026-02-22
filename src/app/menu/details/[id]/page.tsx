@@ -25,6 +25,7 @@ import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { ReviewFormComponent } from "@/components/product/ReviewFormComponent";
 import type { MenuItem, MenuSection } from "@/data/landingMenuData";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 function findItemById(menuData: MenuSection[], id: string) {
   for (const section of menuData) {
@@ -234,7 +235,11 @@ export default function ProductDetailPage() {
   }, [addItem, item, quantity]);
 
   if (loading)
-    return <div className="text-white/40 text-center py-20">Loading...</div>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <LoaderComponent />
+      </div>
+    );
   if (!result || !item || !sectionId) return notFound();
 
   return (

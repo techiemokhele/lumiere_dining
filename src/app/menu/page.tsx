@@ -9,6 +9,7 @@ import { LandingPageMenuCard } from "@/components/LandingPageMenuCard";
 import { SectionTitleComponent } from "@/components/SectionTitleComponent";
 import { HeaderComponent } from "@/components/layout/HeaderComponent";
 import { Separator } from "@/components/ui/separator";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 export default function MenuPage() {
   const { menuData, loading } = useMenu();
@@ -114,9 +115,7 @@ export default function MenuPage() {
 
       <PaddingContainer size="large">
         {loading ? (
-          <div className="text-white/40 text-sm text-center py-10">
-            Loading menu...
-          </div>
+          <LoaderComponent />
         ) : (
           <div className="flex flex-col w-full gap-16 py-10">
             {menuData.map((section) => (

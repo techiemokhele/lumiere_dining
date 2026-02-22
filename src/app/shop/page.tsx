@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { HeaderComponent } from "@/components/layout/HeaderComponent";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 type SortOption =
   | "default"
@@ -286,7 +287,7 @@ export default function ShopPage() {
           </div>
 
           {loading ? (
-            <div className="text-white/40 text-center py-20">Loading...</div>
+            <LoaderComponent />
           ) : paginatedItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {paginatedItems.map((item) => (

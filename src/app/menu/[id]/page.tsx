@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 type SortOption =
   | "default"
@@ -113,7 +114,11 @@ export default function MenuSearchAndFilterCategoryPage() {
   }, [filteredItems, currentPage]);
 
   if (loading)
-    return <div className="text-white/40 text-center py-20">Loading...</div>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <LoaderComponent />
+      </div>
+    );
   if (!section) return notFound();
 
   const handleSearchChange = (value: string) => {

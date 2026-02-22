@@ -25,6 +25,7 @@ import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { ReviewFormComponent } from "@/components/product/ReviewFormComponent";
 import type { ShopCategory, ShopProduct } from "@/data/shopData";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 function findProductById(
   shopData: ShopCategory[],
@@ -239,7 +240,11 @@ export default function ShopProductDetailPage() {
   }, [addItem, item, quantity]);
 
   if (loading)
-    return <div className="text-white/40 text-center py-20">Loading...</div>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <LoaderComponent />
+      </div>
+    );
   if (!result || !item) return notFound();
 
   return (
