@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import {
   User,
   ShoppingBag,
@@ -12,13 +11,14 @@ import {
   Star,
   Headphones,
   LogOut,
-  LoaderCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
+import { LoaderComponent } from "@/components/LoaderComponent";
+import { UserAvatar } from "@/components/UserAvatar";
 
 const accountLinks = [
   { label: "My Profile", href: "/my-account", icon: User },
@@ -47,7 +47,7 @@ export default function AccountLayout({
     return (
       <PageContainer showNavigation={true} showFooter={true}>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <LoaderCircle className="animate-spin h-8 w-8 text-crimson-500" />
+          <LoaderComponent />
         </div>
       </PageContainer>
     );
@@ -69,12 +69,10 @@ export default function AccountLayout({
               <div className="flex flex-row items-center gap-3 p-4 rounded-2xl bg-burgundy-800">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden bg-burgundy-700 flex items-center justify-center shrink-0">
                   {session.user?.image ? (
-                    <Image
+                    <UserAvatar
                       src={session.user.image}
                       alt={session.user.name || "Profile"}
-                      fill
-                      className="object-cover"
-                      sizes="48px"
+                      size={48}
                     />
                   ) : (
                     <User size={24} className="text-white-60" />

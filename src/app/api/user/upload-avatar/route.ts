@@ -3,6 +3,13 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import connectDB from "@/lib/mongodb";
 import User from "@/models/User";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request: Request) {
   try {
@@ -12,7 +19,6 @@ export async function POST(request: Request) {
     }
 
     const { image } = await request.json();
-
     if (!image) {
       return NextResponse.json(
         { error: "Image data is required." },
@@ -20,20 +26,17 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate base64 image (max ~2MB)
-    const sizeInBytes = (image.length * 3) / 4;
-    if (sizeInBytes > 2 * 1024 * 1024) {
-      return NextResponse.json(
-        { error: "Image must be under 2MB." },
-        { status: 400 },
-      );
-    }
+    const uploaded = await cloudinary.uploader.upload(image, {
+      folder: "avatars",
+      transformation: [
+        { width: 200, height: 200, crop: "fill", gravity: "face" },
+      ],
+    });
 
     await connectDB();
-
     const user = await User.findOneAndUpdate(
       { email: session.user.email },
-      { profileImage: image },
+      { profileImage: uploaded.secure_url },
       { new: true },
     );
 
@@ -43,7 +46,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       message: "Profile image updated.",
-      profileImage: user.profileImage,
+      profileImage: uploaded.secure_url,
     });
   } catch (error) {
     console.error("Upload error:", error);

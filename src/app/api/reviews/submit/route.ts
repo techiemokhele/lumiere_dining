@@ -36,6 +36,7 @@ export async function POST(request: Request) {
       userId: user._id,
       userName: user.name,
       userEmail: user.email,
+      userImage: user.profileImage || "",
       itemName,
       rating,
       title,

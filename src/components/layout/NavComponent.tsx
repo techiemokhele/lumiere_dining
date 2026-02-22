@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import {
   ChevronRightIcon,
@@ -28,6 +27,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { Button } from "../ui/button";
+import { UserAvatar } from "../UserAvatar";
 
 export function NavComponent() {
   const { isActive } = useActivePath();
@@ -128,13 +128,11 @@ export function NavComponent() {
             <Link href={accountHref}>
               <Button variant="link" size="icon" className="p-0">
                 {session?.user?.image ? (
-                  <div className="relative w-8 h-8 rounded-full overflow-hidden ring-2 ring-crimson-500">
-                    <Image
+                  <div className="ring-2 ring-crimson-500 rounded-full">
+                    <UserAvatar
                       src={session.user.image}
                       alt="Profile"
-                      fill
-                      className="object-cover"
-                      sizes="32px"
+                      size={28}
                     />
                   </div>
                 ) : (
@@ -282,15 +280,11 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                 <div className="flex flex-row items-center justify-between w-full px-2 mb-1">
                   <div className="flex flex-row items-center gap-2">
                     {session.user.image ? (
-                      <div className="relative w-7 h-7 rounded-full overflow-hidden">
-                        <Image
-                          src={session.user.image}
-                          alt="Profile"
-                          fill
-                          className="object-cover"
-                          sizes="28px"
-                        />
-                      </div>
+                      <UserAvatar
+                        src={session.user.image}
+                        alt="Profile"
+                        size={28}
+                      />
                     ) : (
                       <UserCircle size={20} className="text-white-60" />
                     )}
@@ -328,17 +322,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                 </Button>
                 <Button asChild variant="default" className="w-full">
                   <Link href={accountHref}>
-                    {session?.user?.image ? (
-                      <div className="relative w-6 h-6 rounded-full overflow-hidden">
-                        <Image
-                          src={session.user.image}
-                          alt="Profile"
-                          fill
-                          className="object-cover"
-                          sizes="24px"
-                        />
-                      </div>
-                    ) : status === "authenticated" ? (
+                    {status === "authenticated" ? (
                       <UserCircle size={24} className="text-white" />
                     ) : (
                       <LogIn size={24} className="text-white" />
