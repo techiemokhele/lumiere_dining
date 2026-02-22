@@ -1,5 +1,5 @@
 import { connectDB } from "./mongodb";
-import { MenuSection } from "@/models/MenuSection";
+import { MenuSection } from "@/models/ecommerce/MenuSection";
 
 export async function getMenuData() {
   await connectDB();

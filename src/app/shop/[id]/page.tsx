@@ -15,6 +15,8 @@ import {
   ZoomIn,
   X,
 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { useShop } from "@/lib/hooks/use-shop";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,11 +24,10 @@ import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { ReviewFormComponent } from "@/components/product/ReviewFormComponent";
-import { shopData } from "@/data/shopData";
-import type { ShopProduct } from "@/data/shopData";
-import { useCart } from "@/context/CartContext";
+import type { ShopCategory, ShopProduct } from "@/data/shopData";
 
 function findProductById(
+  shopData: ShopCategory[],
   id: string,
 ): { item: ShopProduct; categoryId: string } | null {
   for (const category of shopData) {
@@ -36,7 +37,10 @@ function findProductById(
   return null;
 }
 
-function findProductsByIds(ids: string[]): ShopProduct[] {
+function findProductsByIds(
+  shopData: ShopCategory[],
+  ids: string[],
+): ShopProduct[] {
   const allItems = shopData.flatMap((s) => s.items);
   return ids
     .map((id) => allItems.find((i) => i.id === id))
@@ -207,22 +211,22 @@ export default function ShopProductDetailPage() {
   const params = useParams();
   const productId = params.id as string;
   const { addItem } = useCart();
+  const { shopData, loading } = useShop();
 
-  const result = findProductById(productId);
-  if (!result) notFound();
+  const [selectedImage, setSelectedImage] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
 
-  const { item } = result;
-
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const result = !loading ? findProductById(shopData, productId) : null;
+  const item = result?.item;
 
   const relatedItems = useMemo(
-    () => findProductsByIds(item.relatedProducts),
-    [item.relatedProducts],
+    () => (item ? findProductsByIds(shopData, item.relatedProducts) : []),
+    [shopData, item],
   );
 
   const handleAddToCart = useCallback(() => {
+    if (!item) return;
     for (let i = 0; i < quantity; i++) {
       addItem({
         id: item.id,
@@ -233,6 +237,10 @@ export default function ShopProductDetailPage() {
       });
     }
   }, [addItem, item, quantity]);
+
+  if (loading)
+    return <div className="text-white/40 text-center py-20">Loading...</div>;
+  if (!result || !item) return notFound();
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>

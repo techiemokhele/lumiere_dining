@@ -12,14 +12,14 @@ import {
   Star,
   ShoppingBag,
 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { useShop } from "@/lib/hooks/use-shop";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { HeaderComponent } from "@/components/layout/HeaderComponent";
-import { shopData } from "@/data/shopData";
-import { useCart } from "@/context/CartContext";
 
 type SortOption =
   | "default"
@@ -30,10 +30,11 @@ type SortOption =
 
 const ITEMS_PER_PAGE = 12;
 
-const allProducts = shopData.flatMap((s) => s.items);
-
 export default function ShopPage() {
   const { addItem } = useCart();
+  const { shopData, loading } = useShop();
+
+  const allProducts = shopData.flatMap((s) => s.items);
 
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -61,7 +62,7 @@ export default function ShopPage() {
     const tags = new Set<string>();
     allProducts.forEach((item) => item.tags.forEach((tag) => tags.add(tag)));
     return Array.from(tags).sort();
-  }, []);
+  }, [allProducts]);
 
   const filteredItems = useMemo(() => {
     let items =
@@ -101,9 +102,11 @@ export default function ShopPage() {
     }
 
     return items;
-  }, [activeCategory, searchQuery, selectedTags, sortBy]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shopData, activeCategory, searchQuery, selectedTags, sortBy]);
 
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+
   const paginatedItems = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
     return filteredItems.slice(start, start + ITEMS_PER_PAGE);
@@ -282,7 +285,9 @@ export default function ShopPage() {
             )}
           </div>
 
-          {paginatedItems.length > 0 ? (
+          {loading ? (
+            <div className="text-white/40 text-center py-20">Loading...</div>
+          ) : paginatedItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {paginatedItems.map((item) => (
                 <div
