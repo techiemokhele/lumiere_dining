@@ -11,7 +11,6 @@ export async function GET(
   const post = await NewsletterPostModel.findOne({ id: params.id }).lean();
   if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  // Collect all unique userIds from comments and replies
   const userIds = new Set<string>();
   post.comments?.forEach(
     (c: { userId: string; replies?: { userId: string }[] }) => {
@@ -20,7 +19,6 @@ export async function GET(
     },
   );
 
-  // Fetch all users in one query
   const users = await User.find(
     { _id: { $in: Array.from(userIds) } },
     { _id: 1, profileImage: 1 },
@@ -33,7 +31,6 @@ export async function GET(
     ]),
   );
 
-  // Hydrate userImage on every comment and reply
   const hydrated = {
     ...post,
     comments: post.comments?.map(
