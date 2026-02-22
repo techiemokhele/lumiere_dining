@@ -62,11 +62,12 @@ export function useNewsletterPost(postId: string) {
     userName: string,
     userImage: string,
     text: string,
+    userEmail: string,
   ) => {
     const res = await fetch(`/api/newsletter/${postId}/comment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, userName, userImage, text }),
+      body: JSON.stringify({ userId, userName, userImage, text, userEmail }),
     });
     const json = await res.json();
     setData((prev) => ({ ...prev, comments: json.comments }));

@@ -224,6 +224,7 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
   const sessionUser = session?.user as SessionUser | undefined;
   const currentUserId = sessionUser?.id ?? "";
   const currentUserName = sessionUser?.name ?? "Guest";
+  const currentUserEmail = session?.user?.email ?? "";
   const currentUserImage = sessionUser?.image ?? "";
 
   const postLiked = data.likes.includes(currentUserId);
@@ -235,7 +236,13 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
 
   const submitComment = () => {
     if (!commentText.trim() || !currentUserId) return;
-    addComment(currentUserId, currentUserName, currentUserImage, commentText);
+    addComment(
+      currentUserId,
+      currentUserName,
+      currentUserImage,
+      commentText,
+      currentUserEmail,
+    );
     setCommentText("");
   };
 
@@ -250,7 +257,7 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
           }
           disabled={!currentUserId}
           className={cn(
-            "flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-semibold transition-all",
+            "flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold transition-all",
             postLiked
               ? "bg-crimson-600 border-crimson-600 text-white"
               : "border-burgundy-700 text-white-60 hover:border-crimson-600 hover:text-white",
@@ -262,7 +269,7 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
             : "Like this article"}
         </button>
 
-        <div className="flex items-center gap-1.5 text-sm text-white-60">
+        <div className="flex items-center gap-1.5 text-xs text-white-60">
           <MessageCircle size={16} />
           <span>
             {data.comments.length} comment
@@ -279,10 +286,10 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
 
       {currentUserId && (
         <div className="flex gap-3 items-start">
-          <UserAvatar src={currentUserImage} alt={currentUserName} size={36} />
+          <UserAvatar src={currentUserImage} alt={currentUserName} size={42} />
           <div className="flex flex-1 gap-3 items-center bg-burgundy-800 border border-burgundy-700 rounded-2xl px-4 py-3 focus-within:border-crimson-600 transition-colors">
             <input
-              className="flex-1 bg-transparent text-sm text-white placeholder:text-white-60 outline-none"
+              className="flex-1 bg-transparent text-xs text-white placeholder:text-white-60 outline-none"
               placeholder="Share your thoughts..."
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
