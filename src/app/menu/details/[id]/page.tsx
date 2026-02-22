@@ -212,6 +212,7 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState<number>(1);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
   const [liveReviewCount, setLiveReviewCount] = useState<number | null>(null);
+  const [liveRating, setLiveRating] = useState<number | null>(null);
 
   const result = !loading ? findItemById(menuData, itemId) : null;
   const item = result?.item;
@@ -328,7 +329,7 @@ export default function ProductDetailPage() {
               <p className="font-bold text-2xl text-primary">R{item.price}</p>
 
               <StarRating
-                rating={item.rating}
+                rating={liveRating ?? item.rating}
                 reviewCount={liveReviewCount ?? item.reviewCount}
               />
 
@@ -424,6 +425,7 @@ export default function ProductDetailPage() {
           <ReviewFormComponent
             itemName={item.name}
             onCountChange={setLiveReviewCount}
+            onRatingChange={setLiveRating}
           />
 
           {pairingItems.length > 0 && (
