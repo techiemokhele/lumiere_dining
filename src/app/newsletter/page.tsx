@@ -40,10 +40,8 @@ function HeroBanner({ post }: { post: NewsletterPost }) {
         sizes="100vw"
         priority
       />
-      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-burgundy-950 via-burgundy-950/60 to-transparent" />
 
-      {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-12 flex flex-col gap-4 lg:gap-5 max-w-3xl">
         <Badge className="bg-crimson-600 text-white w-fit text-xs">
           {post.category}
@@ -57,7 +55,6 @@ function HeroBanner({ post }: { post: NewsletterPost }) {
           {post.excerpt}
         </p>
 
-        {/* Author row */}
         <div className="flex flex-row items-center gap-3">
           <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-crimson-500">
             <Image
@@ -99,7 +96,6 @@ function PostCard({ post, index }: { post: NewsletterPost; index: number }) {
         animation: "fadeSlideUp 0.5s ease-out both",
       }}
     >
-      {/* Image */}
       <div className="relative w-full h-52 overflow-hidden">
         <Image
           src={post.image}
@@ -108,7 +104,6 @@ function PostCard({ post, index }: { post: NewsletterPost; index: number }) {
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
-        {/* Category badge overlay */}
         <div className="absolute top-3 left-3">
           <Badge className="bg-crimson-600/90 backdrop-blur-sm text-white text-[10px]">
             {post.category}
@@ -116,9 +111,7 @@ function PostCard({ post, index }: { post: NewsletterPost; index: number }) {
         </div>
       </div>
 
-      {/* Content */}
       <div className="flex flex-col flex-1 gap-3 p-5">
-        {/* Date + read time */}
         <div className="flex flex-row items-center gap-3 text-white-60">
           <div className="flex flex-row items-center gap-1">
             <Calendar size={12} />
@@ -130,17 +123,14 @@ function PostCard({ post, index }: { post: NewsletterPost; index: number }) {
           </div>
         </div>
 
-        {/* Title */}
         <h3 className="font-bold text-lg text-white group-hover:text-primary transition-colors duration-300 line-clamp-2">
           {post.title}
         </h3>
 
-        {/* Excerpt */}
         <p className="text-xs text-white-60 line-clamp-3 flex-1 leading-relaxed">
           {post.excerpt}
         </p>
 
-        {/* Author row */}
         <div className="flex flex-row items-center justify-between mt-auto pt-3 border-t border-burgundy-700">
           <div className="flex flex-row items-center gap-2">
             <div className="relative w-7 h-7 rounded-full overflow-hidden">
@@ -177,23 +167,19 @@ export default function NewsletterPage() {
 
   const heroPost = newsletterPosts[0];
 
-  // Unique tags from all posts
   const allTags = useMemo(() => {
     const tags = new Set<string>();
     newsletterPosts.forEach((p) => p.tags.forEach((t) => tags.add(t)));
     return Array.from(tags).sort();
   }, []);
 
-  // Filter posts (exclude hero from grid)
   const filteredPosts = useMemo(() => {
     let posts = newsletterPosts.slice(1);
 
-    // Category filter
     if (selectedCategory !== "All") {
       posts = posts.filter((p) => p.category === selectedCategory);
     }
 
-    // Search filter
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       posts = posts.filter(
@@ -205,7 +191,6 @@ export default function NewsletterPage() {
       );
     }
 
-    // Tag filter
     if (selectedTags.length > 0) {
       posts = posts.filter((p) => selectedTags.some((t) => p.tags.includes(t)));
     }
@@ -230,7 +215,6 @@ export default function NewsletterPage() {
 
   return (
     <PageContainer showNavigation={true} showFooter={true}>
-      {/* Inline keyframes */}
       <style jsx global>{`
         @keyframes fadeSlideUp {
           from {
@@ -246,7 +230,6 @@ export default function NewsletterPage() {
 
       <PaddingContainer size="small" className="w-full">
         <div className="flex flex-col w-full gap-10 py-10 lg:mt-0 -mt-12 pt-20 lg:pt-24">
-          {/* Page header */}
           <div className="flex flex-col gap-2">
             <div className="flex flex-row items-center gap-4">
               <div className="w-16 border border-crimson-600" />
@@ -263,12 +246,10 @@ export default function NewsletterPage() {
             </p>
           </div>
 
-          {/* Hero Banner */}
           <HeroBanner post={heroPost} />
 
           <Separator />
 
-          {/* Categories bar */}
           <div className="flex flex-row gap-2 overflow-x-auto scrollbar-hide pb-1">
             {newsletterCategories.map((cat) => (
               <button
@@ -286,7 +267,6 @@ export default function NewsletterPage() {
             ))}
           </div>
 
-          {/* Search + Filter bar */}
           <div className="flex flex-col gap-4">
             <div className="flex flex-row gap-3 items-center">
               <div className="relative flex-1">
@@ -322,7 +302,6 @@ export default function NewsletterPage() {
               </Button>
             </div>
 
-            {/* Tag filters */}
             {showFilters && (
               <div className="flex flex-row flex-wrap gap-2 items-center">
                 <span className="text-xs text-white-60 mr-1">
@@ -345,7 +324,6 @@ export default function NewsletterPage() {
               </div>
             )}
 
-            {/* Active filters summary */}
             {hasActiveFilters && (
               <div className="flex flex-row items-center justify-between">
                 <p className="text-xs text-white-60">
@@ -362,7 +340,6 @@ export default function NewsletterPage() {
             )}
           </div>
 
-          {/* Posts grid */}
           {filteredPosts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredPosts.map((post, index) => (

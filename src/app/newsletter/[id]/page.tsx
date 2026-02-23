@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -9,7 +9,6 @@ import {
   ArrowLeft,
   Clock,
   Calendar,
-  ArrowRight,
   Share2,
   Facebook,
   Twitter,
@@ -26,6 +25,7 @@ import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { useToast } from "@/lib/hooks/use-toast";
 import { newsletterPosts, newsletterCategories } from "@/data/newsletterData";
 import type { NewsletterPost } from "@/data/newsletterData";
+import { NewsletterEngagement } from "@/components/newsletter/NewsletterEngagement";
 
 function formatDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString("en-GB", {
@@ -37,6 +37,11 @@ function formatDate(dateStr: string): string {
 
 function ShareButtons({ post }: { post: NewsletterPost }) {
   const { toast } = useToast();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const shareUrl =
     typeof window !== "undefined"
@@ -82,7 +87,7 @@ function ShareButtons({ post }: { post: NewsletterPost }) {
     <div className="flex flex-col gap-3">
       <p className="text-xs text-white-60 uppercase font-semibold">Share</p>
       <div className="flex flex-row gap-2">
-        {typeof window !== "undefined" &&
+        {mounted &&
           typeof navigator !== "undefined" &&
           typeof navigator.share === "function" && (
             <button
@@ -375,9 +380,12 @@ export default function NewsletterDetailPage() {
                 </div>
               )}
 
+              <NewsletterEngagement postId={post.id} />
+
               <div className="flex lg:hidden flex-col gap-4 mt-4">
                 <Separator className="bg-burgundy-700" />
                 <ShareButtons post={post} />
+                <NewsletterEngagement postId={post.id} />
                 <div className="flex flex-row flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <Badge

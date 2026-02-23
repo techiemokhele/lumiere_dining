@@ -51,3 +51,19 @@ export const generateTimeSlots = () => {
   }
   return slots;
 };
+
+/**
+ * Returns a string representing the time difference between the current time and the given date string.
+ * The returned string will be in the format of "Xm ago", "Xh ago", or "Xd ago" depending on the time difference.
+ * @param {string} dateStr - The date string in ISO format.
+ * @returns {string} - A string representing the time difference between the current time and the given date string.
+ */
+export function timeAgo(dateStr: string) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}

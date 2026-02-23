@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { ShopCategory } from "@/models/ecommerce/ShopCategory";
+import { NewsletterPostModel } from "@/models/NewsletterPost";
+import { newsletterPosts } from "@/data/newsletterData";
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
@@ -2272,6 +2274,12 @@ async function seed() {
   await ShopCategory.deleteMany({});
   await ShopCategory.insertMany(shopData);
   console.log(`🌱 Seeded ${shopData.length} shop categories`);
+
+  await NewsletterPostModel.deleteMany({});
+  await NewsletterPostModel.insertMany(
+    newsletterPosts.map((p) => ({ ...p, likes: [], comments: [] })),
+  );
+  console.log(`Seeded ${newsletterPosts.length} newsletter posts`);
 
   await mongoose.disconnect();
   console.log("Done");

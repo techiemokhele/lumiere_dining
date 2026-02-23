@@ -7,17 +7,35 @@ interface UserAvatarProps {
   className?: string;
 }
 
+function isValidImageSrc(src: string): boolean {
+  return (
+    src.startsWith("http://") ||
+    src.startsWith("https://") ||
+    src.startsWith("/") ||
+    src.startsWith("data:")
+  );
+}
+
 export function UserAvatar({
   src,
   alt,
   size = 32,
   className = "",
 }: UserAvatarProps) {
-  if (!src) return null;
+  const initials = alt?.[0]?.toUpperCase() ?? "?";
 
-  const isBase64 = src.startsWith("data:");
+  if (!src || !isValidImageSrc(src)) {
+    return (
+      <div
+        className={`rounded-full bg-crimson-600 flex items-center justify-center shrink-0 text-white font-bold ${className}`}
+        style={{ width: size, height: size, fontSize: size * 0.4 }}
+      >
+        {initials}
+      </div>
+    );
+  }
 
-  if (isBase64) {
+  if (src.startsWith("data:")) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
@@ -25,7 +43,7 @@ export function UserAvatar({
         alt={alt}
         width={size}
         height={size}
-        className={`rounded-full object-cover ${className}`}
+        className={`rounded-full object-cover shrink-0 ${className}`}
         style={{ width: size, height: size }}
       />
     );
@@ -33,14 +51,14 @@ export function UserAvatar({
 
   return (
     <div
-      className="relative rounded-full overflow-hidden shrink-0"
+      className={`relative rounded-full overflow-hidden shrink-0 ${className}`}
       style={{ width: size, height: size }}
     >
       <Image
         src={src}
         alt={alt}
         fill
-        className={`object-cover ${className}`}
+        className="object-cover"
         sizes={`${size}px`}
       />
     </div>

@@ -18,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="font-serif antialiased bg-background text-foreground">
+      <body
+        className="font-serif antialiased bg-background text-foreground"
+        suppressHydrationWarning={true}
+      >
         <SessionProvider>
           <CartProvider>{children}</CartProvider>
         </SessionProvider>
