@@ -106,8 +106,10 @@ function CommentItem({
   const [showReplyInput, setShowReplyInput] = useState<boolean>(false);
   const [replyText, setReplyText] = useState<string>("");
   const [showReplies, setShowReplies] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   const liked = comment.likes.includes(currentUserId);
+  const isLong = comment.text.length > 120;
 
   const submitReply = () => {
     if (!replyText.trim() || !currentUserId) return;
@@ -135,7 +137,18 @@ function CommentItem({
             <TimeAgo dateStr={comment.createdAt} />
           </span>
         </div>
-        <p className="text-xs text-white-60 leading-relaxed">{comment.text}</p>
+        <p
+          onClick={() => isLong && setExpanded((p) => !p)}
+          className={cn(
+            "text-xs text-white-60 leading-relaxed transition-all duration-300",
+            isLong && !expanded
+              ? "line-clamp-2 cursor-pointer hover:text-white-80"
+              : "",
+            isLong && expanded ? "cursor-pointer" : "",
+          )}
+        >
+          {comment.text}
+        </p>
 
         <div className="flex items-center gap-4 mt-0.5">
           <Button
