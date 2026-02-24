@@ -1,75 +1,69 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import connectDB from "@/lib/mongodb";
+import Order from "@/models/Order";
+import User from "@/models/User";
+import { sendOrderConfirmation } from "@/lib/send-order-confirmation";
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
     const {
-      amount,
       items,
       kitchenNotes,
       discount,
       tax,
       serviceCharge,
       subtotal,
+      total,
     } = body;
 
-    const amountInCents = Math.round(amount * 100);
-
-    if (amountInCents < 200) {
-      return NextResponse.json(
-        { error: "Minimum payment is R2.00" },
-        { status: 400 },
-      );
+    if (!items || items.length === 0) {
+      return NextResponse.json({ error: "No items in order" }, { status: 400 });
     }
 
-    const lineItems = items.map(
-      (item: { name: string; quantity: number; price: number }) => ({
-        displayName: item.name,
-        quantity: item.quantity,
-        pricingDetails: {
-          price: Math.round(item.price * 100),
-        },
-      }),
-    );
+    await connectDB();
 
-    const origin = req.headers.get("origin") || "http://localhost:3000";
-
-    const response = await fetch("https://payments.yoco.com/api/checkouts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.YOCO_SECRET_KEY}`,
-      },
-      body: JSON.stringify({
-        amount: amountInCents,
-        currency: "ZAR",
-        successUrl: `${origin}/my-cart/checkout/success`,
-        cancelUrl: `${origin}/my-cart/checkout`,
-        failureUrl: `${origin}/my-cart/checkout/failure`,
-        lineItems,
-        totalDiscount: Math.round((discount || 0) * 100),
-        totalTaxAmount: Math.round((tax || 0) * 100),
-        subtotalAmount: Math.round((subtotal || 0) * 100),
-        metadata: {
-          kitchenNotes: kitchenNotes || "",
-          serviceCharge: Math.round((serviceCharge || 0) * 100),
-        },
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: data.message || "Failed to create checkout" },
-        { status: response.status },
-      );
+    const user = await User.findOne({ email: session.user.email });
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({
-      checkoutId: data.id,
-      redirectUrl: data.redirectUrl,
+    const order = await Order.create({
+      userId: user._id,
+      items,
+      kitchenNotes: kitchenNotes || "",
+      discount: discount || 0,
+      tax,
+      serviceCharge,
+      subtotal,
+      total,
+      status: "confirmed",
     });
+
+    try {
+      await sendOrderConfirmation({
+        customerEmail: user.email,
+        customerName: user.name,
+        items,
+        kitchenNotes,
+        discount,
+        tax,
+        serviceCharge,
+        subtotal,
+        total,
+      });
+    } catch (emailError) {
+      console.error("Email failed:", emailError);
+    }
+
+    return NextResponse.json({ success: true, orderId: order._id.toString() });
   } catch (error) {
     console.error("Checkout error:", error);
     return NextResponse.json(
