@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Loader2, X, LogIn } from "lucide-react";
+import { ArrowRight, X, LogIn } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
@@ -18,6 +18,7 @@ interface CartSummaryProps {
   tax: number;
   serviceCharge: number;
   total: number;
+  hideCheckoutButton?: boolean;
 }
 
 const promoCodeFormSchema = z.object({
@@ -31,18 +32,11 @@ export function CartOrderSummaryComponent({
   tax,
   serviceCharge,
   total,
+  hideCheckoutButton = false,
 }: CartSummaryProps) {
   const { status } = useSession();
-  const {
-    items,
-    promoApplied,
-    applyPromo,
-    removePromo,
-    discount,
-    kitchenNotes,
-  } = useCart();
+  const { promoApplied, applyPromo, removePromo, discount } = useCart();
   const [promoError, setPromoError] = useState<string | null>(null);
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const form = useForm<PromoCodeFormValues>({
     defaultValues: { code: "" },
@@ -60,55 +54,8 @@ export function CartOrderSummaryComponent({
     form.reset();
   };
 
-  const handleCheckout = async () => {
-    setIsCheckingOut(true);
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: total,
-          items: items.map((i) => ({
-            name: i.name,
-            quantity: i.quantity,
-            price: i.price,
-          })),
-          kitchenNotes,
-          discount,
-          tax,
-          serviceCharge,
-          subtotal,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Checkout failed");
-      }
-
-      sessionStorage.setItem(
-        "lumiere-last-order",
-        JSON.stringify({
-          items: items.map((i) => ({
-            name: i.name,
-            quantity: i.quantity,
-            price: i.price,
-          })),
-          kitchenNotes,
-          discount,
-          tax,
-          serviceCharge,
-          subtotal,
-          total,
-        }),
-      );
-
-      window.location.href = data.redirectUrl;
-    } catch (error) {
-      console.error("Checkout error:", error);
-      setIsCheckingOut(false);
-    }
+  const handleCheckout = () => {
+    window.location.href = "/my-cart/checkout";
   };
 
   const isAuthenticated = status === "authenticated";
@@ -178,45 +125,38 @@ export function CartOrderSummaryComponent({
           </div>
         </div>
 
-        {isAuthenticated ? (
-          <Button
-            variant="default"
-            size="lg"
-            className="rounded-full"
-            onClick={handleCheckout}
-            disabled={isCheckingOut}
-          >
-            {isCheckingOut ? (
-              <>
-                <Loader2 size={16} className="mr-2 animate-spin" />
-                <span>Processing...</span>
-              </>
-            ) : (
-              <>
-                <span>Proceed to Checkout</span>
-                <ArrowRight className="ml-2" />
-              </>
-            )}
-          </Button>
-        ) : (
-          <Button
-            asChild
-            variant="default"
-            size="lg"
-            className="rounded-full bg-crimson-600 hover:bg-crimson-500"
-          >
-            <Link href="/auth/sign-in" className="gap-2">
-              <LogIn size={16} />
-              <span>Sign In to Checkout</span>
-            </Link>
-          </Button>
-        )}
+        {!hideCheckoutButton &&
+          (isAuthenticated ? (
+            <Button
+              variant="default"
+              size="lg"
+              className="rounded-full"
+              onClick={handleCheckout}
+            >
+              <span>Proceed to Checkout</span>
+              <ArrowRight className="ml-2" />
+            </Button>
+          ) : (
+            <Button
+              asChild
+              variant="default"
+              size="lg"
+              className="rounded-full bg-crimson-600 hover:bg-crimson-500"
+            >
+              <Link href="/auth/sign-in" className="gap-2">
+                <LogIn size={16} />
+                <span>Sign In to Checkout</span>
+              </Link>
+            </Button>
+          ))}
 
         <p className="font-normal text-xxs text-white-60 flex flex-col self-center text-center w-56">
-          Secure checkout provided by Yoco. Need help?
-          <span className="underline underline-offset-2">
-            Contact Yoco Support
-          </span>
+          Secure checkout provided by us. Need help?
+          <Link href="/contact-us">
+            <span className="underline underline-offset-2">
+              Contact Our Support
+            </span>
+          </Link>
         </p>
       </div>
 

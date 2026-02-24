@@ -62,7 +62,7 @@ export default function RefundPolicyPage() {
                   fourteen (14) business days to appear on your statement,
                   depending on your payment provider and financial institution.
                   Lumière Dining is not responsible for any delays caused by
-                  third-party payment processors, including Yoco.
+                  third-party payment processors.
                 </p>
               </div>
             </div>
