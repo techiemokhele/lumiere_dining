@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 import { PageContainer } from "@/components/structure/PageContainer";
@@ -10,31 +10,9 @@ import { useCart } from "@/context/CartContext";
 
 export default function CheckoutSuccessPage() {
   const { clearCart } = useCart();
-  const hasProcessed = useRef(false);
 
   useEffect(() => {
-    if (hasProcessed.current) return;
-    hasProcessed.current = true;
-
-    const sendConfirmationAndClear = async () => {
-      try {
-        const orderData = sessionStorage.getItem("lumiere-last-order");
-        if (orderData) {
-          await fetch("/api/order-confirmation", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: orderData,
-          });
-          sessionStorage.removeItem("lumiere-last-order");
-        }
-      } catch (error) {
-        console.error("Failed to send order confirmation:", error);
-      } finally {
-        clearCart();
-      }
-    };
-
-    sendConfirmationAndClear();
+    clearCart();
   }, [clearCart]);
 
   return (
@@ -52,9 +30,19 @@ export default function CheckoutSuccessPage() {
           chefs and a confirmation email is on its way. We look forward to
           serving you.
         </p>
-        <Button asChild variant="default" size="lg" className="rounded-full">
-          <Link href="/menu">Continue Browsing</Link>
-        </Button>
+        <div className="flex flex-row gap-4">
+          <Button asChild variant="default" size="lg" className="rounded-full">
+            <Link href="/menu">Continue Browsing</Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            className="rounded-full border-burgundy-700 text-white"
+          >
+            <Link href="/my-account/orders">View Orders</Link>
+          </Button>
+        </div>
       </PaddingContainer>
     </PageContainer>
   );

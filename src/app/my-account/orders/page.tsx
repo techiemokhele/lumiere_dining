@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ShoppingBag, ChevronDown } from "lucide-react";
+import { ShoppingBag, ChevronDown, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { LoaderComponent } from "@/components/LoaderComponent";
 
@@ -35,7 +36,7 @@ const statusColors: Record<string, string> = {
 };
 
 function OrderCard({ order }: { order: Order }) {
-  const [expanded, setExpanded] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState(false);
 
   const date = new Date(order.createdAt).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -44,6 +45,10 @@ function OrderCard({ order }: { order: Order }) {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  const handleDownload = () => {
+    window.open(`/api/user/orders/download?orderId=${order._id}`, "_blank");
+  };
 
   return (
     <div className="rounded-2xl bg-burgundy-800 overflow-hidden">
@@ -131,6 +136,15 @@ function OrderCard({ order }: { order: Order }) {
               <p className="text-xs text-white-60">{order.kitchenNotes}</p>
             </div>
           )}
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-burgundy-700 text-white self-end gap-2"
+            onClick={handleDownload}
+          >
+            <Download size={14} />
+            <span>Download Receipt</span>
+          </Button>
         </div>
       )}
     </div>
@@ -140,6 +154,7 @@ function OrderCard({ order }: { order: Order }) {
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -157,6 +172,16 @@ export default function OrdersPage() {
     fetchOrders();
   }, []);
 
+  const handleDownloadAll = () => {
+    const params = statusFilter !== "all" ? `?status=${statusFilter}` : "";
+    window.open(`/api/user/orders/download${params}`, "_blank");
+  };
+
+  const filteredOrders =
+    statusFilter === "all"
+      ? orders
+      : orders.filter((o) => o.status === statusFilter);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -172,13 +197,41 @@ export default function OrdersPage() {
           Order History
         </h1>
         <p className="text-sm text-white-60">
-          View all your past orders and their details.
+          View and download your past orders.
         </p>
       </div>
 
-      {orders.length > 0 ? (
+      {orders.length > 0 && (
+        <div className="flex flex-row items-center gap-3 flex-wrap">
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="bg-burgundy-800 border border-burgundy-700 text-white text-sm rounded-xl px-3 py-2 outline-none"
+          >
+            <option value="all">All Orders</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="preparing">Preparing</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-burgundy-700 text-white gap-2 ml-auto"
+            onClick={handleDownloadAll}
+          >
+            <Download size={14} />
+            <span>
+              Download {statusFilter === "all" ? "All" : statusFilter} Orders
+            </span>
+          </Button>
+        </div>
+      )}
+
+      {filteredOrders.length > 0 ? (
         <div className="flex flex-col gap-4">
-          {orders.map((order) => (
+          {filteredOrders.map((order) => (
             <OrderCard key={order._id} order={order} />
           ))}
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,13 +24,13 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { LoaderComponent } from "@/components/LoaderComponent";
 
 const kitchenNotesFormSchema = z.object({ notes: z.string().optional() });
 type KitchenNotesFormValues = z.infer<typeof kitchenNotesFormSchema>;
 
 export default function MyCartMainPage() {
-  const { menuData } = useMenu();
-
+  const { menuData, loading: menuLoading } = useMenu();
   const {
     items,
     subtotal,
@@ -40,6 +40,11 @@ export default function MyCartMainPage() {
     kitchenNotes,
     setKitchenNotes,
   } = useCart();
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const form = useForm<KitchenNotesFormValues>({
     defaultValues: { notes: kitchenNotes || "" },
@@ -56,8 +61,8 @@ export default function MyCartMainPage() {
 
   const relatedItems = useMemo(() => {
     const idSet = new Set(cartItemIds);
-
     const cartCats = new Set<string>();
+
     for (const id of cartItemIds) {
       for (const section of menuData) {
         if (section.items.some((mi) => mi.name === id)) {
@@ -65,6 +70,15 @@ export default function MyCartMainPage() {
         }
       }
     }
+
+    const shuffle = <T,>(arr: T[]): T[] => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
 
     const prioritized = menuData
       .filter((section) => !cartCats.has(section.id))
@@ -76,18 +90,19 @@ export default function MyCartMainPage() {
       .flatMap((section) => section.items)
       .filter((item) => !idSet.has(item.name));
 
-    const shuffle = <T,>(arr: T[]): T[] => {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    };
-
     return [...shuffle(prioritized), ...shuffle(fallback)].slice(0, 4);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItemIds.join(",")]);
+
+  if (!hydrated || menuLoading) {
+    return (
+      <PageContainer showNavigation={true} showFooter={true}>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <LoaderComponent />
+        </div>
+      </PageContainer>
+    );
+  }
 
   if (items.length === 0) return <EmptyCartComponent />;
 
