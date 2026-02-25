@@ -184,12 +184,12 @@ export default function MenuSearchAndFilterCategoryPage() {
               className="flex flex-row items-center gap-2 text-white-60 hover:text-white transition-colors w-fit"
             >
               <ArrowLeft size={16} />
-              <span className="font-serif text-sm">Back to Menu</span>
+              <span className="text-sm">Back to Menu</span>
             </Link>
 
             <div className="flex flex-col gap-2">
               <div className="w-full max-w-full break-words">
-                <h1 className="font-serif font-extrabold text-3xl lg:text-5xl text-crimson-600 break-words">
+                <h1 className="font-extrabold text-3xl lg:text-5xl text-crimson-600 break-words">
                   {searchQuery ? (
                     <>
                       Results for{" "}
@@ -202,7 +202,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                   )}
                 </h1>
               </div>
-              <p className="font-serif font-normal text-xs lg:text-sm text-white-60">
+              <p className="font-normal text-xs lg:text-sm text-white-60">
                 {pageDescription}
               </p>
             </div>
@@ -238,7 +238,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                   onChange={(e) =>
                     handleSortChange(e.target.value as SortOption)
                   }
-                  className="bg-burgundy-800 border border-burgundy-700 text-white font-serif lg:text-sm text-xs rounded-3xl px-3 py-2 outline-none cursor-pointer shrink-0"
+                  className="bg-burgundy-800 border border-burgundy-700 text-white lg:text-sm text-xs rounded-3xl px-3 py-2 outline-none cursor-pointer shrink-0"
                 >
                   <option value="default">Default</option>
                   <option value="price-asc">Price: Low → High</option>
@@ -263,15 +263,13 @@ export default function MenuSearchAndFilterCategoryPage() {
 
             {showFilters && (
               <div className="flex flex-row flex-wrap gap-2 items-center">
-                <span className="font-serif text-xs text-white-60 mr-1">
-                  Filter by:
-                </span>
+                <span className="text-xs text-white-60 mr-1">Filter by:</span>
                 {allTags.map((tag) => (
                   <button
                     key={tag}
                     onClick={() => toggleTag(tag)}
                     className={cn(
-                      "px-3 py-1 rounded-full font-serif text-xs transition-colors border",
+                      "px-3 py-1 rounded-full text-xs transition-colors border",
                       selectedTags.includes(tag)
                         ? "bg-primary text-white border-primary"
                         : "bg-burgundy-800 text-white-60 border-burgundy-700 hover:border-white-60",
@@ -285,13 +283,13 @@ export default function MenuSearchAndFilterCategoryPage() {
 
             {hasActiveFilters && (
               <div className="flex flex-row items-center justify-between">
-                <p className="font-serif text-xs text-white-60">
+                <p className="text-xs text-white-60">
                   Showing {filteredItems.length} item
                   {filteredItems.length !== 1 ? "s" : ""}
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="font-serif text-xs text-primary hover:underline"
+                  className="text-xs text-primary hover:underline"
                 >
                   Clear all filters
                 </button>
@@ -325,11 +323,11 @@ export default function MenuSearchAndFilterCategoryPage() {
                         href={`/menu/details/${item.id}`}
                         className="hover:text-primary transition-colors"
                       >
-                        <p className="font-serif font-bold text-lg text-white">
+                        <p className="font-bold text-lg text-white">
                           {item.name}
                         </p>
                       </Link>
-                      <p className="font-serif font-bold text-lg text-primary">
+                      <p className="font-bold text-lg text-primary">
                         R{item.price}
                       </p>
                     </div>
@@ -345,7 +343,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                       ))}
                     </div>
 
-                    <p className="font-serif font-normal text-xs text-white-60 line-clamp-3 flex-1">
+                    <p className="font-normal text-xs text-white-60 line-clamp-3 flex-1">
                       {item.excerpt}
                     </p>
 
@@ -382,7 +380,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                     className="w-60 h-60 object-contain"
                   />
 
-                  <p className="font-serif text-lg text-white-60 text-center">
+                  <p className="text-lg text-white-60 text-center">
                     No items found matching your criteria.
                   </p>
 
@@ -422,7 +420,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                       scrollToGrid();
                     }}
                     className={cn(
-                      "w-9 h-9 rounded-md font-serif text-sm transition-colors",
+                      "w-9 h-9 rounded-md text-sm transition-colors",
                       currentPage === page
                         ? "bg-primary text-white"
                         : "text-white-60 hover:text-white hover:bg-burgundy-700",

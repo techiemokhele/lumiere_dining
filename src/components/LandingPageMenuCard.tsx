@@ -47,9 +47,9 @@ export function LandingPageMenuCard({
               .replace(/(^-|-$)/g, "")}`}
             className="hover:text-primary transition-colors"
           >
-            <p className="font-serif font-bold text-xl text-white">{name}</p>
+            <p className="font-bold text-xl text-white">{name}</p>
           </Link>
-          <p className="font-serif font-bold text-xl text-primary">R{price}</p>
+          <p className="font-bold text-xl text-primary">R{price}</p>
         </div>
 
         <div className="flex flex-row gap-2 flex-wrap">
@@ -60,7 +60,7 @@ export function LandingPageMenuCard({
           ))}
         </div>
 
-        <p className="font-serif font-normal lg:text-sm text-xs text-white-60 line-clamp-4">
+        <p className="font-normal lg:text-sm text-xs text-white-60 line-clamp-4">
           {excerpt}
         </p>
 

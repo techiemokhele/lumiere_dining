@@ -93,7 +93,7 @@ export function NavComponent() {
                   key={href}
                   href={href}
                   className={cn(
-                    "font-serif font-semibold text-sm xl:px-4 lg:px-1 px-4 py-2 text-center relative transition-colors",
+                    "font-semibold text-sm xl:px-4 lg:px-1 px-4 py-2 text-center relative transition-colors",
                     isActive(href)
                       ? "text-primary hover:text-primary"
                       : "text-white-80 hover:text-primary",
@@ -218,7 +218,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                   <Link
                     href={link.href}
                     className={cn(
-                      "flex justify-between font-serif font-extrabold lg:text-2xl text-xl hover:no-underline !px-0",
+                      "flex justify-between font-extrabold lg:text-2xl text-xl hover:no-underline !px-0",
                       isActive(link.href)
                         ? "text-primary relative"
                         : "text-white-60",
@@ -237,7 +237,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
               <div className="flex flex-col">
                 <Button
                   variant="link"
-                  className="flex justify-between font-serif font-extrabold lg:text-2xl text-xl hover:no-underline !px-0 text-white-60"
+                  className="flex justify-between font-extrabold lg:text-2xl text-xl hover:no-underline !px-0 text-white-60"
                   onClick={() => setIsLegalOpen(!isLegalOpen)}
                 >
                   <span>Legal</span>
@@ -262,7 +262,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                       key={link.href}
                       href={link.href}
                       className={cn(
-                        "font-serif font-medium text-base pl-2 py-1 transition-colors",
+                        "font-medium text-base pl-2 py-1 transition-colors",
                         isActive(link.href)
                           ? "text-primary"
                           : "text-white-60 hover:text-white",
@@ -331,7 +331,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                 </Button>
               </div>
 
-              <p className="font-serif font-normal xl:text-sm text-xxs text-white-60">
+              <p className="font-normal xl:text-sm text-xxs text-white-60">
                 &copy; {showCurrentYear()} Lumière Dining. All rights reserved.
               </p>
             </div>

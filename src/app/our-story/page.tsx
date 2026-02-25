@@ -49,7 +49,7 @@ export default function OurStoryPage() {
               </p>
 
               <div className="flex flex-col w-full">
-                <h1 className="font-sans !font-extrabold md:text-6xl text-3xl text-white">
+                <h1 className="!font-extrabold md:text-6xl text-3xl text-white">
                   Rooted in tradition,
                 </h1>
                 <h2 className="font-normal md:text-6xl text-3xl text-white/60 italic lg:-mt-4 -mt-1">
@@ -129,7 +129,7 @@ export default function OurStoryPage() {
 
                 <div className="flex flex-row gap-4">
                   <div className="border-l-[3px] border-crimson-600 shrink-0" />
-                  <p className="font-sans lg:text-lg text-md text-white/60 italic">
+                  <p className="lg:text-lg text-md text-white/60 italic">
                     &ldquo;Food is memory. I cook to create moments that linger
                     forever in the heart and palate.&rdquo;
                   </p>

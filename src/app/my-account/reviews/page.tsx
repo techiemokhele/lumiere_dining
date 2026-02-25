@@ -131,7 +131,7 @@ export default function ReviewsPage() {
                     key={page}
                     onClick={() => setCurrentPage(page)}
                     className={cn(
-                      "w-9 h-9 rounded-md font-serif text-sm transition-colors",
+                      "w-9 h-9 rounded-md text-sm transition-colors",
                       currentPage === page
                         ? "bg-primary text-white"
                         : "text-white-60 hover:text-white hover:bg-burgundy-700",

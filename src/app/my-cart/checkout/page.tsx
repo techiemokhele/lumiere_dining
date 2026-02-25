@@ -28,6 +28,146 @@ function formatExpiry(value: string) {
   return digits;
 }
 
+type CardType = "visa" | "mastercard" | "amex" | "discover" | "unknown";
+
+function detectCardType(number: string): CardType {
+  const raw = number.replace(/\s/g, "");
+  if (/^4/.test(raw)) return "visa";
+  if (/^5[1-5]/.test(raw) || /^2(2[2-9][1-9]|[3-6]\d{2}|7[01]\d|720)/.test(raw))
+    return "mastercard";
+  if (/^3[47]/.test(raw)) return "amex";
+  if (/^6(?:011|5\d{2})/.test(raw)) return "discover";
+  return "unknown";
+}
+
+function luhnCheck(value: string): boolean {
+  const digits = value.replace(/\s/g, "");
+  if (!/^\d+$/.test(digits)) return false;
+  let sum = 0;
+  let shouldDouble = false;
+  for (let i = digits.length - 1; i >= 0; i--) {
+    let d = parseInt(digits[i]);
+    if (shouldDouble) {
+      d *= 2;
+      if (d > 9) d -= 9;
+    }
+    sum += d;
+    shouldDouble = !shouldDouble;
+  }
+  return sum % 10 === 0;
+}
+
+function validateExpiry(value: string): boolean {
+  if (value.length !== 5) return false;
+  const [mm, yy] = value.split("/");
+  const month = parseInt(mm);
+  const year = parseInt("20" + yy);
+  if (month < 1 || month > 12) return false;
+  const now = new Date();
+  const expDate = new Date(year, month - 1, 1);
+  const firstOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  return expDate >= firstOfThisMonth;
+}
+
+function CardIcon({ type }: { type: CardType }) {
+  if (type === "visa") {
+    return (
+      <svg
+        viewBox="0 0 48 32"
+        className="h-6 w-10"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="48" height="32" rx="4" fill="#1A1F71" />
+        <text
+          x="6"
+          y="22"
+          fontFamily="Arial"
+          fontWeight="bold"
+          fontSize="14"
+          fill="#FFFFFF"
+          letterSpacing="1"
+        >
+          VISA
+        </text>
+      </svg>
+    );
+  }
+  if (type === "mastercard") {
+    return (
+      <svg
+        viewBox="0 0 48 32"
+        className="h-6 w-10"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="48" height="32" rx="4" fill="#252525" />
+        <circle cx="19" cy="16" r="9" fill="#EB001B" />
+        <circle cx="29" cy="16" r="9" fill="#F79E1B" />
+        <path
+          d="M24 9.13a9 9 0 0 1 0 13.74A9 9 0 0 1 24 9.13z"
+          fill="#FF5F00"
+        />
+      </svg>
+    );
+  }
+  if (type === "amex") {
+    return (
+      <svg
+        viewBox="0 0 48 32"
+        className="h-6 w-10"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="48" height="32" rx="4" fill="#2E77BC" />
+        <text
+          x="5"
+          y="22"
+          fontFamily="Arial"
+          fontWeight="bold"
+          fontSize="9"
+          fill="#FFFFFF"
+          letterSpacing="0.5"
+        >
+          AMERICAN
+        </text>
+        <text
+          x="5"
+          y="29"
+          fontFamily="Arial"
+          fontWeight="bold"
+          fontSize="9"
+          fill="#FFFFFF"
+          letterSpacing="0.5"
+        >
+          EXPRESS
+        </text>
+      </svg>
+    );
+  }
+  if (type === "discover") {
+    return (
+      <svg
+        viewBox="0 0 48 32"
+        className="h-6 w-10"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="48" height="32" rx="4" fill="#F76F20" />
+        <text
+          x="5"
+          y="22"
+          fontFamily="Arial"
+          fontWeight="bold"
+          fontSize="9"
+          fill="#FFFFFF"
+        >
+          DISCOVER
+        </text>
+        <circle cx="36" cy="16" r="8" fill="#FFCC00" opacity="0.9" />
+      </svg>
+    );
+  }
+  return null;
+}
+
 export default function CheckoutPage() {
   const { items, subtotal, tax, serviceCharge, total, discount, kitchenNotes } =
     useCart();
@@ -40,6 +180,9 @@ export default function CheckoutPage() {
   const [processing, setProcessing] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [hydrated, setHydrated] = useState(false);
+
+  const cardType = detectCardType(cardNumber);
+  const cvvMaxLength = cardType === "amex" ? 4 : 3;
 
   useEffect(() => {
     setHydrated(true);
@@ -65,12 +208,26 @@ export default function CheckoutPage() {
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
+
     if (cardName.trim().length < 2)
       newErrors.cardName = "Enter cardholder name";
-    if (cardNumber.replace(/\s/g, "").length !== 16)
-      newErrors.cardNumber = "Enter a valid 16-digit card number";
-    if (expiry.length !== 5) newErrors.expiry = "Enter a valid expiry date";
-    if (cvv.length < 3) newErrors.cvv = "Enter a valid CVV";
+
+    const rawCard = cardNumber.replace(/\s/g, "");
+    if (
+      rawCard.length !== 16 &&
+      !(cardType === "amex" && rawCard.length === 15)
+    ) {
+      newErrors.cardNumber = "Enter a valid card number";
+    } else if (!luhnCheck(rawCard)) {
+      newErrors.cardNumber = "Card number is invalid";
+    }
+
+    if (!validateExpiry(expiry))
+      newErrors.expiry = "Enter a valid, non-expired expiry date";
+
+    if (cvv.length < cvvMaxLength)
+      newErrors.cvv = `CVV must be ${cvvMaxLength} digits`;
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -100,7 +257,6 @@ export default function CheckoutPage() {
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Checkout failed");
-
       router.push("/my-cart/checkout/success");
     } catch (error) {
       console.error("Checkout error:", error);
@@ -114,20 +270,20 @@ export default function CheckoutPage() {
         size="small"
         className="flex flex-col w-full lg:my-20 my-8 gap-10"
       >
-        <Button
-          onClick={() => router.back()}
-          variant="ghost"
-          size="lg"
-          className="rounded-full w-fit p-0 -mb-6 hover:bg-transparent"
-        >
-          <ArrowLeft size={16} className="mr-2" />
-          <span>Go back</span>
-        </Button>
-
         <div className="flex flex-col w-full gap-6">
+          <Button
+            onClick={() => router.back()}
+            variant="ghost"
+            size="lg"
+            className="flex flex-row items-center gap-2 p-0 -mb-6 text-white-60 hover:text-white hover:bg-transparent transition-colors w-fit"
+          >
+            <ArrowLeft size={16} className="mr-2" />
+            <span>Go back</span>
+          </Button>
+
           <div className="flex lg:flex-row flex-col-reverse lg:gap-0 gap-6 justify-between w-full">
-            <div className="flex flex-col lg:w-1/2 w-full items-start">
-              <h1 className="!font-bold xl:text-4xl lg:text-2xl text-2xl text-white-100">
+            <div className="flex flex-col gap-2 lg:w-1/2 w-full items-start">
+              <h1 className="font-extrabold text-3xl xl:text-5xl lg:text-4xl text-crimson-600">
                 Complete Your Order
               </h1>
               <p className="font-normal xl:text-sm lg:text-xs text-xxs text-white-60">
@@ -159,6 +315,7 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
+              {/* Cardholder Name */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs text-white-60 uppercase font-semibold">
                   Cardholder Name
@@ -174,19 +331,27 @@ export default function CheckoutPage() {
                 )}
               </div>
 
+              {/* Card Number with type icon */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs text-white-60 uppercase font-semibold">
                   Card Number
                 </label>
-                <Input
-                  placeholder="1234 5678 9012 3456"
-                  value={cardNumber}
-                  onChange={(e) =>
-                    setCardNumber(formatCardNumber(e.target.value))
-                  }
-                  className="bg-burgundy-900 border-burgundy-700 text-white font-mono"
-                  maxLength={19}
-                />
+                <div className="relative">
+                  <Input
+                    placeholder="1234 5678 9012 3456"
+                    value={cardNumber}
+                    onChange={(e) =>
+                      setCardNumber(formatCardNumber(e.target.value))
+                    }
+                    className="bg-burgundy-900 border-burgundy-700 text-white font-mono pr-14"
+                    maxLength={19}
+                  />
+                  {cardType !== "unknown" && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <CardIcon type={cardType} />
+                    </div>
+                  )}
+                </div>
                 {errors.cardNumber && (
                   <p className="text-crimson-500 text-xs">
                     {errors.cardNumber}
@@ -194,6 +359,7 @@ export default function CheckoutPage() {
                 )}
               </div>
 
+              {/* Expiry + CVV */}
               <div className="flex flex-row gap-4">
                 <div className="flex flex-col gap-1 flex-1">
                   <label className="text-xs text-white-60 uppercase font-semibold">
@@ -213,21 +379,41 @@ export default function CheckoutPage() {
 
                 <div className="flex flex-col gap-1 flex-1">
                   <label className="text-xs text-white-60 uppercase font-semibold">
-                    CVV
+                    CVV{" "}
+                    {cardType === "amex" && (
+                      <span className="text-white-40 normal-case">
+                        (4 digits)
+                      </span>
+                    )}
                   </label>
                   <Input
-                    placeholder="123"
+                    placeholder={cardType === "amex" ? "1234" : "123"}
                     value={cvv}
                     onChange={(e) =>
-                      setCvv(e.target.value.replace(/\D/g, "").slice(0, 4))
+                      setCvv(
+                        e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, cvvMaxLength),
+                      )
                     }
                     className="bg-burgundy-900 border-burgundy-700 text-white font-mono"
-                    maxLength={4}
+                    maxLength={cvvMaxLength}
                     type="password"
                   />
                   {errors.cvv && (
                     <p className="text-crimson-500 text-xs">{errors.cvv}</p>
                   )}
+                </div>
+              </div>
+
+              {/* Accepted cards display */}
+              <div className="flex items-center gap-2 pt-1">
+                <span className="text-xs text-white-60">Accepted:</span>
+                <div className="flex items-center gap-2">
+                  <CardIcon type="visa" />
+                  <CardIcon type="mastercard" />
+                  <CardIcon type="amex" />
+                  <CardIcon type="discover" />
                 </div>
               </div>
 

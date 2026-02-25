@@ -9,7 +9,7 @@ export default function RefundPolicyPage() {
       <PaddingContainer size="small">
         <div className="flex flex-col w-full max-w-4xl mx-auto py-12 md:py-20 gap-10 text-foreground">
           <header className="flex flex-col gap-4">
-            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-primary">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl text-primary">
               Refund Policy
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -25,12 +25,12 @@ export default function RefundPolicyPage() {
           </header>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               1. General Refund Principles
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   1.1 Eligibility
                 </h3>
                 <p>
@@ -43,7 +43,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   1.2 Refund Method
                 </h3>
                 <p>
@@ -54,7 +54,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   1.3 Processing Time
                 </h3>
                 <p>
@@ -69,12 +69,10 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              2. Reservation Refunds
-            </h2>
+            <h2 className="text-xl md:text-2xl">2. Reservation Refunds</h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   2.1 Cancellations Within the Free Window
                 </h3>
                 <p>
@@ -86,7 +84,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   2.2 Late Cancellations
                 </h3>
                 <p>
@@ -98,9 +96,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
-                  2.3 No-Shows
-                </h3>
+                <h3 className="font-semibold text-foreground">2.3 No-Shows</h3>
                 <p>
                   If you fail to arrive within thirty (30) minutes of your
                   reserved time without prior notice, no refund will be issued
@@ -110,7 +106,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   2.4 Group & Special Event Bookings
                 </h3>
                 <p>
@@ -126,12 +122,12 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               3. Order Refunds (My Cart & Checkout)
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.1 Before Preparation Begins
                 </h3>
                 <p>
@@ -143,7 +139,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.2 During or After Preparation
                 </h3>
                 <p>
@@ -154,7 +150,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.3 Incorrect or Unsatisfactory Orders
                 </h3>
                 <p>
@@ -169,7 +165,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.4 Promotional & Discounted Orders
                 </h3>
                 <p>
@@ -184,12 +180,12 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               4. Refunds Initiated by Lumière Dining
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   4.1 Cancellations by Us
                 </h3>
                 <p>
@@ -202,7 +198,7 @@ export default function RefundPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   4.2 Fraud Prevention
                 </h3>
                 <p>
@@ -218,9 +214,7 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              5. Refund Summary
-            </h2>
+            <h2 className="text-xl md:text-2xl">5. Refund Summary</h2>
             <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full text-sm md:text-base text-left">
                 <thead>
@@ -309,9 +303,7 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              6. Non-Refundable Items
-            </h2>
+            <h2 className="text-xl md:text-2xl">6. Non-Refundable Items</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               The following are not eligible for refunds: cash payments, tips,
               and gratuities; service charges on fully consumed orders; gift
@@ -322,9 +314,7 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              7. How to Request a Refund
-            </h2>
+            <h2 className="text-xl md:text-2xl">7. How to Request a Refund</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               All refund requests can be submitted through the following
               channels: through your Account dashboard under order or
@@ -338,9 +328,7 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              8. Disputes & Chargebacks
-            </h2>
+            <h2 className="text-xl md:text-2xl">8. Disputes & Chargebacks</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               We encourage you to contact us directly before initiating a
               chargeback or dispute with your payment provider. Filing a
@@ -354,7 +342,7 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               9. Modifications to This Policy
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -369,7 +357,7 @@ export default function RefundPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">10. Contact Us</h2>
+            <h2 className="text-xl md:text-2xl">10. Contact Us</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               For any questions, disputes, or concerns regarding this Refund
               Policy, please reach out through our Contact Us page. Our team
