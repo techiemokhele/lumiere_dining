@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import connectDB from "@/lib/mongodb";
+import connectDB from "@/config/mongodb";
 import { NewsletterPostModel } from "@/models/NewsletterPost";
 import nodemailer from "nodemailer";
 

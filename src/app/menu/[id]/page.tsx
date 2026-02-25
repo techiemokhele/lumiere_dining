@@ -105,6 +105,7 @@ export default function MenuSearchAndFilterCategoryPage() {
     }
 
     return items;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section, searchQuery, selectedTags, sortBy, id]);
 
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
