@@ -2,184 +2,38 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowLeft, CreditCard, Lock, Loader2 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import {
+  detectCardType,
+  formatCardNumber,
+  formatExpiry,
+  luhnCheck,
+  validateExpiry,
+} from "@/lib/utils";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, CreditCard, Lock, Loader2 } from "lucide-react";
 import { CartOrderSummaryComponent } from "@/components/cart/CartOrderSummaryComponent";
-import { useCart } from "@/context/CartContext";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 import { LoaderComponent } from "@/components/LoaderComponent";
-
-function formatCardNumber(value: string) {
-  return value
-    .replace(/\D/g, "")
-    .slice(0, 16)
-    .replace(/(.{4})/g, "$1 ")
-    .trim();
-}
-
-function formatExpiry(value: string) {
-  const digits = value.replace(/\D/g, "").slice(0, 4);
-  if (digits.length >= 3) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
-  return digits;
-}
-
-type CardType = "visa" | "mastercard" | "amex" | "discover" | "unknown";
-
-function detectCardType(number: string): CardType {
-  const raw = number.replace(/\s/g, "");
-  if (/^4/.test(raw)) return "visa";
-  if (/^5[1-5]/.test(raw) || /^2(2[2-9][1-9]|[3-6]\d{2}|7[01]\d|720)/.test(raw))
-    return "mastercard";
-  if (/^3[47]/.test(raw)) return "amex";
-  if (/^6(?:011|5\d{2})/.test(raw)) return "discover";
-  return "unknown";
-}
-
-function luhnCheck(value: string): boolean {
-  const digits = value.replace(/\s/g, "");
-  if (!/^\d+$/.test(digits)) return false;
-  let sum = 0;
-  let shouldDouble = false;
-  for (let i = digits.length - 1; i >= 0; i--) {
-    let d = parseInt(digits[i]);
-    if (shouldDouble) {
-      d *= 2;
-      if (d > 9) d -= 9;
-    }
-    sum += d;
-    shouldDouble = !shouldDouble;
-  }
-  return sum % 10 === 0;
-}
-
-function validateExpiry(value: string): boolean {
-  if (value.length !== 5) return false;
-  const [mm, yy] = value.split("/");
-  const month = parseInt(mm);
-  const year = parseInt("20" + yy);
-  if (month < 1 || month > 12) return false;
-  const now = new Date();
-  const expDate = new Date(year, month - 1, 1);
-  const firstOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-  return expDate >= firstOfThisMonth;
-}
-
-function CardIcon({ type }: { type: CardType }) {
-  if (type === "visa") {
-    return (
-      <svg
-        viewBox="0 0 48 32"
-        className="h-6 w-10"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width="48" height="32" rx="4" fill="#1A1F71" />
-        <text
-          x="6"
-          y="22"
-          fontFamily="Arial"
-          fontWeight="bold"
-          fontSize="14"
-          fill="#FFFFFF"
-          letterSpacing="1"
-        >
-          VISA
-        </text>
-      </svg>
-    );
-  }
-  if (type === "mastercard") {
-    return (
-      <svg
-        viewBox="0 0 48 32"
-        className="h-6 w-10"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width="48" height="32" rx="4" fill="#252525" />
-        <circle cx="19" cy="16" r="9" fill="#EB001B" />
-        <circle cx="29" cy="16" r="9" fill="#F79E1B" />
-        <path
-          d="M24 9.13a9 9 0 0 1 0 13.74A9 9 0 0 1 24 9.13z"
-          fill="#FF5F00"
-        />
-      </svg>
-    );
-  }
-  if (type === "amex") {
-    return (
-      <svg
-        viewBox="0 0 48 32"
-        className="h-6 w-10"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width="48" height="32" rx="4" fill="#2E77BC" />
-        <text
-          x="5"
-          y="22"
-          fontFamily="Arial"
-          fontWeight="bold"
-          fontSize="9"
-          fill="#FFFFFF"
-          letterSpacing="0.5"
-        >
-          AMERICAN
-        </text>
-        <text
-          x="5"
-          y="29"
-          fontFamily="Arial"
-          fontWeight="bold"
-          fontSize="9"
-          fill="#FFFFFF"
-          letterSpacing="0.5"
-        >
-          EXPRESS
-        </text>
-      </svg>
-    );
-  }
-  if (type === "discover") {
-    return (
-      <svg
-        viewBox="0 0 48 32"
-        className="h-6 w-10"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width="48" height="32" rx="4" fill="#F76F20" />
-        <text
-          x="5"
-          y="22"
-          fontFamily="Arial"
-          fontWeight="bold"
-          fontSize="9"
-          fill="#FFFFFF"
-        >
-          DISCOVER
-        </text>
-        <circle cx="36" cy="16" r="8" fill="#FFCC00" opacity="0.9" />
-      </svg>
-    );
-  }
-  return null;
-}
+import { CardIconComponent } from "@/components/CardIconComponent";
 
 export default function CheckoutPage() {
   const { items, subtotal, tax, serviceCharge, total, discount, kitchenNotes } =
     useCart();
   const router = useRouter();
 
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [cardName, setCardName] = useState("");
-  const [processing, setProcessing] = useState(false);
+  const [cardNumber, setCardNumber] = useState<string>("");
+  const [expiry, setExpiry] = useState<string>("");
+  const [cvv, setCvv] = useState<string>("");
+  const [cardName, setCardName] = useState<string>("");
+  const [processing, setProcessing] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [hydrated, setHydrated] = useState(false);
+  const [hydrated, setHydrated] = useState<boolean>(false);
 
   const cardType = detectCardType(cardNumber);
   const cvvMaxLength = cardType === "amex" ? 4 : 3;
@@ -315,7 +169,6 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Cardholder Name */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs text-white-60 uppercase font-semibold">
                   Cardholder Name
@@ -331,7 +184,6 @@ export default function CheckoutPage() {
                 )}
               </div>
 
-              {/* Card Number with type icon */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs text-white-60 uppercase font-semibold">
                   Card Number
@@ -348,7 +200,7 @@ export default function CheckoutPage() {
                   />
                   {cardType !== "unknown" && (
                     <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                      <CardIcon type={cardType} />
+                      <CardIconComponent type={cardType} />
                     </div>
                   )}
                 </div>
@@ -359,7 +211,6 @@ export default function CheckoutPage() {
                 )}
               </div>
 
-              {/* Expiry + CVV */}
               <div className="flex flex-row gap-4">
                 <div className="flex flex-col gap-1 flex-1">
                   <label className="text-xs text-white-60 uppercase font-semibold">
@@ -406,14 +257,13 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Accepted cards display */}
               <div className="flex items-center gap-2 pt-1">
                 <span className="text-xs text-white-60">Accepted:</span>
                 <div className="flex items-center gap-2">
-                  <CardIcon type="visa" />
-                  <CardIcon type="mastercard" />
-                  <CardIcon type="amex" />
-                  <CardIcon type="discover" />
+                  <CardIconComponent type="visa" />
+                  <CardIconComponent type="mastercard" />
+                  <CardIconComponent type="amex" />
+                  <CardIconComponent type="discover" />
                 </div>
               </div>
 
