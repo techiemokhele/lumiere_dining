@@ -76,7 +76,7 @@ export function DirectionsModal({ isOpen, onClose }: DirectionsModalProps) {
               size="lg"
               className="bg-crimson-600 hover:bg-crimson-500 flex items-center justify-center gap-2 w-full rounded-full"
             >
-              <Link href="tel:+27113453224">
+              <Link href="tel:0648473363">
                 <Phone size={18} />
                 <span>Call Us</span>
               </Link>
@@ -88,7 +88,7 @@ export function DirectionsModal({ isOpen, onClose }: DirectionsModalProps) {
               size="lg"
               className="border-burgundy-700 bg-burgundy-900 hover:bg-burgundy-800 text-white-100 flex items-center justify-center gap-2 w-full rounded-full"
             >
-              <Link href="/contact">
+              <Link href="/contact-us">
                 <Mail size={18} />
                 <span>Contact Form</span>
               </Link>

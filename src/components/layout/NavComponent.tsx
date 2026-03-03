@@ -75,7 +75,7 @@ export function NavComponent() {
       </div>
 
       <div className={cn(`w-full hidden lg:block`)}>
-        <div className="flex flex-row items-center justify-between px-6 py-2 rounded-full bg-burgundy-700/95 backdrop-blur-md w-full">
+        <div className="flex flex-row items-center justify-between px-6 py-2 rounded-t-full bg-burgundy-700/95 backdrop-blur-md w-full">
           <div className="flex-shrink-0">
             <Link href="/">
               <LogoComponent showText={true} />
