@@ -9,7 +9,7 @@ export default function TermsOfServicePage() {
       <PaddingContainer size="small">
         <div className="flex flex-col w-full max-w-4xl mx-auto py-12 md:py-20 gap-10 text-foreground">
           <header className="flex flex-col gap-4">
-            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-primary">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl text-primary">
               Terms of Service
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
           </header>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">1. Definitions</h2>
+            <h2 className="text-xl md:text-2xl">1. Definitions</h2>
             <div className="flex flex-col gap-2 text-sm md:text-base leading-relaxed text-muted-foreground">
               <p>
                 &quot;Lumière Dining,&quot; &quot;we,&quot; &quot;us,&quot; or
@@ -47,7 +47,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">2. Eligibility</h2>
+            <h2 className="text-xl md:text-2xl">2. Eligibility</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               You must be at least 18 years of age or the age of legal majority
               in your jurisdiction, whichever is greater, to create an Account
@@ -60,7 +60,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               3. Account Registration & Security
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -79,9 +79,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              4. Reservations & Booking
-            </h2>
+            <h2 className="text-xl md:text-2xl">4. Reservations & Booking</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Our Book a Table feature allows you to request a reservation at
               Lumière Dining. All reservations are subject to availability and
@@ -97,9 +95,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              5. Menu, Orders & Checkout
-            </h2>
+            <h2 className="text-xl md:text-2xl">5. Menu, Orders & Checkout</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Our Menu displays available food and beverage items. Prices,
               descriptions, and availability are subject to change without prior
@@ -114,7 +110,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               6. Payment Methods & Pricing
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -131,7 +127,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">7. Wishlist</h2>
+            <h2 className="text-xl md:text-2xl">7. Wishlist</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               The Wishlist feature allows you to save menu items for future
               reference. Wishlist items are tied to your Account and do not
@@ -142,7 +138,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               8. Newsletter & Email Communications
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -160,9 +156,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              9. Google Maps & Directions
-            </h2>
+            <h2 className="text-xl md:text-2xl">9. Google Maps & Directions</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Our Platform integrates Google Maps Directions API to help you
               navigate to Lumière Dining. Your use of Google Maps features is
@@ -177,9 +171,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              10. Intellectual Property
-            </h2>
+            <h2 className="text-xl md:text-2xl">10. Intellectual Property</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               All content on the Platform — including but not limited to text,
               images in our Gallery, graphics, logos, menu descriptions, Our
@@ -193,7 +185,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">11. User Conduct</h2>
+            <h2 className="text-xl md:text-2xl">11. User Conduct</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               You agree not to: use the Platform for any unlawful purpose or in
               violation of any applicable local, national, or international law;
@@ -210,7 +202,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               12. Privacy & Data Protection
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -230,7 +222,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               13. Disclaimer of Warranties
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -249,9 +241,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              14. Limitation of Liability
-            </h2>
+            <h2 className="text-xl md:text-2xl">14. Limitation of Liability</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               To the maximum extent permitted by applicable law, Lumière Dining,
               its officers, directors, employees, agents, and affiliates shall
@@ -272,9 +262,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              15. Indemnification
-            </h2>
+            <h2 className="text-xl md:text-2xl">15. Indemnification</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               You agree to indemnify, defend, and hold harmless Lumière Dining
               and its officers, directors, employees, agents, and affiliates
@@ -288,9 +276,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              16. Modifications to Terms
-            </h2>
+            <h2 className="text-xl md:text-2xl">16. Modifications to Terms</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               We reserve the right to update or modify these Terms at any time.
               Material changes will be communicated to you via email through our
@@ -302,7 +288,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               17. Governing Law & Dispute Resolution
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -322,7 +308,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">18. Severability</h2>
+            <h2 className="text-xl md:text-2xl">18. Severability</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               If any provision of these Terms is held to be invalid, illegal, or
               unenforceable by a court of competent jurisdiction, the remaining
@@ -334,9 +320,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              19. Force Majeure
-            </h2>
+            <h2 className="text-xl md:text-2xl">19. Force Majeure</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Lumière Dining shall not be liable for any failure or delay in
               performing its obligations under these Terms where such failure or
@@ -348,9 +332,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              20. Contact Information
-            </h2>
+            <h2 className="text-xl md:text-2xl">20. Contact Information</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               If you have any questions, concerns, or requests regarding these
               Terms of Service, please reach out to us through our Contact Us

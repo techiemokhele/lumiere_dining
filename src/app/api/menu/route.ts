@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { getMenuData } from "@/lib/menu";
+import { getCachedMenuData } from "@/lib/cache";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const data = await getMenuData();
+  const data = await getCachedMenuData();
   return NextResponse.json(data);
 }

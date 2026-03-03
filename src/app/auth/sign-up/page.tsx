@@ -220,7 +220,7 @@ export default function SignUpPage() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                      <FormLabel className="font-normal text-xs text-white-60 uppercase">
                         Full Name
                       </FormLabel>
                       <FormControl>
@@ -248,7 +248,7 @@ export default function SignUpPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                      <FormLabel className="font-normal text-xs text-white-60 uppercase">
                         Email Address
                       </FormLabel>
                       <FormControl>
@@ -276,7 +276,7 @@ export default function SignUpPage() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                      <FormLabel className="font-normal text-xs text-white-60 uppercase">
                         Phone Number
                       </FormLabel>
                       <FormControl>
@@ -304,7 +304,7 @@ export default function SignUpPage() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                      <FormLabel className="font-normal text-xs text-white-60 uppercase">
                         Password
                       </FormLabel>
                       <FormControl>
@@ -349,7 +349,7 @@ export default function SignUpPage() {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                      <FormLabel className="font-normal text-xs text-white-60 uppercase">
                         Confirm Password
                       </FormLabel>
                       <FormControl>

@@ -32,7 +32,7 @@ export function CookieConsentComponent() {
     >
       <div className="bg-burgundy-900 border-t border-border backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-5 flex flex-col items-start sm:items-center justify-between gap-4">
-          <p className="font-sans font-normal text-xs text-white-60 leading-relaxed flex-1 pr-4">
+          <p className="font-normal text-xs text-white-60 leading-relaxed flex-1 pr-4">
             We use cookies and similar technologies to ensure our website runs
             smoothly and to enhance your experience. Some cookies are essential
             for core functionality, while others help us understand how you
@@ -51,7 +51,7 @@ export function CookieConsentComponent() {
               variant="default"
               size="sm"
               onClick={handleAccept}
-              className="font-serif font-semibold text-xs rounded-full"
+              className="font-semibold text-xs rounded-full"
             >
               Accept Cookies
             </Button>

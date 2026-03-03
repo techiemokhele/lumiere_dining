@@ -144,8 +144,9 @@ function PairingCard({ item }: { item: MenuItem }) {
         </div>
         <p className="text-[11px] text-white-60 line-clamp-2">{item.excerpt}</p>
         <Button
+          variant="default"
           size="sm"
-          className="bg-burgundy-700 hover:bg-crimson-500 mt-auto self-end"
+          className="mt-auto self-end rounded-full"
           onClick={(e) => {
             e.preventDefault();
             addItem({
@@ -157,8 +158,8 @@ function PairingCard({ item }: { item: MenuItem }) {
             });
           }}
         >
-          <Plus size={14} />
-          <span className="text-xs">Add</span>
+          <ShoppingBag size={14} />
+          <span>Add to cart</span>
         </Button>
       </div>
     </Link>
@@ -328,10 +329,7 @@ export default function ProductDetailPage() {
 
               <p className="font-bold text-2xl text-primary">R{item.price}</p>
 
-              <StarRating
-                rating={liveRating ?? item.rating}
-                reviewCount={liveReviewCount ?? item.reviewCount}
-              />
+              <StarRating rating={liveRating!} reviewCount={liveReviewCount!} />
 
               <Separator />
 

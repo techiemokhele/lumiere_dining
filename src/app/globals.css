@@ -80,6 +80,31 @@
   }
 }
 
+/* === Custom Scrollbar === */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(350, 85%, 45%) hsl(350, 20%, 25%);
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: hsl(350, 20%, 25%);
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: hsl(350, 85%, 45%);
+  border-radius: 9999px;
+  border: 2px solid hsl(350, 20%, 25%);
+}
+
+html::-webkit-scrollbar-button {
+  display: none;
+  background: hsl(350, 20%, 25%);
+}
+
 @layer base {
   * {
     @apply border-border;

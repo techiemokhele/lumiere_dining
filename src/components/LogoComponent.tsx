@@ -13,7 +13,7 @@ export function LogoComponent({ showText, isFooter = false }: LogoProps) {
       {showText && (
         <p
           className={cn(
-            `font-serif xl:font-extrabold font-bold text-white`,
+            `xl:font-extrabold font-bold text-white`,
             isFooter
               ? "xl:text-2xl lg:text-xl text-xs"
               : "xl:text-2xl lg:text-xl text-lg",

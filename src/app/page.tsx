@@ -205,7 +205,7 @@ export default function LandingPage() {
               {popularDishes.map((dish) => (
                 <div
                   key={dish.id}
-                  className="group flex flex-col rounded-2xl bg-burgundy-800/60 border border-burgundy-700/50 overflow-hidden hover:border-crimson-600/30 transition-all duration-300"
+                  className="group flex flex-col rounded-2xl bg-burgundy-800/60 border border-burgundy-700/50 overflow-hidden hover:border-crimson-600/30 transition-all duration-300 hover:shadow-2xl"
                 >
                   <Link href={`/menu/details/${dish.id}`}>
                     <div className="relative h-52 w-full overflow-hidden">
@@ -217,15 +217,6 @@ export default function LandingPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
-                        <Star
-                          size={12}
-                          className="fill-amber-400 text-amber-400"
-                        />
-                        <span className="text-xxs text-white font-bold">
-                          {dish.rating}
-                        </span>
-                      </div>
                       <div className="absolute bottom-3 left-3 flex gap-1.5">
                         {dish.tags.slice(0, 2).map((tag) => (
                           <span
@@ -241,7 +232,7 @@ export default function LandingPage() {
 
                   <div className="flex flex-col gap-3 p-5 flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <Link href={`/menu/${dish.id}`}>
+                      <Link href={`/menu/details/${dish.id}`}>
                         <h3 className="font-bold text-lg text-white group-hover:text-crimson-500 transition-colors">
                           {dish.name}
                         </h3>
@@ -253,10 +244,7 @@ export default function LandingPage() {
                     <p className="text-xs text-white/60 line-clamp-2 flex-1">
                       {dish.excerpt}
                     </p>
-                    <div className="flex items-center justify-between mt-auto pt-2">
-                      <span className="text-xxs text-white/40">
-                        {dish.reviewCount} reviews
-                      </span>
+                    <div className="flex items-center justify-end mt-auto pt-2">
                       <Button
                         variant="default"
                         size="sm"
@@ -272,7 +260,7 @@ export default function LandingPage() {
                         }
                       >
                         <ShoppingBag size={14} />
-                        <span className="text-xs">Add</span>
+                        <span>Add to cart</span>
                       </Button>
                     </div>
                   </div>
@@ -305,7 +293,7 @@ export default function LandingPage() {
               return (
                 <div
                   key={index}
-                  className="group flex flex-col items-center text-center gap-5 p-8 rounded-2xl bg-burgundy-800/40 border border-burgundy-700/40 hover:border-crimson-600/30 hover:bg-burgundy-800/70 transition-all duration-300"
+                  className="group flex flex-col items-center text-center gap-5 p-8 rounded-2xl bg-burgundy-800/40 border border-burgundy-700/40 hover:border-crimson-600/30 hover:bg-burgundy-800/70 transition-all duration-300 hover:shadow-2xl"
                 >
                   <div className="w-16 h-16 rounded-2xl bg-crimson-600/10 flex items-center justify-center group-hover:bg-crimson-600/20 transition-colors">
                     <Icon
@@ -497,7 +485,7 @@ export default function LandingPage() {
                 variant="outline"
                 size="lg"
                 asChild
-                className="self-start border-crimson-600 text-crimson-500 hover:bg-crimson-600/10 gap-2"
+                className="self-start border-crimson-600 text-crimson-500 hover:bg-crimson-600/10 gap-2 rounded-full"
               >
                 <Link href="/shop">
                   <span>View Shop</span>
@@ -644,10 +632,13 @@ export default function LandingPage() {
                   type="submit"
                   variant="default"
                   disabled={isSubscribing}
-                  className="rounded-lg gap-2 shrink-0 disabled:opacity-50"
+                  className="rounded-full gap-2 shrink-0 disabled:opacity-50 w-40"
                 >
                   {isSubscribing ? (
-                    <LoaderCircle className="animate-spin h-4 w-4" />
+                    <>
+                      <span className="hidden sm:inline">Subscribing...</span>
+                      <LoaderCircle className="animate-spin h-4 w-4" />
+                    </>
                   ) : (
                     <>
                       <span className="hidden sm:inline">Subscribe</span>

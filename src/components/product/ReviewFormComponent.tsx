@@ -162,7 +162,7 @@ export function ReviewFormComponent({
                 name="rating"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                    <FormLabel className="font-normal text-xs text-white-60 uppercase">
                       Your Rating
                     </FormLabel>
                     <FormControl>
@@ -185,7 +185,7 @@ export function ReviewFormComponent({
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                    <FormLabel className="font-normal text-xs text-white-60 uppercase">
                       Review Title
                     </FormLabel>
                     <FormControl>
@@ -209,7 +209,7 @@ export function ReviewFormComponent({
                 name="review"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                    <FormLabel className="font-normal text-xs text-white-60 uppercase">
                       Your Review
                     </FormLabel>
                     <FormControl>

@@ -115,7 +115,7 @@ export default function MyCartMainPage() {
         <div className="flex flex-col w-full gap-6">
           <div className="flex lg:flex-row flex-col-reverse lg:gap-0 gap-6 justify-between w-full">
             <div className="flex flex-col lg:w-1/2 w-full items-start">
-              <h1 className="!font-bold xl:text-4xl lg:text-2xl text-2xl text-white-100">
+              <h1 className="font-extrabold text-3xl xl:text-5xl lg:text-4xl text-crimson-600">
                 Your Cart Selection
               </h1>
               <p className="font-normal xl:text-sm lg:text-xs text-xxs text-white-60">
@@ -180,23 +180,25 @@ export default function MyCartMainPage() {
 
               <Separator />
 
-              <div className="flex flex-col w-full gap-8">
-                <h2 className="!font-bold lg:text-2xl text-xl text-white">
-                  Perfect Pairings
-                </h2>
-                <div className="grid grid-cols-2 gap-6 w-full">
-                  {relatedItems.map((item) => (
-                    <CartRelatedItemComponent
-                      key={item.name}
-                      id={item.name}
-                      name={item.name}
-                      excerpt={item.excerpt}
-                      price={item.price}
-                      image={item.image}
-                    />
-                  ))}
+              {relatedItems.length !== 0 && (
+                <div className="flex flex-col w-full gap-8">
+                  <h2 className="!font-bold lg:text-4xl text-2xl text-white">
+                    Perfect Pairings
+                  </h2>
+                  <div className="grid grid-cols-2 gap-6 w-full">
+                    {relatedItems.map((item) => (
+                      <CartRelatedItemComponent
+                        key={item.name}
+                        id={item.name}
+                        name={item.name}
+                        excerpt={item.excerpt}
+                        price={item.price}
+                        image={item.image}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="flex lg:w-1/3 w-full">

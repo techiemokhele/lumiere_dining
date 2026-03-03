@@ -1,4 +1,4 @@
-import { connectDB } from "./mongodb";
+import { connectDB } from "../config/mongodb";
 import { MenuSection } from "@/models/ecommerce/MenuSection";
 
 export async function getMenuData() {

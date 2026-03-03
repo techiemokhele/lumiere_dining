@@ -14,14 +14,14 @@ import { LoaderComponent } from "@/components/LoaderComponent";
 export default function MenuPage() {
   const { menuData, loading } = useMenu();
 
-  const [activeSection, setActiveSection] = useState<string>("starters");
+  const [activeSection, setActiveSection] = useState<string>("grill");
   const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
 
   const headerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = {
+    grill: useRef<HTMLDivElement>(null),
     starters: useRef<HTMLDivElement>(null),
     mains: useRef<HTMLDivElement>(null),
-    grill: useRef<HTMLDivElement>(null),
     desserts: useRef<HTMLDivElement>(null),
     wines: useRef<HTMLDivElement>(null),
   };
@@ -85,7 +85,7 @@ export default function MenuPage() {
           addBadgeBorder={true}
           title="A Symphony of Flavors"
           description="Experience the art of fine dining with our seasonal tasting menu, crafted meticulously by Check Antonie using only the finest local ingredients."
-          onClick={() => scrollToSection("starters")}
+          onClick={() => scrollToSection("grill")}
         />
       </div>
 
@@ -101,7 +101,7 @@ export default function MenuPage() {
               key={index}
               onClick={() => scrollToSection(section.id)}
               className={cn(
-                "font-serif text-xs md:text-lg transition-all",
+                "text-xs md:text-lg transition-all",
                 "text-white/80 hover:text-white",
                 activeSection === section.id && "!font-extrabold text-white",
               )}

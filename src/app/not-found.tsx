@@ -74,7 +74,7 @@ export default function NotFoundPage() {
         <div className="relative flex lg:flex-row flex-col flex-1 rounded-3xl overflow-hidden m-4 z-10">
           <div className="relative lg:w-1/2 w-full flex flex-col items-center justify-center p-12 backdrop-blur-xl bg-black/60">
             <div className="relative z-10 flex flex-col items-center gap-8 text-center">
-              <h2 className="font-serif xl:text-6xl lg:text-4xl text-3xl text-white tracking-wider">
+              <h2 className="xl:text-6xl lg:text-4xl text-3xl text-white tracking-wider">
                 Page Not Found
               </h2>
 
@@ -82,7 +82,7 @@ export default function NotFoundPage() {
                 <LogoComponent showText={true} />
               </Link>
 
-              <p className="font-serif text-white xl:text-lg lg:text-sm text-xs max-w-md">
+              <p className="text-white xl:text-lg lg:text-sm text-xs max-w-md">
                 Oops! The page you are looking for doesn&apos;t exist or has
                 been moved. Explore our site and enjoy the finest dining
                 experience Cape Town has to offer.

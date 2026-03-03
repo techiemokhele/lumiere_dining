@@ -118,7 +118,7 @@ export default function SignInPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                      <FormLabel className="font-normal text-xs text-white-60 uppercase">
                         Email Address
                       </FormLabel>
                       <FormControl>
@@ -147,7 +147,7 @@ export default function SignInPage() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex flex-row items-center justify-between">
-                        <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                        <FormLabel className="font-normal text-xs text-white-60 uppercase">
                           Password
                         </FormLabel>
                         <Link

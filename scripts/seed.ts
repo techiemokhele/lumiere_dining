@@ -2273,7 +2273,7 @@ async function seed() {
 
   await ShopCategory.deleteMany({});
   await ShopCategory.insertMany(shopData);
-  console.log(`🌱 Seeded ${shopData.length} shop categories`);
+  console.log(`Seeded ${shopData.length} shop categories`);
 
   await NewsletterPostModel.deleteMany({});
   await NewsletterPostModel.insertMany(
