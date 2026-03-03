@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Plus } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -32,7 +32,7 @@ export function LandingPageMenuCard({
   return (
     <div
       className={cn(
-        "group flex w-full rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden",
+        "group flex w-full rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden hover:shadow-2xl",
         itemDirection === "left"
           ? "lg:flex-row flex-col"
           : "lg:flex-row-reverse flex-col",
@@ -66,11 +66,11 @@ export function LandingPageMenuCard({
 
         <div className="flex justify-end mt-auto">
           <Button
-            className="bg-burgundy-700 hover:bg-crimson-500"
+            variant="default"
             onClick={() => addItem({ id: id, name, price, image, excerpt })}
           >
-            <Plus size={16} />
-            <span>Add to Order</span>
+            <ShoppingBag size={14} />
+            <span>Add to cart</span>
           </Button>
         </div>
       </div>

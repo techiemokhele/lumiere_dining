@@ -263,7 +263,7 @@ export default function LandingPage() {
                         }
                       >
                         <ShoppingBag size={14} />
-                        <span className="text-xs">Add</span>
+                        <span>Add to cart</span>
                       </Button>
                     </div>
                   </div>

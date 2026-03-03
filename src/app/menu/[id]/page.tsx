@@ -7,12 +7,12 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
-  Plus,
   Search,
   SlidersHorizontal,
   X,
   ChevronLeft,
   ChevronRight,
+  ShoppingBag,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
@@ -349,7 +349,9 @@ export default function MenuSearchAndFilterCategoryPage() {
 
                     <div className="flex justify-end mt-auto pt-2">
                       <Button
-                        className="bg-burgundy-700 hover:bg-crimson-500"
+                        variant="default"
+                        size="sm"
+                        className="mt-auto self-end rounded-full"
                         onClick={() =>
                           addItem({
                             id: item.id,
@@ -360,8 +362,8 @@ export default function MenuSearchAndFilterCategoryPage() {
                           })
                         }
                       >
-                        <Plus size={16} />
-                        <span>Add to Order</span>
+                        <ShoppingBag size={14} />
+                        <span>Add to cart</span>
                       </Button>
                     </div>
                   </div>
