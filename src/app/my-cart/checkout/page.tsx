@@ -2,44 +2,41 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowLeft, CreditCard, Lock, Loader2 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import {
+  detectCardType,
+  formatCardNumber,
+  formatExpiry,
+  luhnCheck,
+  validateExpiry,
+} from "@/lib/utils";
 import { PaddingContainer } from "@/components/structure/PaddingContainer";
 import { PageContainer } from "@/components/structure/PageContainer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, CreditCard, Lock, Loader2 } from "lucide-react";
 import { CartOrderSummaryComponent } from "@/components/cart/CartOrderSummaryComponent";
-import { useCart } from "@/context/CartContext";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 import { LoaderComponent } from "@/components/LoaderComponent";
-
-function formatCardNumber(value: string) {
-  return value
-    .replace(/\D/g, "")
-    .slice(0, 16)
-    .replace(/(.{4})/g, "$1 ")
-    .trim();
-}
-
-function formatExpiry(value: string) {
-  const digits = value.replace(/\D/g, "").slice(0, 4);
-  if (digits.length >= 3) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
-  return digits;
-}
+import { CardIconComponent } from "@/components/CardIconComponent";
 
 export default function CheckoutPage() {
   const { items, subtotal, tax, serviceCharge, total, discount, kitchenNotes } =
     useCart();
   const router = useRouter();
 
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [cardName, setCardName] = useState("");
-  const [processing, setProcessing] = useState(false);
+  const [cardNumber, setCardNumber] = useState<string>("");
+  const [expiry, setExpiry] = useState<string>("");
+  const [cvv, setCvv] = useState<string>("");
+  const [cardName, setCardName] = useState<string>("");
+  const [processing, setProcessing] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [hydrated, setHydrated] = useState(false);
+  const [hydrated, setHydrated] = useState<boolean>(false);
+
+  const cardType = detectCardType(cardNumber);
+  const cvvMaxLength = cardType === "amex" ? 4 : 3;
 
   useEffect(() => {
     setHydrated(true);
@@ -65,12 +62,33 @@ export default function CheckoutPage() {
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
+
     if (cardName.trim().length < 2)
       newErrors.cardName = "Enter cardholder name";
-    if (cardNumber.replace(/\s/g, "").length !== 16)
-      newErrors.cardNumber = "Enter a valid 16-digit card number";
-    if (expiry.length !== 5) newErrors.expiry = "Enter a valid expiry date";
-    if (cvv.length < 3) newErrors.cvv = "Enter a valid CVV";
+
+    const rawCard = cardNumber.replace(/\D/g, "");
+
+    const validLengths: Record<string, number[]> = {
+      visa: [13, 16, 19],
+      mastercard: [16],
+      amex: [15],
+      discover: [16, 19],
+    };
+
+    if (cardType === "unknown") {
+      newErrors.cardNumber = "Unsupported card type";
+    } else if (!validLengths[cardType]?.includes(rawCard.length)) {
+      newErrors.cardNumber = "Invalid card length";
+    } else if (!luhnCheck(rawCard)) {
+      newErrors.cardNumber = "Card number is invalid";
+    }
+
+    if (!validateExpiry(expiry))
+      newErrors.expiry = "Enter a valid, non-expired expiry date";
+
+    if (cvv.length < cvvMaxLength)
+      newErrors.cvv = `CVV must be ${cvvMaxLength} digits`;
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -100,7 +118,6 @@ export default function CheckoutPage() {
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Checkout failed");
-
       router.push("/my-cart/checkout/success");
     } catch (error) {
       console.error("Checkout error:", error);
@@ -114,20 +131,20 @@ export default function CheckoutPage() {
         size="small"
         className="flex flex-col w-full lg:my-20 my-8 gap-10"
       >
-        <Button
-          onClick={() => router.back()}
-          variant="ghost"
-          size="lg"
-          className="rounded-full w-fit p-0 -mb-6 hover:bg-transparent"
-        >
-          <ArrowLeft size={16} className="mr-2" />
-          <span>Go back</span>
-        </Button>
-
         <div className="flex flex-col w-full gap-6">
+          <Button
+            onClick={() => router.back()}
+            variant="ghost"
+            size="lg"
+            className="flex flex-row items-center gap-2 p-0 -mb-6 text-white-60 hover:text-white hover:bg-transparent transition-colors w-fit"
+          >
+            <ArrowLeft size={16} className="mr-2" />
+            <span>Go back</span>
+          </Button>
+
           <div className="flex lg:flex-row flex-col-reverse lg:gap-0 gap-6 justify-between w-full">
-            <div className="flex flex-col lg:w-1/2 w-full items-start">
-              <h1 className="!font-bold xl:text-4xl lg:text-2xl text-2xl text-white-100">
+            <div className="flex flex-col gap-2 lg:w-1/2 w-full items-start">
+              <h1 className="font-extrabold text-3xl xl:text-5xl lg:text-4xl text-crimson-600">
                 Complete Your Order
               </h1>
               <p className="font-normal xl:text-sm lg:text-xs text-xxs text-white-60">
@@ -178,15 +195,22 @@ export default function CheckoutPage() {
                 <label className="text-xs text-white-60 uppercase font-semibold">
                   Card Number
                 </label>
-                <Input
-                  placeholder="1234 5678 9012 3456"
-                  value={cardNumber}
-                  onChange={(e) =>
-                    setCardNumber(formatCardNumber(e.target.value))
-                  }
-                  className="bg-burgundy-900 border-burgundy-700 text-white font-mono"
-                  maxLength={19}
-                />
+                <div className="relative">
+                  <Input
+                    placeholder="1234 5678 9012 3456"
+                    value={cardNumber}
+                    onChange={(e) =>
+                      setCardNumber(formatCardNumber(e.target.value))
+                    }
+                    className="bg-burgundy-900 border-burgundy-700 text-white font-mono pr-14"
+                    maxLength={19}
+                  />
+                  {cardType !== "unknown" && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <CardIconComponent type={cardType} />
+                    </div>
+                  )}
+                </div>
                 {errors.cardNumber && (
                   <p className="text-crimson-500 text-xs">
                     {errors.cardNumber}
@@ -213,21 +237,40 @@ export default function CheckoutPage() {
 
                 <div className="flex flex-col gap-1 flex-1">
                   <label className="text-xs text-white-60 uppercase font-semibold">
-                    CVV
+                    CVV{" "}
+                    {cardType === "amex" && (
+                      <span className="text-white-40 normal-case">
+                        (4 digits)
+                      </span>
+                    )}
                   </label>
                   <Input
-                    placeholder="123"
+                    placeholder={cardType === "amex" ? "1234" : "123"}
                     value={cvv}
                     onChange={(e) =>
-                      setCvv(e.target.value.replace(/\D/g, "").slice(0, 4))
+                      setCvv(
+                        e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, cvvMaxLength),
+                      )
                     }
                     className="bg-burgundy-900 border-burgundy-700 text-white font-mono"
-                    maxLength={4}
+                    maxLength={cvvMaxLength}
                     type="password"
                   />
                   {errors.cvv && (
                     <p className="text-crimson-500 text-xs">{errors.cvv}</p>
                   )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 pt-1">
+                <span className="text-xs text-white-60">Accepted:</span>
+                <div className="flex items-center gap-2">
+                  <CardIconComponent type="visa" />
+                  <CardIconComponent type="mastercard" />
+                  <CardIconComponent type="amex" />
+                  <CardIconComponent type="discover" />
                 </div>
               </div>
 

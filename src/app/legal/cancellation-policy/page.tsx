@@ -9,7 +9,7 @@ export default function CancellationPolicyPage() {
       <PaddingContainer size="small">
         <div className="flex flex-col w-full max-w-4xl mx-auto py-12 md:py-20 gap-10 text-foreground">
           <header className="flex flex-col gap-4">
-            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-primary">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl text-primary">
               Cancellation Policy
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -25,12 +25,12 @@ export default function CancellationPolicyPage() {
           </header>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               1. Reservation Cancellations (Book a Table)
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   1.1 Free Cancellation Window
                 </h3>
                 <p>
@@ -43,7 +43,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   1.2 Late Cancellations
                 </h3>
                 <p>
@@ -56,9 +56,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
-                  1.3 No-Shows
-                </h3>
+                <h3 className="font-semibold text-foreground">1.3 No-Shows</h3>
                 <p>
                   If you fail to arrive within thirty (30) minutes of your
                   reserved time without prior cancellation or notification, this
@@ -70,7 +68,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   1.4 Group & Special Event Reservations
                 </h3>
                 <p>
@@ -87,12 +85,12 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               2. Order Cancellations (My Cart & Checkout)
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   2.1 Pre-Confirmation Cancellation
                 </h3>
                 <p>
@@ -102,7 +100,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   2.2 Post-Confirmation Cancellation
                 </h3>
                 <p>
@@ -116,7 +114,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   2.3 Refund Processing
                 </h3>
                 <p>
@@ -132,7 +130,7 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               3. Newsletter Subscription Cancellation
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -148,12 +146,12 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               4. Account Cancellation & Deletion
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   4.1 Voluntary Account Deletion
                 </h3>
                 <p>
@@ -167,7 +165,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   4.2 Data Retention
                 </h3>
                 <p>
@@ -183,12 +181,12 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               5. Cancellations by Lumière Dining
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   5.1 Reservation Cancellations by Us
                 </h3>
                 <p>
@@ -202,7 +200,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   5.2 Order Cancellations by Us
                 </h3>
                 <p>
@@ -214,7 +212,7 @@ export default function CancellationPolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   5.3 Account Suspension or Termination by Us
                 </h3>
                 <p>
@@ -230,9 +228,7 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              6. Refund Policy Summary
-            </h2>
+            <h2 className="text-xl md:text-2xl">6. Refund Policy Summary</h2>
             <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full text-sm md:text-base text-left">
                 <thead>
@@ -311,7 +307,7 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">7. How to Cancel</h2>
+            <h2 className="text-xl md:text-2xl">7. How to Cancel</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               All cancellation requests can be submitted through the following
               channels: through your Account dashboard for reservations, orders,
@@ -324,7 +320,7 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               8. Exceptions & Special Circumstances
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -339,7 +335,7 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               9. Modifications to This Policy
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -354,7 +350,7 @@ export default function CancellationPolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">10. Contact Us</h2>
+            <h2 className="text-xl md:text-2xl">10. Contact Us</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               For any questions, disputes, or concerns regarding this
               Cancellation Policy, please reach out through our Contact Us page.

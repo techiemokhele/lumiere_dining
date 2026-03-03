@@ -83,7 +83,7 @@ function ResetPasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
-        <label className="font-sans font-normal text-xs text-white-60 uppercase">
+        <label className="font-normal text-xs text-white-60 uppercase">
           New Password
         </label>
         <div className="relative">
@@ -105,7 +105,7 @@ function ResetPasswordForm() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="font-sans font-normal text-xs text-white-60 uppercase">
+        <label className="font-normal text-xs text-white-60 uppercase">
           Confirm New Password
         </label>
         <Input

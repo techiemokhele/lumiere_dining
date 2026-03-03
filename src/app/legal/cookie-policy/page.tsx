@@ -9,7 +9,7 @@ export default function CookiePolicyPage() {
       <PaddingContainer size="small">
         <div className="flex flex-col w-full max-w-4xl mx-auto py-12 md:py-20 gap-10 text-foreground">
           <header className="flex flex-col gap-4">
-            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-primary">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl text-primary">
               Cookie Policy
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -28,9 +28,7 @@ export default function CookiePolicyPage() {
           </header>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              1. What Are Cookies?
-            </h2>
+            <h2 className="text-xl md:text-2xl">1. What Are Cookies?</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Cookies are small text files that are placed on your device
               (computer, tablet, or mobile phone) when you visit a website. They
@@ -47,9 +45,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              2. How We Use Cookies
-            </h2>
+            <h2 className="text-xl md:text-2xl">2. How We Use Cookies</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               We use cookies and similar technologies across our Platform to
               support and enhance the functionality of our Services, including
@@ -75,12 +71,10 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              3. Types of Cookies We Use
-            </h2>
+            <h2 className="text-xl md:text-2xl">3. Types of Cookies We Use</h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.1 Strictly Necessary Cookies
                 </h3>
                 <p>
@@ -96,7 +90,7 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.2 Functional Cookies
                 </h3>
                 <p>
@@ -112,7 +106,7 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.3 Analytics & Performance Cookies
                 </h3>
                 <p>
@@ -128,7 +122,7 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.4 Marketing & Advertising Cookies
                 </h3>
                 <p>
@@ -145,7 +139,7 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   3.5 Third-Party Cookies
                 </h3>
                 <p>
@@ -167,9 +161,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              4. Cookie Overview
-            </h2>
+            <h2 className="text-xl md:text-2xl">4. Cookie Overview</h2>
             <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full text-sm md:text-base text-left">
                 <thead>
@@ -243,12 +235,12 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               5. Managing Your Cookie Preferences
             </h2>
             <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   5.1 Cookie Consent Banner
                 </h3>
                 <p>
@@ -262,7 +254,7 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   5.2 Browser Settings
                 </h3>
                 <p>
@@ -278,7 +270,7 @@ export default function CookiePolicyPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-sans font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground">
                   5.3 Opt-Out of Analytics
                 </h3>
                 <p>
@@ -292,9 +284,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              6. Similar Technologies
-            </h2>
+            <h2 className="text-xl md:text-2xl">6. Similar Technologies</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               In addition to cookies, we may use similar tracking technologies
               including web beacons (also known as pixel tags or clear GIFs),
@@ -310,9 +300,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              7. International Compliance
-            </h2>
+            <h2 className="text-xl md:text-2xl">7. International Compliance</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               We are committed to complying with applicable cookie and data
               privacy laws across all jurisdictions in which our Platform is
@@ -333,7 +321,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               8. Data Collected Through Cookies
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -351,9 +339,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              9. Data Sharing & Transfers
-            </h2>
+            <h2 className="text-xl md:text-2xl">9. Data Sharing & Transfers</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Cookie data may be shared with third-party service providers who
               assist in operating the Platform, including analytics providers,
@@ -368,7 +354,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">10. Your Rights</h2>
+            <h2 className="text-xl md:text-2xl">10. Your Rights</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Depending on your jurisdiction, you may have the right to access
               the personal data collected through cookies; rectify inaccurate
@@ -385,9 +371,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
-              11. Children&apos;s Privacy
-            </h2>
+            <h2 className="text-xl md:text-2xl">11. Children&apos;s Privacy</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               Our Platform is not directed at individuals under the age of 16
               (or the applicable age in your jurisdiction). We do not knowingly
@@ -399,7 +383,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">
+            <h2 className="text-xl md:text-2xl">
               12. Changes to This Cookie Policy
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
@@ -415,7 +399,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="font-serif text-xl md:text-2xl">13. Contact Us</h2>
+            <h2 className="text-xl md:text-2xl">13. Contact Us</h2>
             <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
               If you have any questions, concerns, or requests regarding this
               Cookie Policy or how we use cookies and similar technologies,

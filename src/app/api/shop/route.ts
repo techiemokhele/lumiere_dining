@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import { ShopCategory } from "@/models/ecommerce/ShopCategory";
+import { getCachedShopData } from "@/lib/cache";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
-  await connectDB();
-  const data = await ShopCategory.find({}).lean();
+  const data = await getCachedShopData();
   return NextResponse.json(data);
 }

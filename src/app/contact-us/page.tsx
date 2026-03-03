@@ -158,7 +158,7 @@ export default function ContactPage() {
                   Keep Close
                 </p>
               </div>
-              <h1 className="font-sans !font-extrabold md:text-6xl text-3xl text-white">
+              <h1 className="!font-extrabold md:text-6xl text-3xl text-white">
                 Get in touch
               </h1>
               <p className="font-normal text-sm text-white/80 leading-relaxed">
@@ -270,7 +270,7 @@ export default function ContactPage() {
                     name="fullName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                        <FormLabel className="font-normal text-xs text-white-60 uppercase">
                           Full Name
                         </FormLabel>
                         <FormControl>
@@ -298,7 +298,7 @@ export default function ContactPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                        <FormLabel className="font-normal text-xs text-white-60 uppercase">
                           Email Address
                         </FormLabel>
                         <FormControl>
@@ -326,7 +326,7 @@ export default function ContactPage() {
                     name="subject"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                        <FormLabel className="font-normal text-xs text-white-60 uppercase">
                           Subject
                         </FormLabel>
                         <FormControl>
@@ -353,7 +353,7 @@ export default function ContactPage() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans font-normal text-xs text-white-60 uppercase">
+                        <FormLabel className="font-normal text-xs text-white-60 uppercase">
                           Message
                         </FormLabel>
                         <FormControl>

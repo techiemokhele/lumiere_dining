@@ -14,7 +14,7 @@ export function FormLabelWithNumberComponent({
       <div className="flex justify-center h-6 w-6 rounded-full border border-crimson-500 bg-burgundy-700">
         <p className="font-normal text-sm text-crimson-500">{number}</p>
       </div>
-      <p className="font-sans !font-bold xl:text-2xl lg:text-md !text-sm text-white">
+      <p className="!font-bold xl:text-2xl lg:text-md !text-sm text-white">
         {label}
       </p>
     </div>

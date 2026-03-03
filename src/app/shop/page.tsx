@@ -9,7 +9,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Star,
   ShoppingBag,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -179,7 +178,7 @@ export default function ShopPage() {
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
               className={cn(
-                "font-serif text-xs md:text-lg transition-all",
+                "text-xs md:text-lg transition-all",
                 "text-white/80 hover:text-white",
                 activeCategory === cat.id && "!font-extrabold text-white",
               )}
@@ -225,7 +224,7 @@ export default function ShopPage() {
                   onChange={(e) =>
                     handleSortChange(e.target.value as SortOption)
                   }
-                  className="bg-burgundy-800 border border-burgundy-700 text-white font-serif lg:text-sm text-xs rounded-3xl px-3 py-2 outline-none cursor-pointer shrink-0"
+                  className="bg-burgundy-800 border border-burgundy-700 text-white lg:text-sm text-xs rounded-3xl px-3 py-2 outline-none cursor-pointer shrink-0"
                 >
                   <option value="default">Default</option>
                   <option value="price-asc">Price: Low → High</option>
@@ -250,15 +249,13 @@ export default function ShopPage() {
 
             {showFilters && (
               <div className="flex flex-row flex-wrap gap-2 items-center">
-                <span className="font-serif text-xs text-white-60 mr-1">
-                  Filter by:
-                </span>
+                <span className="text-xs text-white-60 mr-1">Filter by:</span>
                 {allTags.map((tag) => (
                   <button
                     key={tag}
                     onClick={() => toggleTag(tag)}
                     className={cn(
-                      "px-3 py-1 rounded-full font-serif text-xs transition-colors border",
+                      "px-3 py-1 rounded-full text-xs transition-colors border",
                       selectedTags.includes(tag)
                         ? "bg-primary text-white border-primary"
                         : "bg-burgundy-800 text-white-60 border-burgundy-700 hover:border-white-60",
@@ -272,13 +269,13 @@ export default function ShopPage() {
 
             {hasActiveFilters && (
               <div className="flex flex-row items-center justify-between">
-                <p className="font-serif text-xs text-white-60">
+                <p className="text-xs text-white-60">
                   Showing {filteredItems.length} product
                   {filteredItems.length !== 1 ? "s" : ""}
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="font-serif text-xs text-primary hover:underline"
+                  className="text-xs text-primary hover:underline"
                 >
                   Clear all filters
                 </button>
@@ -305,15 +302,6 @@ export default function ShopPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
-                        <Star
-                          size={12}
-                          className="fill-amber-400 text-amber-400"
-                        />
-                        <span className="text-xxs text-white font-bold">
-                          {item.rating}
-                        </span>
-                      </div>
                       <div className="absolute bottom-3 left-3 flex gap-1.5">
                         {item.tags.slice(0, 2).map((tag) => (
                           <span
@@ -341,10 +329,7 @@ export default function ShopPage() {
                     <p className="text-xs text-white/60 line-clamp-2 flex-1">
                       {item.excerpt}
                     </p>
-                    <div className="flex items-center justify-between mt-auto pt-2">
-                      <span className="text-xxs text-white/40">
-                        {item.reviewCount} reviews
-                      </span>
+                    <div className="flex items-center justify-end mt-auto pt-2">
                       <Button
                         variant="default"
                         size="sm"
@@ -360,7 +345,7 @@ export default function ShopPage() {
                         }
                       >
                         <ShoppingBag size={14} />
-                        <span className="text-xs">Add</span>
+                        <span className="text-xs">Add to cart</span>
                       </Button>
                     </div>
                   </div>
@@ -372,7 +357,7 @@ export default function ShopPage() {
               <div className="flex flex-col flex-1 rounded-2xl bg-burgundy-800 shadow-lg overflow-hidden">
                 <div className="flex flex-col items-center justify-center flex-1 p-10 gap-6">
                   <ShoppingBag size={64} className="text-white/20" />
-                  <p className="font-serif text-lg text-white-60 text-center">
+                  <p className="text-lg text-white-60 text-center">
                     No products found matching your criteria.
                   </p>
                   <Button
@@ -411,7 +396,7 @@ export default function ShopPage() {
                       scrollToGrid();
                     }}
                     className={cn(
-                      "w-9 h-9 rounded-md font-serif text-sm transition-colors",
+                      "w-9 h-9 rounded-md text-sm transition-colors",
                       currentPage === page
                         ? "bg-primary text-white"
                         : "text-white-60 hover:text-white hover:bg-burgundy-700",

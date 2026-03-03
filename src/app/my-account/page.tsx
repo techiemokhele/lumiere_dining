@@ -260,7 +260,7 @@ export default function MyProfilePage() {
         <h2 className="font-bold text-lg text-white">Personal Information</h2>
 
         <div className="flex flex-col gap-1">
-          <label className="font-sans font-normal text-xs text-white-60 uppercase">
+          <label className="font-normal text-xs text-white-60 uppercase">
             Full Name
           </label>
           <Input
@@ -271,7 +271,7 @@ export default function MyProfilePage() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="font-sans font-normal text-xs text-white-60 uppercase">
+          <label className="font-normal text-xs text-white-60 uppercase">
             Email Address
             <span className="text-white-60 normal-case ml-2">(read-only)</span>
           </label>
@@ -283,7 +283,7 @@ export default function MyProfilePage() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="font-sans font-normal text-xs text-white-60 uppercase">
+          <label className="font-normal text-xs text-white-60 uppercase">
             Phone Number
           </label>
           <Input
