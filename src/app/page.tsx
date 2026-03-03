@@ -232,7 +232,7 @@ export default function LandingPage() {
 
                   <div className="flex flex-col gap-3 p-5 flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <Link href={`/menu/${dish.id}`}>
+                      <Link href={`/menu/details/${dish.id}`}>
                         <h3 className="font-bold text-lg text-white group-hover:text-crimson-500 transition-colors">
                           {dish.name}
                         </h3>
@@ -244,10 +244,7 @@ export default function LandingPage() {
                     <p className="text-xs text-white/60 line-clamp-2 flex-1">
                       {dish.excerpt}
                     </p>
-                    <div className="flex items-center justify-between mt-auto pt-2">
-                      <span className="text-xxs text-white/40">
-                        {dish.reviewCount} reviews
-                      </span>
+                    <div className="flex items-center justify-end mt-auto pt-2">
                       <Button
                         variant="default"
                         size="sm"

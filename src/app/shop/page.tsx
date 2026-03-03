@@ -9,7 +9,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Star,
   ShoppingBag,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -303,15 +302,6 @@ export default function ShopPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
-                        <Star
-                          size={12}
-                          className="fill-amber-400 text-amber-400"
-                        />
-                        <span className="text-xxs text-white font-bold">
-                          {item.rating}
-                        </span>
-                      </div>
                       <div className="absolute bottom-3 left-3 flex gap-1.5">
                         {item.tags.slice(0, 2).map((tag) => (
                           <span
@@ -339,10 +329,7 @@ export default function ShopPage() {
                     <p className="text-xs text-white/60 line-clamp-2 flex-1">
                       {item.excerpt}
                     </p>
-                    <div className="flex items-center justify-between mt-auto pt-2">
-                      <span className="text-xxs text-white/40">
-                        {item.reviewCount} reviews
-                      </span>
+                    <div className="flex items-center justify-end mt-auto pt-2">
                       <Button
                         variant="default"
                         size="sm"
@@ -358,7 +345,7 @@ export default function ShopPage() {
                         }
                       >
                         <ShoppingBag size={14} />
-                        <span className="text-xs">Add</span>
+                        <span className="text-xs">Add to cart</span>
                       </Button>
                     </div>
                   </div>

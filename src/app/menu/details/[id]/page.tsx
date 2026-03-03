@@ -329,10 +329,7 @@ export default function ProductDetailPage() {
 
               <p className="font-bold text-2xl text-primary">R{item.price}</p>
 
-              <StarRating
-                rating={liveRating ?? item.rating}
-                reviewCount={liveReviewCount ?? item.reviewCount}
-              />
+              <StarRating rating={liveRating!} reviewCount={liveReviewCount!} />
 
               <Separator />
 
