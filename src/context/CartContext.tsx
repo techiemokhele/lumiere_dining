@@ -58,7 +58,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [promoApplied, setPromoApplied] = useState<boolean>(false);
   const [kitchenNotes, setKitchenNotesState] = useState<string>("");
-  const [hydrated, setHydrated] = useState(false);
+  const [hydrated, setHydrated] = useState<boolean>(false);
 
   useEffect(() => {
     setItems(loadFromStorage<CartItem[]>(CART_KEY, []));

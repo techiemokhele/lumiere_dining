@@ -66,12 +66,19 @@ export default function CheckoutPage() {
     if (cardName.trim().length < 2)
       newErrors.cardName = "Enter cardholder name";
 
-    const rawCard = cardNumber.replace(/\s/g, "");
-    if (
-      rawCard.length !== 16 &&
-      !(cardType === "amex" && rawCard.length === 15)
-    ) {
-      newErrors.cardNumber = "Enter a valid card number";
+    const rawCard = cardNumber.replace(/\D/g, "");
+
+    const validLengths: Record<string, number[]> = {
+      visa: [13, 16, 19],
+      mastercard: [16],
+      amex: [15],
+      discover: [16, 19],
+    };
+
+    if (cardType === "unknown") {
+      newErrors.cardNumber = "Unsupported card type";
+    } else if (!validLengths[cardType]?.includes(rawCard.length)) {
+      newErrors.cardNumber = "Invalid card length";
     } else if (!luhnCheck(rawCard)) {
       newErrors.cardNumber = "Card number is invalid";
     }
