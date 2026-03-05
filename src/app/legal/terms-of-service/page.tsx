@@ -5,7 +5,7 @@ export default function TermsOfServicePage() {
   const lastUpdated = "February 11, 2026";
 
   return (
-    <PageContainer showFooter={true} showNavigation={true}>
+    <PageContainer showFooter={false} showNavigation={true}>
       <PaddingContainer size="small">
         <div className="flex flex-col w-full max-w-4xl mx-auto py-12 md:py-20 gap-10 text-foreground">
           <header className="flex flex-col gap-4">
@@ -340,12 +340,6 @@ export default function TermsOfServicePage() {
               inquiries within a reasonable timeframe.
             </p>
           </section>
-
-          <footer className="border-t border-border pt-6 mt-4">
-            <p className="text-xs md:text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Lumière Dining. All rights reserved.
-            </p>
-          </footer>
         </div>
       </PaddingContainer>
     </PageContainer>
