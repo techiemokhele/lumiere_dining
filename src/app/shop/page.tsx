@@ -196,7 +196,7 @@ export default function ShopPage() {
           className="flex flex-col w-full gap-8 py-10 max-w-7xl mx-auto scroll-m-16 overflow-x-hidden"
         >
           <div className="flex flex-col gap-4">
-            <div className="flex lg:flex-row flex-col gap-3 items-center w-full">
+            <div className="flex lg:flex-row flex-col gap-3 items-center w-full px-1">
               <div className="relative lg:flex-1 lg:min-w-0 w-full">
                 <Search
                   size={16}
@@ -396,7 +396,7 @@ export default function ShopPage() {
                       scrollToGrid();
                     }}
                     className={cn(
-                      "w-9 h-9 rounded-md text-sm transition-colors",
+                      "w-9 h-9 rounded-md text-xs lg:text-sm transition-colors",
                       currentPage === page
                         ? "bg-primary text-white"
                         : "text-white-60 hover:text-white hover:bg-burgundy-700",

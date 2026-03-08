@@ -184,7 +184,7 @@ export default function MenuSearchAndFilterCategoryPage() {
               className="flex flex-row items-center gap-2 text-white-60 hover:text-white transition-colors w-fit"
             >
               <ArrowLeft size={16} />
-              <span className="text-sm">Back to Menu</span>
+              <span className="text-xs lg:text-sm">Back to Menu</span>
             </Link>
 
             <div className="flex flex-col gap-2">
@@ -202,7 +202,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                   )}
                 </h1>
               </div>
-              <p className="font-normal text-xs lg:text-sm text-white-60">
+              <p className="font-normal text-xs lg:text-xs lg:text-sm text-white-60">
                 {pageDescription}
               </p>
             </div>
@@ -210,7 +210,7 @@ export default function MenuSearchAndFilterCategoryPage() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <div className="flex lg:flex-row flex-col gap-3 items-center w-full">
+            <div className="flex lg:flex-row flex-col gap-3 items-center w-full px-1">
               <div className="relative lg:flex-1 lg:min-w-0 w-full">
                 <Search
                   size={16}
@@ -220,7 +220,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                   placeholder={`Search ${section.title.toLowerCase()}...`}
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
-                  className="pl-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 rounded-3xl lg:text-sm text-xs w-full"
+                  className="px-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 rounded-3xl lg:text-xs lg:text-sm text-xs w-full"
                 />
                 {searchQuery && (
                   <button
@@ -238,7 +238,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                   onChange={(e) =>
                     handleSortChange(e.target.value as SortOption)
                   }
-                  className="bg-burgundy-800 border border-burgundy-700 text-white lg:text-sm text-xs rounded-3xl px-3 py-2 outline-none cursor-pointer shrink-0"
+                  className="bg-burgundy-800 border border-burgundy-700 text-white lg:text-xs lg:text-sm text-xs rounded-3xl px-3 py-2 outline-none cursor-pointer shrink-0"
                 >
                   <option value="default">Default</option>
                   <option value="price-asc">Price: Low → High</option>
@@ -422,7 +422,7 @@ export default function MenuSearchAndFilterCategoryPage() {
                       scrollToGrid();
                     }}
                     className={cn(
-                      "w-9 h-9 rounded-md text-sm transition-colors",
+                      "w-9 h-9 rounded-md text-xs lg:text-sm transition-colors",
                       currentPage === page
                         ? "bg-primary text-white"
                         : "text-white-60 hover:text-white hover:bg-burgundy-700",

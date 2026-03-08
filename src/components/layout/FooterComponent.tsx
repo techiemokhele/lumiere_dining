@@ -99,7 +99,7 @@ export function FooterComponent() {
 
   return (
     <>
-      <footer className="flex flex-col gap-4 py-10 xl:px-8 lg:px-8 px-4 bg-secondary">
+      <footer className="flex flex-col gap-4 pt-10 pb-16 lg:px-8 px-4 bg-secondary">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-16 lg:gap-y-8 gap-y-4">
           <div className="flex flex-col gap-4">
             <LogoComponent showText={true} isFooter={true} />

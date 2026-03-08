@@ -65,7 +65,7 @@ export function MasonryGalleryComponent({
           <h2 className="font-extrabold lg:text-3xl text-2xl text-crimson-600">
             {title}
           </h2>
-          <p className="font-normal lg:text-base text-sm text-white/80 max-w-3xl">
+          <p className="font-normal lg:text-base xl:text-sm text-xs text-white/80 max-w-3xl">
             {description}
           </p>
         </div>
@@ -126,7 +126,9 @@ export function MasonryGalleryComponent({
                     <h3 className="font-bold text-lg text-white mb-1">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-white/90">{item.description}</p>
+                    <p className="xl:text-sm text-xs text-white/90">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
 

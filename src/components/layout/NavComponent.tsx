@@ -212,13 +212,13 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
 
         <nav aria-label="Main navigation">
           <div className="flex flex-col justify-between">
-            <div className="flex flex-col gap-4 -mt-6">
+            <div className="flex flex-col gap-2 -mt-6">
               {navLinks.map((link) => (
                 <Button asChild key={link.label} variant="link">
                   <Link
                     href={link.href}
                     className={cn(
-                      "flex justify-between font-extrabold lg:text-2xl text-xl hover:no-underline !px-0",
+                      "flex justify-between font-extrabold lg:text-xl text-sm hover:no-underline !px-0",
                       isActive(link.href)
                         ? "text-primary relative"
                         : "text-white-60",
@@ -237,7 +237,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
               <div className="flex flex-col">
                 <Button
                   variant="link"
-                  className="flex justify-between font-extrabold lg:text-2xl text-xl hover:no-underline !px-0 text-white-60"
+                  className="flex justify-between font-extrabold lg:text-xl text-sm hover:no-underline !px-0 text-white-60"
                   onClick={() => setIsLegalOpen(!isLegalOpen)}
                 >
                   <span>Legal</span>
@@ -262,7 +262,7 @@ function MobileSheet({ children }: { children: React.ReactNode }) {
                       key={link.href}
                       href={link.href}
                       className={cn(
-                        "font-medium text-base pl-2 py-1 transition-colors",
+                        "font-medium text-xs pl-2 py-1 transition-colors",
                         isActive(link.href)
                           ? "text-primary"
                           : "text-white-60 hover:text-white",

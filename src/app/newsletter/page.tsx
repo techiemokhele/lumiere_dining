@@ -51,7 +51,7 @@ function HeroBanner({ post }: { post: NewsletterPost }) {
           {post.title}
         </h1>
 
-        <p className="text-sm lg:text-base text-white-60 leading-relaxed line-clamp-3 lg:line-clamp-5">
+        <p className="text-xs lg:text-sm lg:text-base text-white-60 leading-relaxed line-clamp-3 lg:line-clamp-5">
           {post.excerpt}
         </p>
 
@@ -66,7 +66,7 @@ function HeroBanner({ post }: { post: NewsletterPost }) {
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold text-white">
+            <span className="text-xs lg:text-sm font-semibold text-white">
               {post.author.name}
             </span>
             <span className="text-xxs text-white-60">
@@ -233,14 +233,14 @@ export default function NewsletterPage() {
           <div className="flex flex-col gap-2">
             <div className="flex flex-row items-center gap-4">
               <div className="w-16 border border-crimson-600" />
-              <p className="font-normal text-sm text-crimson-600 uppercase">
+              <p className="font-normal text-xs lg:text-sm text-crimson-600 uppercase">
                 Newsletter
               </p>
             </div>
             <h1 className="font-extrabold text-3xl lg:text-5xl text-white">
               From Our Kitchen
             </h1>
-            <p className="text-sm text-white-60 max-w-2xl">
+            <p className="text-xs lg:text-sm text-white-60 max-w-2xl">
               Stories, techniques, and insights from the world of fine dining —
               curated by the Lumière editorial team.
             </p>
@@ -278,7 +278,7 @@ export default function NewsletterPage() {
                   placeholder="Search articles..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 text-sm"
+                  className="pl-9 bg-burgundy-800 border-burgundy-700 text-white placeholder:text-white-60 text-xs lg:text-sm"
                 />
                 {searchQuery && (
                   <button

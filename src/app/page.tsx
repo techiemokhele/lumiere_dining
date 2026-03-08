@@ -113,7 +113,7 @@ export default function LandingPage() {
         <div className="relative z-10 flex flex-col items-center gap-6 px-6 max-w-3xl text-center">
           <p className="flex items-center gap-3 font-normal text-xxs text-crimson-500 uppercase tracking-[0.3em]">
             <span className="w-10 border-t border-crimson-500" />
-            est. 2018
+            est. 1984
             <span className="w-10 border-t border-crimson-500" />
           </p>
 
@@ -123,7 +123,7 @@ export default function LandingPage() {
             <span className="text-crimson-500">Tells a Story</span>
           </h1>
 
-          <p className="font-normal text-sm text-white/80 max-w-lg">
+          <p className="font-normal xl:text-sm text-xs text-white/80 max-w-lg">
             Experience a symphony of flavours crafted by Chef Antonie in an
             atmosphere of timeless elegance. Seasonal ingredients, world-class
             wines, unforgettable moments.
@@ -180,7 +180,7 @@ export default function LandingPage() {
               <h2 className="font-extrabold lg:text-4xl text-3xl text-white">
                 Popular Dishes
               </h2>
-              <p className="font-normal text-sm text-white/60 max-w-md">
+              <p className="font-normal xl:text-sm text-xs text-white/60 max-w-md">
                 Guest favourites that have earned their place on our menu
                 through exceptional flavour and presentation.
               </p>
@@ -281,7 +281,7 @@ export default function LandingPage() {
             <h2 className="font-extrabold lg:text-4xl text-3xl text-white">
               Our Services
             </h2>
-            <p className="font-normal text-sm text-white/60 max-w-lg">
+            <p className="font-normal xl:text-sm text-xs text-white/60 max-w-lg">
               From intimate dinners to grand celebrations, we craft experiences
               that transcend the ordinary.
             </p>
@@ -337,7 +337,7 @@ export default function LandingPage() {
               <h2 className="font-extrabold lg:text-4xl text-3xl text-white">
                 Reserve Your Table
               </h2>
-              <p className="font-normal text-sm text-white/60">
+              <p className="font-normal xl:text-sm text-xs text-white/60">
                 Whether it&apos;s an intimate dinner for two or a celebration
                 with friends, we&apos;ll ensure every detail is perfect. Secure
                 your preferred date and time with ease.
@@ -394,7 +394,7 @@ export default function LandingPage() {
             <h2 className="font-extrabold lg:text-4xl text-3xl text-white">
               What Our Guests Say
             </h2>
-            <p className="font-normal text-sm text-white/60 max-w-md">
+            <p className="font-normal xl:text-sm text-xs text-white/60 max-w-md">
               Every review is a reflection of our commitment to excellence.
             </p>
           </div>
@@ -421,7 +421,7 @@ export default function LandingPage() {
                   </div>
                   <span className="text-xxs text-white/40">{review.date}</span>
                 </div>
-                <p className="text-sm text-white/80 italic leading-relaxed">
+                <p className="xl:text-sm text-xs text-white/80 italic leading-relaxed">
                   &ldquo;{review.text}&rdquo;
                 </p>
                 <div className="flex items-center justify-between mt-auto pt-2">
@@ -470,7 +470,7 @@ export default function LandingPage() {
               <h2 className="font-extrabold lg:text-4xl text-3xl text-white">
                 Bring Lumière Home
               </h2>
-              <p className="font-normal text-sm text-white/60 leading-relaxed">
+              <p className="font-normal xl:text-sm text-xs text-white/60 leading-relaxed">
                 Discover our exclusive collection of artisanal pantry goods,
                 signed cookbooks, and premium steak knives used in our
                 restaurant. Each item has been carefully selected by Chef
@@ -517,7 +517,7 @@ export default function LandingPage() {
             <h2 className="font-extrabold lg:text-4xl text-3xl text-white">
               The Art of Lumière
             </h2>
-            <p className="font-normal text-sm text-white/60 max-w-lg">
+            <p className="font-normal xl:text-sm text-xs text-white/60 max-w-lg">
               A glimpse into our kitchen where passion meets precision, and
               every dish is crafted with purpose.
             </p>
@@ -593,7 +593,7 @@ export default function LandingPage() {
           <h2 className="font-extrabold lg:text-4xl text-3xl text-white">
             Stay in the Know
           </h2>
-          <p className="font-normal text-sm text-white/60 max-w-md">
+          <p className="font-normal xl:text-sm text-xs text-white/60 max-w-md">
             Be the first to hear about seasonal menu launches, exclusive events,
             chef&apos;s table experiences, and special offers.
           </p>

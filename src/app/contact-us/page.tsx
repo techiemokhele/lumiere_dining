@@ -154,14 +154,14 @@ export default function ContactPage() {
             <div className="flex flex-col gap-8 lg:w-1/2 w-full items-start">
               <div className="flex flex-row items-center gap-4 w-full">
                 <div className="w-16 border border-crimson-600" />
-                <p className="font-normal text-sm text-crimson-600 uppercase">
+                <p className="font-normal text-xs lg:text-sm text-crimson-600 uppercase">
                   Keep Close
                 </p>
               </div>
               <h1 className="!font-extrabold md:text-6xl text-3xl text-white">
                 Get in touch
               </h1>
-              <p className="font-normal text-sm text-white/80 leading-relaxed">
+              <p className="font-normal text-xs lg:text-sm text-white/80 leading-relaxed">
                 At Lumière Dining, we value every connection with our guests.
                 Whether you&apos;re planning a special celebration, have dietary
                 requirements, or simply want to learn more about our culinary
@@ -172,13 +172,13 @@ export default function ContactPage() {
               <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-4 gap-y-10 w-full">
                 <div className="flex flex-row gap-4 items-center">
                   <Map className="text-crimson-600 shrink-0" size={32} />
-                  <p className="font-normal text-sm text-white-100">
+                  <p className="font-normal text-xs lg:text-sm text-white-100">
                     19 Dock Road, Cape Town, 8001, South Africa
                   </p>
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <Phone className="text-crimson-600 shrink-0" size={32} />
-                  <p className="font-normal text-sm text-white-100">
+                  <p className="font-normal text-xs lg:text-sm text-white-100">
                     <Link href="tel:+27113453224" target="_blank">
                       +27 11 345 3224
                     </Link>
@@ -190,7 +190,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <Mailbox className="text-crimson-600 shrink-0" size={32} />
-                  <p className="font-normal text-sm text-white-100">
+                  <p className="font-normal text-xs lg:text-sm text-white-100">
                     <Link href="mailto:neomokhele23@gmail.com">
                       info@Lumièredining.com
                     </Link>
@@ -202,7 +202,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <Clock className="text-crimson-600 shrink-0" size={32} />
-                  <p className="font-normal text-sm text-white-100">
+                  <p className="font-normal text-xs lg:text-sm text-white-100">
                     Mon - Thu: 7am - 10pm
                     <br />
                     Fri - Sat: 7am - 12am
