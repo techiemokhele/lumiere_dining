@@ -15,7 +15,7 @@ export default function RefundPolicyPage() {
             <p className="text-sm text-muted-foreground">
               Last Updated: {lastUpdated}
             </p>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               At Lumière Dining, we are committed to ensuring your satisfaction
               with every experience. This Refund Policy outlines the terms and
               conditions under which refunds may be issued for reservations,
@@ -28,7 +28,7 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               1. General Refund Principles
             </h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   1.1 Eligibility
@@ -70,7 +70,7 @@ export default function RefundPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">2. Reservation Refunds</h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   2.1 Cancellations Within the Free Window
@@ -125,7 +125,7 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               3. Order Refunds (My Cart & Checkout)
             </h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   3.1 Before Preparation Begins
@@ -183,7 +183,7 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               4. Refunds Initiated by Lumière Dining
             </h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   4.1 Cancellations by Us
@@ -216,7 +216,7 @@ export default function RefundPolicyPage() {
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">5. Refund Summary</h2>
             <div className="overflow-x-auto rounded-lg border border-border">
-              <table className="w-full text-sm md:text-base text-left">
+              <table className="w-full text-xs lg:text-sm text-left">
                 <thead>
                   <tr className="bg-secondary">
                     <th className="px-4 py-3 font-semibold text-foreground">
@@ -304,7 +304,7 @@ export default function RefundPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">6. Non-Refundable Items</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               The following are not eligible for refunds: cash payments, tips,
               and gratuities; service charges on fully consumed orders; gift
               cards or vouchers (unless required by applicable law); any
@@ -315,7 +315,7 @@ export default function RefundPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">7. How to Request a Refund</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               All refund requests can be submitted through the following
               channels: through your Account dashboard under order or
               reservation history; via the Contact Us page on our Platform; or
@@ -329,7 +329,7 @@ export default function RefundPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">8. Disputes & Chargebacks</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We encourage you to contact us directly before initiating a
               chargeback or dispute with your payment provider. Filing a
               chargeback without first contacting Lumière Dining may delay
@@ -345,7 +345,7 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               9. Modifications to This Policy
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We reserve the right to update this Refund Policy at any time.
               Material changes will be communicated via email to registered
               users and posted on the Platform. The revised policy will apply to
@@ -358,7 +358,7 @@ export default function RefundPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">10. Contact Us</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               For any questions, disputes, or concerns regarding this Refund
               Policy, please reach out through our Contact Us page. Our team
               will respond within a reasonable timeframe and work with you to

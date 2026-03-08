@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
             <p className="text-sm text-muted-foreground">
               Last Updated: {lastUpdated}
             </p>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Lumière Dining (&quot;we,&quot; &quot;us,&quot; or
               &quot;our&quot;) is committed to protecting your privacy and
               ensuring the security of your personal information. This Privacy
@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">1. Data Controller</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Lumière Dining is the data controller responsible for the
               processing of your personal data collected through the Platform.
               If you have any questions about how your data is handled, you may
@@ -41,12 +41,12 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">2. Information We Collect</h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   2.1 Information You Provide Directly
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   We collect personal information that you voluntarily provide
                   when using our Services. This includes Account registration
                   data such as your full name, email address, phone number, and
@@ -68,7 +68,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   2.2 Information Collected Automatically
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   When you access the Platform, we automatically collect certain
                   technical and usage data. This includes your IP address and
                   approximate geolocation; device information such as device
@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   2.3 Information from Third Parties
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   We may receive information about you from third-party services
                   integrated into our Platform. This includes location and
                   mapping data from Google Maps Directions API when you use the
@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               3. How We Use Your Information
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We use the information we collect for the following purposes: to
               create, maintain, and secure your Account; to process and confirm
               reservations made through Book a Table and send booking
@@ -132,7 +132,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               4. Legal Bases for Processing
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We process your personal data based on one or more of the
               following legal grounds, depending on the context and applicable
               jurisdiction. Contractual necessity: processing is necessary to
@@ -156,12 +156,12 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               5. How We Share Your Information
             </h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   5.1 Service Providers
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   We share your data with trusted third-party service providers
                   who assist in operating the Platform and delivering our
                   Services. These include payment processors who handle
@@ -179,7 +179,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   5.2 Legal & Regulatory Disclosures
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   We may disclose your personal data if required to do so by
                   law, regulation, legal process, or governmental request; if we
                   believe disclosure is necessary to protect the rights,
@@ -192,7 +192,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   5.3 Business Transfers
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   In the event of a merger, acquisition, reorganisation, sale of
                   assets, or bankruptcy, your personal data may be transferred
                   to the acquiring entity. We will notify you via email and/or a
@@ -204,7 +204,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   5.4 No Sale of Personal Data
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   We do not sell, rent, or trade your personal information to
                   third parties for their own marketing purposes. For California
                   residents, we confirm that we do not &quot;sell&quot; or
@@ -217,7 +217,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">6. Data Retention</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We retain your personal data only for as long as necessary to
               fulfil the purposes for which it was collected, or as required by
               applicable law. Account data is retained for as long as your
@@ -238,7 +238,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">7. Data Security</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We implement appropriate technical and organisational measures to
               protect your personal data against unauthorised access, loss,
               destruction, alteration, or disclosure. These measures include
@@ -260,7 +260,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               8. International Data Transfers
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Your personal data may be transferred to, stored in, or processed
               in countries other than your country of residence. These countries
               may have data protection laws that differ from those in your
@@ -279,12 +279,12 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">9. Your Privacy Rights</h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   9.1 Rights Under GDPR (EEA & UK Users)
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   If you are located in the European Economic Area or the United
                   Kingdom, you have the right to access your personal data and
                   obtain a copy; rectify inaccurate or incomplete data; request
@@ -303,7 +303,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   9.2 Rights Under CCPA/CPRA (California Residents)
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   If you are a California resident, you have the right to know
                   what personal information we collect, use, disclose, and sell;
                   request deletion of your personal information; opt out of the
@@ -321,7 +321,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   9.3 Rights Under LGPD (Brazilian Users)
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   If you are located in Brazil, you have the right to
                   confirmation of the existence of processing; access to your
                   data; correction of incomplete or inaccurate data;
@@ -337,7 +337,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   9.4 Rights Under Other Jurisdictions
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   We respect the privacy rights of users in all jurisdictions
                   where our Platform is accessible, including but not limited to
                   rights under Canada&apos;s PIPEDA, Australia&apos;s Privacy
@@ -352,7 +352,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">10. Email Communications</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our email system sends both transactional and marketing
               communications. Transactional emails include reservation
               confirmations from Book a Table, order confirmations from
@@ -376,7 +376,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               11. Google Maps & Location Data
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our Platform uses Google Maps Directions API to provide navigation
               and location-based services. When you use the Directions feature,
               Google may collect and process your location data, IP address, and
@@ -393,7 +393,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">12. Children&apos;s Privacy</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our Platform is not intended for use by children under the age of
               sixteen (16) or the applicable minimum age in your jurisdiction.
               We do not knowingly collect personal information from children. If
@@ -409,7 +409,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               13. Third-Party Links & Services
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our Platform may contain links to third-party websites or services
               that are not operated by us. This includes links in our Gallery,
               social media integrations, and external payment provider pages
@@ -424,7 +424,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               14. Data Breach Notification
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               In the event of a personal data breach that is likely to result in
               a risk to your rights and freedoms, we will notify the relevant
               supervisory authority within seventy-two (72) hours of becoming
@@ -443,7 +443,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               15. Automated Decision-Making & Profiling
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We may use automated processing to personalise your experience on
               the Platform, such as recommending Menu items based on your
               browsing history and Wishlist, or tailoring Newsletter content. We
@@ -458,7 +458,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">16. Do Not Track Signals</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Some browsers offer a &quot;Do Not Track&quot; (DNT) feature that
               sends a signal to websites requesting that your browsing activity
               not be tracked. There is currently no uniform standard for
@@ -475,7 +475,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl md:text-2xl">
               17. Changes to This Privacy Policy
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We may update this Privacy Policy from time to time to reflect
               changes in our data practices, legal requirements, or operational
               needs. Material changes will be communicated to registered users
@@ -490,7 +490,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">18. Contact Us</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               If you have any questions, concerns, or requests regarding this
               Privacy Policy, your personal data, or your privacy rights, please
               contact us through our Contact Us page. You may also write to our
@@ -504,7 +504,7 @@ export default function PrivacyPolicyPage() {
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">19. Data Processing Summary</h2>
             <div className="overflow-x-auto rounded-lg border border-border">
-              <table className="w-full text-sm md:text-base text-left">
+              <table className="w-full text-xs lg:text-sm text-left">
                 <thead>
                   <tr className="bg-secondary">
                     <th className="px-4 py-3 font-semibold text-foreground">

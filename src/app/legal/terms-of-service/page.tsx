@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
             <p className="text-sm text-muted-foreground">
               Last Updated: {lastUpdated}
             </p>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Welcome to Lumière Dining. By accessing or using our website,
               mobile application, and any related services (collectively, the
               &quot;Platform&quot;), you agree to be bound by these Terms of
@@ -27,7 +27,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">1. Definitions</h2>
-            <div className="flex flex-col gap-2 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-2 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <p>
                 &quot;Lumière Dining,&quot; &quot;we,&quot; &quot;us,&quot; or
                 &quot;our&quot; refers to Lumière Dining and its parent
@@ -48,7 +48,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">2. Eligibility</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               You must be at least 18 years of age or the age of legal majority
               in your jurisdiction, whichever is greater, to create an Account
               or make a purchase through our Platform. By using the Platform,
@@ -63,7 +63,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-xl md:text-2xl">
               3. Account Registration & Security
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               To access certain features — including Book a Table, Wishlist, My
               Cart, Checkout, Payment Methods, and Newsletter Subscription — you
               may be required to create an Account. You agree to provide
@@ -80,7 +80,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">4. Reservations & Booking</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our Book a Table feature allows you to request a reservation at
               Lumière Dining. All reservations are subject to availability and
               confirmation. A booking is only confirmed once you receive a
@@ -96,7 +96,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">5. Menu, Orders & Checkout</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our Menu displays available food and beverage items. Prices,
               descriptions, and availability are subject to change without prior
               notice. Adding items to My Cart does not guarantee availability or
@@ -113,7 +113,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-xl md:text-2xl">
               6. Payment Methods & Pricing
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We accept various Payment Methods as displayed on our Platform.
               All payments are processed through secure third-party payment
               processors. By submitting payment information, you represent that
@@ -128,7 +128,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">7. Wishlist</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               The Wishlist feature allows you to save menu items for future
               reference. Wishlist items are tied to your Account and do not
               constitute a reservation, order, or price guarantee. We may remove
@@ -141,7 +141,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-xl md:text-2xl">
               8. Newsletter & Email Communications
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               By subscribing to our Newsletter or creating an Account, you
               consent to receive promotional and transactional emails from
               Lumière Dining, including booking confirmations, order updates,
@@ -157,7 +157,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">9. Google Maps & Directions</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our Platform integrates Google Maps Directions API to help you
               navigate to Lumière Dining. Your use of Google Maps features is
               additionally governed by the Google Maps/Google Earth Additional
@@ -172,7 +172,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">10. Intellectual Property</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               All content on the Platform — including but not limited to text,
               images in our Gallery, graphics, logos, menu descriptions, Our
               Story content, design elements, and software — is the property of
@@ -186,7 +186,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">11. User Conduct</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               You agree not to: use the Platform for any unlawful purpose or in
               violation of any applicable local, national, or international law;
               attempt to gain unauthorized access to any part of the Platform,
@@ -205,7 +205,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-xl md:text-2xl">
               12. Privacy & Data Protection
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Your use of the Platform is also governed by our Privacy Policy.
               We collect and process personal data including Account
               information, order history, payment details, Wishlist data,
@@ -225,7 +225,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-xl md:text-2xl">
               13. Disclaimer of Warranties
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               The Platform and all Services are provided on an &quot;AS IS&quot;
               and &quot;AS AVAILABLE&quot; basis without warranties of any kind,
               whether express, implied, or statutory. To the fullest extent
@@ -242,7 +242,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">14. Limitation of Liability</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               To the maximum extent permitted by applicable law, Lumière Dining,
               its officers, directors, employees, agents, and affiliates shall
               not be liable for any indirect, incidental, special,
@@ -263,7 +263,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">15. Indemnification</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               You agree to indemnify, defend, and hold harmless Lumière Dining
               and its officers, directors, employees, agents, and affiliates
               from and against any and all claims, damages, losses, liabilities,
@@ -277,7 +277,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">16. Modifications to Terms</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We reserve the right to update or modify these Terms at any time.
               Material changes will be communicated to you via email through our
               email system and/or by posting a notice on the Platform. Your
@@ -291,7 +291,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-xl md:text-2xl">
               17. Governing Law & Dispute Resolution
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               These Terms shall be governed by and construed in accordance with
               the laws of the jurisdiction in which Lumière Dining is
               incorporated, without regard to its conflict of law provisions.
@@ -309,7 +309,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">18. Severability</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               If any provision of these Terms is held to be invalid, illegal, or
               unenforceable by a court of competent jurisdiction, the remaining
               provisions shall continue in full force and effect. The invalid
@@ -321,7 +321,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">19. Force Majeure</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Lumière Dining shall not be liable for any failure or delay in
               performing its obligations under these Terms where such failure or
               delay results from circumstances beyond our reasonable control,
@@ -333,7 +333,7 @@ export default function TermsOfServicePage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">20. Contact Information</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               If you have any questions, concerns, or requests regarding these
               Terms of Service, please reach out to us through our Contact Us
               page or email us directly. We will endeavor to respond to all

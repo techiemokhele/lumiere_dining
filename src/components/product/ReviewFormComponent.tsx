@@ -134,7 +134,7 @@ export function ReviewFormComponent({
       {status !== "authenticated" ? (
         <div className="flex flex-col items-center gap-4 py-12 rounded-2xl bg-burgundy-800">
           <LogIn size={32} className="text-white-60" />
-          <p className="text-sm text-white-60 text-center">
+          <p className="text-xs lg:text-sm text-white-60 text-center">
             You need to be signed in to leave a review.
           </p>
           <Button asChild className="bg-crimson-600 hover:bg-crimson-500 gap-2">
@@ -281,7 +281,9 @@ export function ReviewFormComponent({
                   })}
                 </span>
               </div>
-              <p className="font-semibold text-sm text-white">{r.title}</p>
+              <p className="font-semibold text-xs lg:text-sm text-white">
+                {r.title}
+              </p>
               <p className="text-xs text-white-60 leading-relaxed">
                 {r.review}
               </p>
