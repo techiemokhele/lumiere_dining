@@ -5,7 +5,7 @@ export default function CookiePolicyPage() {
   const lastUpdated = "February 11, 2026";
 
   return (
-    <PageContainer showFooter={true} showNavigation={true}>
+    <PageContainer showFooter={false} showNavigation={true}>
       <PaddingContainer size="small">
         <div className="flex flex-col w-full max-w-4xl mx-auto py-12 md:py-20 gap-10 text-foreground">
           <header className="flex flex-col gap-4">
@@ -15,7 +15,7 @@ export default function CookiePolicyPage() {
             <p className="text-sm text-muted-foreground">
               Last Updated: {lastUpdated}
             </p>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Lumière Dining (&quot;we,&quot; &quot;us,&quot; or
               &quot;our&quot;) uses cookies and similar tracking technologies on
               our website and application (the &quot;Platform&quot;). This
@@ -29,7 +29,7 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">1. What Are Cookies?</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Cookies are small text files that are placed on your device
               (computer, tablet, or mobile phone) when you visit a website. They
               are widely used to make websites function efficiently, enhance
@@ -46,7 +46,7 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">2. How We Use Cookies</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We use cookies and similar technologies across our Platform to
               support and enhance the functionality of our Services, including
               Menu browsing, Our Story, Gallery, Newsletter Subscription,
@@ -72,12 +72,12 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">3. Types of Cookies We Use</h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   3.1 Strictly Necessary Cookies
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   These cookies are essential for the Platform to function and
                   cannot be disabled in our systems. They are typically set in
                   response to actions you take that amount to a request for
@@ -93,7 +93,7 @@ export default function CookiePolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   3.2 Functional Cookies
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   Functional cookies enable enhanced functionality and
                   personalisation. They may be set by us or by third-party
                   providers whose services we have integrated into the Platform.
@@ -109,7 +109,7 @@ export default function CookiePolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   3.3 Analytics & Performance Cookies
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   These cookies collect information about how visitors use the
                   Platform, including which pages are visited most frequently,
                   how users navigate between pages such as Menu, Our Story,
@@ -125,7 +125,7 @@ export default function CookiePolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   3.4 Marketing & Advertising Cookies
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   These cookies may be set through our Platform by advertising
                   partners or by us to build a profile of your interests and
                   show you relevant content or promotions. They track your
@@ -142,7 +142,7 @@ export default function CookiePolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   3.5 Third-Party Cookies
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   Our Platform integrates services from third parties that may
                   set their own cookies. These include Google Maps and the
                   Directions API, which may place cookies to provide
@@ -163,7 +163,7 @@ export default function CookiePolicyPage() {
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">4. Cookie Overview</h2>
             <div className="overflow-x-auto rounded-lg border border-border">
-              <table className="w-full text-sm md:text-base text-left">
+              <table className="w-full text-xs lg:text-sm text-left">
                 <thead>
                   <tr className="bg-secondary">
                     <th className="px-4 py-3 font-semibold text-foreground">
@@ -175,9 +175,6 @@ export default function CookiePolicyPage() {
                     <th className="px-4 py-3 font-semibold text-foreground">
                       Duration
                     </th>
-                    <th className="px-4 py-3 font-semibold text-foreground">
-                      Can Be Disabled?
-                    </th>
                   </tr>
                 </thead>
                 <tbody className="text-muted-foreground">
@@ -187,7 +184,6 @@ export default function CookiePolicyPage() {
                       Account login, Cart, Checkout, Booking sessions
                     </td>
                     <td className="px-4 py-3">Session / up to 24 hours</td>
-                    <td className="px-4 py-3">No</td>
                   </tr>
                   <tr className="border-t border-border bg-secondary/50">
                     <td className="px-4 py-3">Functional</td>
@@ -195,7 +191,6 @@ export default function CookiePolicyPage() {
                       Preferences, Wishlist, language, Newsletter status
                     </td>
                     <td className="px-4 py-3">Up to 1 year</td>
-                    <td className="px-4 py-3">Yes</td>
                   </tr>
                   <tr className="border-t border-border">
                     <td className="px-4 py-3">Analytics & Performance</td>
@@ -203,7 +198,6 @@ export default function CookiePolicyPage() {
                       Traffic analysis, page usage, error tracking
                     </td>
                     <td className="px-4 py-3">Up to 2 years</td>
-                    <td className="px-4 py-3">Yes</td>
                   </tr>
                   <tr className="border-t border-border bg-secondary/50">
                     <td className="px-4 py-3">Marketing & Advertising</td>
@@ -211,7 +205,6 @@ export default function CookiePolicyPage() {
                       Targeted content, email personalisation
                     </td>
                     <td className="px-4 py-3">Up to 2 years</td>
-                    <td className="px-4 py-3">Yes</td>
                   </tr>
                   <tr className="border-t border-border">
                     <td className="px-4 py-3">Third-Party (Google Maps)</td>
@@ -219,7 +212,6 @@ export default function CookiePolicyPage() {
                       Directions, location services, map rendering
                     </td>
                     <td className="px-4 py-3">Varies by provider</td>
-                    <td className="px-4 py-3">Yes</td>
                   </tr>
                   <tr className="border-t border-border bg-secondary/50">
                     <td className="px-4 py-3">Third-Party (Payments)</td>
@@ -227,7 +219,6 @@ export default function CookiePolicyPage() {
                       Fraud detection, transaction security
                     </td>
                     <td className="px-4 py-3">Varies by provider</td>
-                    <td className="px-4 py-3">Partially</td>
                   </tr>
                 </tbody>
               </table>
@@ -238,12 +229,12 @@ export default function CookiePolicyPage() {
             <h2 className="text-xl md:text-2xl">
               5. Managing Your Cookie Preferences
             </h2>
-            <div className="flex flex-col gap-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-4 text-xs lg:text-sm leading-relaxed text-muted-foreground">
               <div className="flex flex-col gap-2">
                 <h3 className="font-semibold text-foreground">
                   5.1 Cookie Consent Banner
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   When you first visit our Platform, a cookie consent banner
                   will be displayed, allowing you to accept all cookies, reject
                   non-essential cookies, or customise your preferences by
@@ -257,7 +248,7 @@ export default function CookiePolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   5.2 Browser Settings
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   Most web browsers allow you to control cookies through their
                   settings. You can configure your browser to block or delete
                   cookies, or to alert you when a cookie is being set. The
@@ -273,7 +264,7 @@ export default function CookiePolicyPage() {
                 <h3 className="font-semibold text-foreground">
                   5.3 Opt-Out of Analytics
                 </h3>
-                <p>
+                <p className="lg:text-sm text-xs">
                   If we use Google Analytics or similar services, you may opt
                   out by installing the relevant browser add-on provided by the
                   analytics provider or by adjusting your preferences through
@@ -285,7 +276,7 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">6. Similar Technologies</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               In addition to cookies, we may use similar tracking technologies
               including web beacons (also known as pixel tags or clear GIFs),
               which are small transparent images embedded in emails sent through
@@ -301,7 +292,7 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">7. International Compliance</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We are committed to complying with applicable cookie and data
               privacy laws across all jurisdictions in which our Platform is
               accessible. This includes compliance with the EU ePrivacy
@@ -324,7 +315,7 @@ export default function CookiePolicyPage() {
             <h2 className="text-xl md:text-2xl">
               8. Data Collected Through Cookies
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Cookies on our Platform may collect information including your IP
               address and approximate geolocation; browser type, version, and
               operating system; device identifiers; pages visited and time spent
@@ -340,7 +331,7 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">9. Data Sharing & Transfers</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Cookie data may be shared with third-party service providers who
               assist in operating the Platform, including analytics providers,
               payment processors for our Payment Methods and Checkout systems,
@@ -355,7 +346,7 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">10. Your Rights</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Depending on your jurisdiction, you may have the right to access
               the personal data collected through cookies; rectify inaccurate
               data; request deletion of your data; restrict or object to the
@@ -372,7 +363,7 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">11. Children&apos;s Privacy</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               Our Platform is not directed at individuals under the age of 16
               (or the applicable age in your jurisdiction). We do not knowingly
               use cookies to collect personal information from children. If we
@@ -386,7 +377,7 @@ export default function CookiePolicyPage() {
             <h2 className="text-xl md:text-2xl">
               12. Changes to This Cookie Policy
             </h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               We may update this Cookie Policy from time to time to reflect
               changes in our practices, technology, legal requirements, or for
               other operational reasons. Material changes will be communicated
@@ -400,19 +391,13 @@ export default function CookiePolicyPage() {
 
           <section className="flex flex-col gap-3">
             <h2 className="text-xl md:text-2xl">13. Contact Us</h2>
-            <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+            <p className="text-xs lg:text-sm leading-relaxed text-muted-foreground">
               If you have any questions, concerns, or requests regarding this
               Cookie Policy or how we use cookies and similar technologies,
               please contact us through our Contact Us page. Our data protection
               team will respond within a reasonable timeframe.
             </p>
           </section>
-
-          <footer className="border-t border-border pt-6 mt-4">
-            <p className="text-xs md:text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Lumière Dining. All rights reserved.
-            </p>
-          </footer>
         </div>
       </PaddingContainer>
     </PageContainer>

@@ -50,7 +50,7 @@ export function HeaderComponent({
       <h1 className="relative z-10 lg:font-extrabold md:font-extrabold font-bold md:text-5xl text-4xl text-white text-center italic xl:max-w-4xl lg:max-w-4xl md:max-w-3xl max-w-md">
         {title}
       </h1>
-      <p className="relative z-10 font-normal text-sm text-white text-center w-full xl:max-w-4xl lg:max-w-4xl md:max-w-3xl max-w-md">
+      <p className="relative z-10 font-normal xl:text-sm text-xs text-white text-center w-full xl:max-w-4xl lg:max-w-4xl md:max-w-3xl max-w-md">
         {description}
       </p>
       <ChevronDown

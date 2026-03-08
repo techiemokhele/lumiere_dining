@@ -59,7 +59,9 @@ function DetailDropdown({
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-row items-center justify-between w-full px-4 py-3 text-left hover:bg-burgundy-800/50 transition-colors"
       >
-        <span className="text-sm font-semibold text-white">{title}</span>
+        <span className="text-xs lg:text-sm font-semibold text-white">
+          {title}
+        </span>
         <ChevronDown
           size={16}
           className={cn(
@@ -104,7 +106,7 @@ function StarRating({
           />
         ))}
       </div>
-      <span className="text-sm text-white">{rating}</span>
+      <span className="text-xs lg:text-sm text-white">{rating}</span>
       <span className="text-xs text-white-60">({reviewCount} reviews)</span>
     </div>
   );
@@ -129,8 +131,10 @@ function PairingCard({ item }: { item: MenuItem }) {
       </div>
       <div className="flex flex-col flex-1 gap-2 p-4">
         <div className="flex flex-row justify-between items-center">
-          <p className="font-bold text-sm text-white">{item.name}</p>
-          <p className="font-bold text-sm text-primary">R{item.price}</p>
+          <p className="font-bold text-xs lg:text-sm text-white">{item.name}</p>
+          <p className="font-bold text-xs lg:text-sm text-primary">
+            R{item.price}
+          </p>
         </div>
         <div className="flex flex-row gap-1 flex-wrap">
           {item.tags.slice(0, 2).map((tag, i) => (
@@ -262,7 +266,7 @@ export default function ProductDetailPage() {
             className="flex flex-row items-center gap-2 text-white-60 hover:text-white transition-colors w-fit"
           >
             <ArrowLeft size={16} />
-            <span className="text-sm">Back to Menu</span>
+            <span className="text-xs lg:text-sm">Back to Menu</span>
           </Link>
 
           <div className="flex lg:flex-row flex-col gap-8 lg:gap-12">

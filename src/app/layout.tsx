@@ -5,6 +5,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/context/CartContext";
 import SessionProvider from "@/common/SessionProvider";
+import ScrollToTopComponent from "@/components/ScrollToTopComponent";
 
 export const metadata: Metadata = {
   title: "Lumière Dining",
@@ -26,6 +27,7 @@ export default function RootLayout({
           <CartProvider>{children}</CartProvider>
         </SessionProvider>
         <Toaster />
+        <ScrollToTopComponent />
       </body>
     </html>
   );

@@ -29,7 +29,7 @@ export default function OurStoryPage() {
             experienceRef.current?.scrollIntoView({ behavior: "smooth" })
           }
           image="/story-header.jpg"
-          badgeText="Since 2008"
+          badgeText="Since 1984"
           addBadgeBorder={false}
           title="A Symphony of Taste"
           description="Where culinary meets great innovation. Step into a world where every dish tells a story."
@@ -102,7 +102,7 @@ export default function OurStoryPage() {
       <section className="w-full px-4 lg:px-8 xl:px-16 py-16 lg:py-24 bg-burgundy-900/50">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col w-full py-10 lg:py-12 lg:px-10 px-6 rounded-2xl bg-burgundy-900 border border-burgundy-700/40">
-            <div className="flex md:flex-row flex-col gap-10 lg:gap-12 items-center justify-center">
+            <div className="flex md:flex-row flex-col-reverse gap-10 lg:gap-12 items-center justify-center">
               <div className="relative w-full md:w-1/2 max-w-sm sm:max-w-sm lg:max-w-md aspect-[3/4]">
                 <Image
                   src="/chef-antonie.jpg"

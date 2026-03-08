@@ -66,7 +66,9 @@ function DetailDropdown({
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-row items-center justify-between w-full px-4 py-3 text-left hover:bg-burgundy-800/50 transition-colors"
       >
-        <span className="text-sm font-semibold text-white">{title}</span>
+        <span className="text-xs lg:text-sm font-semibold text-white">
+          {title}
+        </span>
         <ChevronDown
           size={16}
           className={cn(
@@ -212,7 +214,7 @@ export default function ShopProductDetailPage() {
             className="flex flex-row items-center gap-2 text-white-60 hover:text-white transition-colors w-fit"
           >
             <ArrowLeft size={16} />
-            <span className="text-sm">Back to Shop</span>
+            <span className="text-xs lg:text-sm">Back to Shop</span>
           </Link>
 
           <div className="flex lg:flex-row flex-col gap-8 lg:gap-12">
@@ -325,7 +327,7 @@ export default function ShopProductDetailPage() {
                   >
                     <Minus size={16} />
                   </button>
-                  <span className="px-4 py-2.5 text-sm font-bold text-white min-w-[40px] text-center">
+                  <span className="px-4 py-2.5 text-xs lg:text-sm font-bold text-white min-w-[40px] text-center">
                     {quantity}
                   </span>
                   <button

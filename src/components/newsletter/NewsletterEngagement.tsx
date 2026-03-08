@@ -54,7 +54,7 @@ function ReplyItem({
   return (
     <div className="flex gap-3 pl-8">
       <UserAvatar src={reply.userImage} alt={reply.userName} size={26} />
-      <div className="flex flex-col gap-1 flex-1">
+      <div className="flex flex-col gap-1 flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-white">
             {reply.userName}
@@ -63,7 +63,9 @@ function ReplyItem({
             <TimeAgo dateStr={reply.createdAt} />
           </span>
         </div>
-        <p className="text-xs text-white-60 leading-relaxed">{reply.text}</p>
+        <p className="text-xs text-white-60 leading-relaxed break-words">
+          {reply.text}
+        </p>
         <Button
           variant="ghost"
           size="icon"
@@ -128,9 +130,9 @@ function CommentItem({
   return (
     <div className="flex gap-3">
       <UserAvatar src={comment.userImage} alt={comment.userName} size={32} />
-      <div className="flex flex-col gap-1.5 flex-1">
+      <div className="flex flex-col gap-1.5 flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-white">
+          <span className="text-xs lg:text-sm font-semibold text-white">
             {comment.userName}
           </span>
           <span className="text-xxs text-white-60">
@@ -140,7 +142,7 @@ function CommentItem({
         <p
           onClick={() => isLong && setExpanded((p) => !p)}
           className={cn(
-            "text-xs text-white-60 leading-relaxed transition-all duration-300",
+            "text-xs text-white-60 leading-relaxed transition-all duration-300 break-words",
             isLong && !expanded
               ? "line-clamp-2 cursor-pointer hover:text-white-80"
               : "",
@@ -291,7 +293,7 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
     <div className="flex flex-col gap-6">
       <Separator className="bg-burgundy-700" />
 
-      <div className="flex flex-row items-center justify-end gap-4 min-h-[36px]">
+      <div className="flex flex-row items-center lg:justify-end justify-between gap-4 min-h-[36px]">
         <Button
           onClick={() =>
             currentUserId && likePost(currentUserId, currentUserName)
@@ -326,7 +328,7 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
 
         {!currentUserId && !loading && (
           <p className="text-xs text-white-60 ml-auto">
-            Sign in to like or comment
+            Sign in to like <span className="hidden lg:flex">or comment</span>
           </p>
         )}
       </div>
@@ -389,7 +391,7 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
               variant="ghost"
               size="sm"
               onClick={() => setShowAllComments(true)}
-              className="mt-3 text-sm text-crimson-500 hover:text-crimson-400 font-semibold flex items-center gap-1 transition-colors hover:bg-transparent"
+              className="mt-3 text-xs lg:text-sm text-crimson-500 hover:text-crimson-400 font-semibold flex items-center gap-1 transition-colors hover:bg-transparent"
             >
               <ChevronDown size={16} />
               Read {hiddenCount} more comment{hiddenCount !== 1 ? "s" : ""}
@@ -400,7 +402,7 @@ export function NewsletterEngagement({ postId }: { postId: string }) {
               variant="ghost"
               size="sm"
               onClick={() => setShowAllComments(false)}
-              className="mt-3 text-sm text-white-60 hover:text-white flex items-center gap-1 transition-colors  hover:bg-transparent"
+              className="mt-3 text-xs lg:text-sm text-white-60 hover:text-white flex items-center gap-1 transition-colors  hover:bg-transparent"
             >
               <ChevronUp size={16} />
               Show less

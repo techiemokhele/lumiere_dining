@@ -156,7 +156,7 @@ function RelatedPostCard({ post }: { post: NewsletterPost }) {
           <Clock size={11} />
           <span className="text-xxs">{post.readTime} min</span>
         </div>
-        <h3 className="font-bold text-sm text-white group-hover:text-primary transition-colors line-clamp-2">
+        <h3 className="font-bold text-xs lg:text-sm text-white group-hover:text-primary transition-colors line-clamp-2">
           {post.title}
         </h3>
         <p className="text-xxs text-white-60 line-clamp-2 leading-relaxed">
@@ -195,7 +195,9 @@ function ArticleSidebar({ post }: { post: NewsletterPost }) {
           />
         </div>
         <div className="text-center">
-          <p className="font-bold text-sm text-white">{post.author.name}</p>
+          <p className="font-bold text-xs lg:text-sm text-white">
+            {post.author.name}
+          </p>
           <p className="text-xxs text-white-60">{post.author.role}</p>
         </div>
       </div>
@@ -279,7 +281,7 @@ export default function NewsletterDetailPage() {
             className="flex flex-row items-center gap-2 text-white-60 hover:text-white transition-colors w-fit"
           >
             <ArrowLeft size={16} />
-            <span className="text-sm">Back to Newsletter</span>
+            <span className="text-xs lg:text-sm">Back to Newsletter</span>
           </Link>
 
           <div className="relative w-full aspect-[21/9] rounded-2xl lg:rounded-3xl overflow-hidden">
@@ -312,7 +314,7 @@ export default function NewsletterDetailPage() {
                     sizes="32px"
                   />
                 </div>
-                <span className="text-sm font-semibold text-white">
+                <span className="text-xs lg:text-sm font-semibold text-white">
                   {post.author.name}
                 </span>
               </div>
@@ -337,7 +339,7 @@ export default function NewsletterDetailPage() {
 
               {paragraphs.map((para, i) => (
                 <div key={i}>
-                  <p className="text-sm lg:text-base text-white-60 leading-relaxed">
+                  <p className="text-xs lg:text-sm lg:text-base text-white-60 leading-relaxed">
                     {para}
                   </p>
 
@@ -385,7 +387,6 @@ export default function NewsletterDetailPage() {
               <div className="flex lg:hidden flex-col gap-4 mt-4">
                 <Separator className="bg-burgundy-700" />
                 <ShareButtons post={post} />
-                <NewsletterEngagement postId={post.id} />
                 <div className="flex flex-row flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <Badge
